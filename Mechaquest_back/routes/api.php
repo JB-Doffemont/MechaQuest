@@ -25,7 +25,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Routes ressources
+Route::resources([
+    'user' => UserController::class,
+    'robot' => RobotController::class,
+    'area' => AreaController::class,
+    'progression' => ProgressionController::class,
+    'type' => TypeController::class,
+    'position' => PositionController::class,
+    'friend' => FriendController::class,
+]);
 
+
+/* Ajout du middleware pour les routes ressources
 Route::group(['middleware' => 'auth'], function () {
     Route::resources([
         'user' => UserController::class,
@@ -36,4 +48,4 @@ Route::group(['middleware' => 'auth'], function () {
         'position' => PositionController::class,
         'friend' => FriendController::class,
     ]);
-});
+}); */

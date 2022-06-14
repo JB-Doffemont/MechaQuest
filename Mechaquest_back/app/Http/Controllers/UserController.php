@@ -15,7 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all()->toArray();
+
+        return array($users);
     }
 
     /**
@@ -54,7 +56,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**

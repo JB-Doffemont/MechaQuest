@@ -36,6 +36,10 @@ Route::resources([
     'friends' => FriendController::class,
 ]);
 
+// Route pour récupérer un utilisateur
+Route::post('/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
+
+
 
 /* Ajout du middleware pour les routes ressources
 Route::group(['middleware' => 'auth'], function () {

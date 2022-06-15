@@ -91,8 +91,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    // Utilisation d'un softdelete pour supprimer un utilisateur de la base de données
+    public function destroy($email)
     {
-        //
+        $user = User::where("email", $email)->first();
+
+        $user->delete();
+
+        return response()->json("L'utilisateur a été supprimé.");
+    }
+
+    // Récupération d'un utilisateur supprimé
+    public function restore($email)
+    {
+        // User::onlyTrashed()->restore();
+
+        User::withTrashed()->where("email", $email)->restore();
+        return response()->json("POPOPO l'utilisateur est de retour!");
     }
 }

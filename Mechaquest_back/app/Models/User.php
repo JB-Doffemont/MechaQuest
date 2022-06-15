@@ -4,19 +4,18 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    // On modifie la clé primaire par défaut de laravel ($id) par notre clée: l'email
+    // On modifie la clé primaire par défaut de laravel ($id) par notre clé: l'email
     protected $primaryKey = 'email';
     public $incrementing = false;
-
-    // In Laravel 6.0+ make sure to also set $keyType
     protected $keyType = 'string';
 
     /**
@@ -26,6 +25,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'pseudo',
+        'email',
         'password',
     ];
 

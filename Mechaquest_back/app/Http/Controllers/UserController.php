@@ -83,6 +83,12 @@ class UserController extends Controller
         return response()->json($user);
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     // Utilisation d'un softdelete pour supprimer un utilisateur de la base de données
     public function destroy($email)
     {

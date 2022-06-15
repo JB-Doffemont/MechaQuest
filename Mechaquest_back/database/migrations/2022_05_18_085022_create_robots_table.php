@@ -16,17 +16,18 @@ return new class extends Migration
         Schema::create('robots', function (Blueprint $table) {
             $table->id();
             $table->string('robot_name');
-            $table->string('user_email');
+            $table->string('robot_image')->nullable();
+            $table->string('user_email')->nullable();
             $table->foreign('user_email')->references('email')->on('users')->onUpdate('cascade')->onDelete('cascade'); // soft deleting ?
             $table->string('type_robot');
             $table->foreign('type_robot')->references('type_name')->on('types');
-            $table->boolean('main_robot');
-            $table->integer('current_hp');
-            $table->integer('current_atk');
-            $table->integer('current_def');
-            $table->integer('current_stam');
-            $table->integer('current_lvl');
-            $table->integer('current_xp');
+            $table->boolean('main_robot')->nullable();
+            $table->integer('current_hp')->nullable();
+            $table->integer('current_atk')->nullable();
+            $table->integer('current_def')->nullable();
+            $table->integer('current_stam')->default(50);
+            $table->integer('current_lvl')->default(1);
+            $table->integer('current_xp')->default(0);
             $table->integer('reward');
             $table->integer('price');
             $table->timestamps();

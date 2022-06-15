@@ -27,13 +27,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Routes ressources
 Route::resources([
-    'user' => UserController::class,
-    'robot' => RobotController::class,
-    'area' => AreaController::class,
-    'progression' => ProgressionController::class,
-    'type' => TypeController::class,
-    'position' => PositionController::class,
-    'friend' => FriendController::class,
+    'users' => UserController::class,
+    'robots' => RobotController::class,
+    'areas' => AreaController::class,
+    'progressions' => ProgressionController::class,
+    'types' => TypeController::class,
+    'positions' => PositionController::class,
+    'friends' => FriendController::class,
 ]);
 
 

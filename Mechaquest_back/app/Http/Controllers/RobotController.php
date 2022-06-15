@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Robot;
 use Illuminate\Http\Request;
 
 class RobotController extends Controller
@@ -34,7 +35,16 @@ class RobotController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $robot = new Robot([
+            'robot_name' => $request->input('robot_name'),
+            'type_robot' => $request->input('type_robot'),
+            'reward' => $request->input('reward'),
+            'price' => $request->input('price'),
+        ]);
+
+        $robot->save();
+
+        return response()->json($robot);
     }
 
     /**

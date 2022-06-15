@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('robot_name');
             $table->string('robot_image')->nullable();
-            $table->string('user_email');
+            $table->string('user_email')->nullable();
             $table->foreign('user_email')->references('email')->on('users')->onUpdate('cascade')->onDelete('cascade'); // soft deleting ?
-            $table->string('type_robot')->nullable();
+            $table->string('type_robot');
             $table->foreign('type_robot')->references('type_name')->on('types');
-            $table->boolean('main_robot');
+            $table->boolean('main_robot')->nullable();
             $table->integer('current_hp')->nullable();
             $table->integer('current_atk')->nullable();
             $table->integer('current_def')->nullable();

@@ -37,7 +37,7 @@ Route::resources([
 ]);
 
 // Route pour récupérer un utilisateur
-Route::post('/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
+Route::post('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
 
 
 

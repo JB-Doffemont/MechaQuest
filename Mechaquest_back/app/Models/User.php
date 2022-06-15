@@ -13,6 +13,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    // On modifie la clé primaire par défaut de laravel ($id) par notre clé: l'email
+    protected $primaryKey = 'email';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +25,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'pseudo',
-        'email',
         'password',
     ];
 

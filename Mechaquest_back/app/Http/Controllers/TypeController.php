@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
@@ -13,7 +14,9 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $type = Type::all()->toArray();
+
+        return array($type);
     }
 
     /**
@@ -34,7 +37,17 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $type = new Type([
+            'type_name' => $request->input('type_name'),
+            'base_hp' => $request->input('base_hp'),
+            'base_atk' => $request->input('base_atk'),
+            'base_def' => $request->input('base_def'),
+            'special' => $request->input('special'),
+        ]);
+
+        $type->save();
+
+        return response()->json($type);
     }
 
     /**
@@ -45,7 +58,9 @@ class TypeController extends Controller
      */
     public function show($id)
     {
-        //
+        $type = Type::findOrFail($id);
+
+        return response()->json($type);
     }
 
     /**
@@ -68,7 +83,11 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $type = Type::findOrFail($id);
+
+        $type->update($request->all());
+
+        return response()->json($type);
     }
 
     /**
@@ -79,6 +98,17 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $type = Type::findOrFail($id);
+
+        $type->delete();
+
+        return response()->json("Type supprimé !");
+    }
+
+    public function restore($id)
+    {
+        Type::withTrashed()->findOrFail($id)->restore();
+
+        return response()->json('Type récupéré !');
     }
 }

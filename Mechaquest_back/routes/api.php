@@ -39,6 +39,9 @@ Route::resources([
 // Route pour récupérer un utilisateur
 Route::post('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
 
+Route::post('areas/{area}/restore', [AreaController::class, 'restore'])->name('areas.restore');
+
+
 
 
 /* Ajout du middleware pour les routes ressources

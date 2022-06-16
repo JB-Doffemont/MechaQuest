@@ -55,7 +55,9 @@ class RobotController extends Controller
      */
     public function show($id)
     {
-        //
+        $robot = Robot::findOrFail($id);
+
+        return response()->json($robot);
     }
 
     /**
@@ -78,7 +80,10 @@ class RobotController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $robot = Robot::findOrFail($id);
+        $robot->update($request->all());
+
+        return response($robot);
     }
 
     /**
@@ -89,6 +94,18 @@ class RobotController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $robot = Robot::findOrFail($id);
+        var_dump($robot);
+
+        $robot->delete();
+
+        return response()->json("Le robot a été supprimé.");
+    }
+
+    public function restore($id)
+    {
+        Robot::withTrashed()->whereId($id)->restore();
+
+        return response()->json('Robot à nouveau actif !');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Progression;
 use Illuminate\Http\Request;
 
 class ProgressionController extends Controller
@@ -13,7 +14,8 @@ class ProgressionController extends Controller
      */
     public function index()
     {
-        //
+        $progress = Progression::all()->toArray();
+        return array($progress);
     }
 
     /**
@@ -34,7 +36,15 @@ class ProgressionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $progression = new Progression([
+            'lvl' => $request->input('lvl'),
+            'min_xp' => $request->input('min_xp'),
+            'max_xp' => $request->input('max_xp'),
+        ]);
+
+        $progression->save();
+
+        return response()->json($progression);
     }
 
     /**
@@ -43,9 +53,10 @@ class ProgressionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($lvl)
     {
-        //
+        $progression = Progression::where("lvl", $lvl)->first();
+        return response()->json($progression);
     }
 
     /**
@@ -66,9 +77,10 @@ class ProgressionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Progression $progression)
     {
-        //
+        $progression->update($request->all());
+        return response()->json($progression);
     }
 
     /**
@@ -77,8 +89,18 @@ class ProgressionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($lvl)
     {
-        //
+        $progression = Progression::where("lvl", $lvl)->first();
+        $progression->delete();
+        return response()->json("Le niveau a été supprimé.");
+    }
+
+    // Récupération d'un lvl supprimé
+    public function restore($lvl)
+    {
+        Progression::withTrashed()->where("lvl", $lvl)->restore();
+
+        return response()->json("Le niveau est de nouveau utilisable.");
     }
 }

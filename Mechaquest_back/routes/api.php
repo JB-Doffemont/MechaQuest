@@ -7,6 +7,7 @@ use App\Http\Controllers\ProgressionController;
 use App\Http\Controllers\RobotController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
+use App\Models\Progression;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,7 @@ Route::resources([
     'users' => UserController::class,
     'robots' => RobotController::class,
     'areas' => AreaController::class,
-    'progressions' => ProgressionController::class,
+    'progression' => ProgressionController::class,
     'types' => TypeController::class,
     'positions' => PositionController::class,
     'friends' => FriendController::class,
@@ -40,6 +41,8 @@ Route::resources([
 Route::post('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
 Route::post('areas/{area}/restore', [AreaController::class, 'restore'])->name('areas.restore');
 Route::post('robots/{robot}/restore', [RobotController::class, 'restore'])->name('robots.restore');
+Route::post('progression/{progression}/restore', [ProgressionController::class, 'restore'])->name('progression.restore');
+
 
 /* Ajout du middleware pour les routes ressources
 Route::group(['middleware' => 'auth'], function () {

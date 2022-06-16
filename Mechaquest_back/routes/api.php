@@ -38,6 +38,7 @@ Route::resources([
 
 // Route pour récupérer un utilisateur
 Route::post('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
+Route::post('robots/{robot}/restore', [RobotController::class, 'restore'])->name('robots.restore');
 
 /* Ajout du middleware pour les routes ressources
 Route::group(['middleware' => 'auth'], function () {

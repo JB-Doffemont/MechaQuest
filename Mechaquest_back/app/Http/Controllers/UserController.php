@@ -105,6 +105,6 @@ class UserController extends Controller
         // User::onlyTrashed()->restore();
 
         User::withTrashed()->where("email", $email)->restore();
-        return response()->json("POPOPO l'utilisateur est de retour!");
+        return response()->json("L'utilisateur est de retour!");
     }
 }

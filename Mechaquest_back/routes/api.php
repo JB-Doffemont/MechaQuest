@@ -36,13 +36,10 @@ Route::resources([
     'friends' => FriendController::class,
 ]);
 
-// Route pour récupérer un utilisateur
+// Route pour récupérer les données supprimées
 Route::post('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
-
 Route::post('areas/{area}/restore', [AreaController::class, 'restore'])->name('areas.restore');
-
-
-
+Route::post('robots/{robot}/restore', [RobotController::class, 'restore'])->name('robots.restore');
 
 /* Ajout du middleware pour les routes ressources
 Route::group(['middleware' => 'auth'], function () {

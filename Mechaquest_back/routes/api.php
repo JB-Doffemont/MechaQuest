@@ -44,6 +44,8 @@ Route::post('progression/{progression}/restore', [ProgressionController::class, 
 Route::post('types/{type}/restore', [TypeController::class, 'restore'])->name('types.restore');
 
 Route::put('positions/{area}/{position}', [PositionController::class, 'update'])->name('positions.update');
+Route::delete('positions/{area}/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
+Route::delete('positions/{area}/{position}', [PositionController::class, 'restore'])->name('positions.restore');
 
 /* Ajout du middleware pour les routes ressources
 Route::group(['middleware' => 'auth'], function () {

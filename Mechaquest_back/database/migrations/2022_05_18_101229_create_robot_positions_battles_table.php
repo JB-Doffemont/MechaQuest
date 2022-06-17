@@ -15,17 +15,18 @@ return new class extends Migration
     {
         Schema::create('robot_positions_battles', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('robot_id');
-            $table->string('area_name');
-
-            // creation clé composite
-            $table->primary(['robot_id', 'area_name']);
-
-            // relation clé étrangère à clé primaire
-            $table->foreign('robot_id')->references('id')->on('robots');
-            $table->foreign('area_name')->references('name')->on('areas');
-
             $table->integer('position')->default(0);
+
+            $table->string('area_name');
+            $table->unsignedBigInteger('robot_id');
+
+            // creation clé primaire
+            $table->primary(['position', 'area_name']);
+
+            // relation clé étrangère à notre table
+            $table->foreign('area_name')->references('name')->on('areas');
+            $table->foreign('robot_id')->references('id')->on('robots');
+
             $table->timestamps();
             $table->softDeletes();
         });

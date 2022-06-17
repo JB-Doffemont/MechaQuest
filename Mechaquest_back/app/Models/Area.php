@@ -22,4 +22,9 @@ class Area extends Model
         'reward',
         'required_stam',
     ];
+
+    public function positions()
+    {
+        $this->belongsTo(Position::class)->withPivot('robot_id')->get();
+    }
 }

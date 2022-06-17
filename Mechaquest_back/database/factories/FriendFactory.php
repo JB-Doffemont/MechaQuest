@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class FriendsFactory extends Factory
+class FriendFactory extends Factory
 {
     /**
      * Define the model's default state.

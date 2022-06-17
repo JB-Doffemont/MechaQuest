@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Progression;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Progressions;
-use Database\Factories\ProgressionsFactory;
+use Database\Factories\ProgressionFactory;
 
-class ProgressionsSeeder extends Seeder
+class ProgressionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,6 +16,6 @@ class ProgressionsSeeder extends Seeder
      */
     public function run()
     {
-        Progressions::factory(4)->create();
+        Progression::factory(4)->create();
     }
 }

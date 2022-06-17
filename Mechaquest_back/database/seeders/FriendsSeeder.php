@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Friend;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Friends;
 
 class FriendsSeeder extends Seeder
 {
@@ -15,6 +15,6 @@ class FriendsSeeder extends Seeder
      */
     public function run()
     {
-        Friends::factory(4)->create();
+        Friend::factory(4)->create();
     }
 }

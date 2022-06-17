@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             RobotSeeder::class,
             AreaSeeder::class,
             RobotPositionsBattlesSeeder::class,
-            ProgressionsSeeder::class,
+            ProgressionSeeder::class,
             FriendsSeeder::class,
         ]);
 

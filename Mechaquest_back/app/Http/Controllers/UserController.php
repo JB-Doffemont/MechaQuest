@@ -15,9 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all()->toArray();
+        $users = User::all();
 
-        return array($users);
+        return response()->json($users);
     }
 
     /**
@@ -55,7 +55,7 @@ class UserController extends Controller
      */
     public function show($email)
     {
-        $user = User::where("email", $email)->first();
+        $user = User::where("email", $email)->with('friends')->first();
 
         return response()->json($user);
     }

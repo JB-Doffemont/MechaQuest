@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Area;
 use App\Models\Robot;
 use App\Models\RobotPositionsBattles;
+use Exception;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
@@ -87,20 +88,23 @@ class PositionController extends Controller
     //     return response()->json($position);
     // }
 
-    public function update(Request $request, $area, $robot, RobotPositionsBattles $position)
+    public function update(Request $request, $area, $position, RobotPositionsBattles $robot)
     {
-        $area = Area::findOrFail($area);
-        $robot = Robot::findOrFail($robot);
+        try {
+            $robot = RobotPositionsBattles::select('*')
+                ->where('area_name', $area)
+                ->where('position', $position)
+                ->update(["robot_id" => $request['robot_id']]);
 
-        $area_name = $area->name;
-        $robot_id = $robot->id;
+            return response()->json($robot);
+        } catch (Exception $e) {
 
-        $position = RobotPositionsBattles::select('*')
-            ->where('area_name', $area_name)
-            ->where('robot_id', $robot_id)
-            ->update(["position" => $request['position'], "robot_id" => $request['robot_id']]);
+            return response([
+                'status_code' => 500,
+                'message' => 'erreur'
 
-        return response()->json($position);
+            ]);
+        }
     }
 
     /**

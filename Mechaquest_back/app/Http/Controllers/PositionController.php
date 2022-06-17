@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
+use App\Models\Robot;
+use App\Models\RobotPositionsBattles;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
@@ -13,7 +16,10 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        //  Area::all()->toArray();
+        //  Robot::all()->toArray();
+        $position = RobotPositionsBattles::all();
+        return response()->json($position);
     }
 
     /**
@@ -34,7 +40,14 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $position = new RobotPositionsBattles([
+            'robot_id' => $request->input('robot_id'),
+            'area_name' => $request->input('area_name'),
+            'position' => $request->input('position'),
+        ]);
+
+        $position->save();
+        return response()->json($position);
     }
 
     /**
@@ -66,9 +79,35 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    // public function update(Request $request, $area, $position)
+    // {
+    //     Area::all();
+    //     $area->update($request->all());
+    //     $position->update($request->all());
+    //     return response()->json($position);
+    // }
+
+    public function update(Request $request, $area, $robot)
     {
-        //
+        $area = Area::findOrFail($area);
+        $robot = Robot::findOrFail($robot);
+
+        $area_name = $area->name;
+        $robot_id = $robot->robot_id;
+
+        $position = RobotPositionsBattles::select('*')
+            ->where('area_name', $area_name)
+            ->where('robot_id', $robot_id)
+            ->get();
+
+
+        // $position = RobotPositionsBattles::where("position", $position);
+
+        var_dump($position);
+        exit;
+
+        $position->update($request->all());
+        return response()->json($position);
     }
 
     /**

@@ -9,4 +9,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Friend extends Model
 {
     use HasFactory, SoftDeletes;
+
+
+    protected $fillable =
+    [
+        'email_user1',
+        'email_user2',
+    ];
 }

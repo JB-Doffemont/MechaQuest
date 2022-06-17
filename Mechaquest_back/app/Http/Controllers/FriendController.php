@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Friend;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FriendController extends Controller
 {
@@ -32,9 +34,22 @@ class FriendController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Friend $friend)
     {
-        //
+        // $friend = Auth::id();
+        // var_dump($friend);
+
+        $userId = Auth::id();
+
+        $friend = new Friend([
+            'email_user1' => $userId,
+            'email_user2' => $request->input('email_user2'),
+
+        ]);
+
+        $friend->save();
+
+        return response()->json($friend);
     }
 
     /**

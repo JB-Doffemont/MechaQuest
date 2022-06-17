@@ -43,6 +43,8 @@ Route::post('robots/{robot}/restore', [RobotController::class, 'restore'])->name
 Route::post('progression/{progression}/restore', [ProgressionController::class, 'restore'])->name('progression.restore');
 Route::post('types/{type}/restore', [TypeController::class, 'restore'])->name('types.restore');
 
+Route::put('positions/{area}/{robot}', [PositionController::class, 'update'])->name('positions.update');
+
 /* Ajout du middleware pour les routes ressources
 Route::group(['middleware' => 'auth'], function () {
     Route::resources([

@@ -87,7 +87,7 @@ class PositionController extends Controller
     //     return response()->json($position);
     // }
 
-    public function test_up(Request $request, $area, $robot, RobotPositionsBattles $position)
+    public function update(Request $request, $area, $robot, RobotPositionsBattles $position)
     {
         $area = Area::findOrFail($area);
         $robot = Robot::findOrFail($robot);
@@ -96,17 +96,10 @@ class PositionController extends Controller
         $robot_id = $robot->id;
 
         $position = RobotPositionsBattles::select('*')
-            ->where('area_name', $area_name)->first()
-            ->where('robot_id', $robot_id)->first()
-            ->get();
+            ->where('area_name', $area_name)
+            ->where('robot_id', $robot_id)
+            ->update(["position" => $request['position'], "robot_id" => $request['robot_id']]);
 
-        // $position = RobotPositionsBattles::where("position", $position);
-
-        $position->update(['position' => $position]);
-        var_dump($position);
-        exit;
-
-        // $position->update($request->all());
         return response()->json($position);
     }
 

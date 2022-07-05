@@ -99,16 +99,6 @@ class UserController extends Controller
         return response()->json("L'utilisateur a été supprimé.");
     }
 
-    // Suppression d'un ami de sa liste d'amis
-    public function deleteFriend($email, $email1)
-    {
-
-        $friend = User::where("email", $email)->with('friends')->first();
-
-        $friend->friends()->detach($email1);
-
-        return response()->json("Cet utilisateur ne fait plus partie de votre liste d'amis.");
-    }
 
     // Récupération d'un utilisateur supprimé
     public function restore($email)

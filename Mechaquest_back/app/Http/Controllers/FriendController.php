@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Friend;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -86,14 +88,24 @@ class FriendController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    // /**
+    //  * Remove the specified resource from storage.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function destroy($id)
+    // {
+    //     //
+    // }
+
+    // Suppression d'un ami de sa liste d'amis
+    public function deleteFriend($email, $email1)
     {
-        //
+        $friend = User::where("email", $email)->with('friends')->first();
+
+        $friend->friends()->detach($email1);
+
+        return response()->json("Cet utilisateur ne fait plus partie de votre liste d'amis.");
     }
 }

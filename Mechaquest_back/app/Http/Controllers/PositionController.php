@@ -113,8 +113,23 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($area, $positionId)
     {
-        //
+        $position = RobotPositionsBattles::select('*')
+            ->where('area_name', $area)
+            ->where('position', $positionId)
+            ->delete();
+
+        return response()->json($position);
+    }
+
+    public function restore($area, $positionId)
+    {
+        RobotPositionsBattles::withTrashed()
+            ->where('area_name', $area)
+            ->where('position', $positionId)
+            ->restore();
+
+        return response()->json("La position est à nouveau disponible!");
     }
 }

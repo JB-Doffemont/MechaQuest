@@ -25,22 +25,20 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 // Routes ressources
-Route::resources([
-    'users' => UserController::class,
-    'robots' => RobotController::class,
-    'areas' => AreaController::class,
-    'progression' => ProgressionController::class,
-    'types' => TypeController::class,
-    'positions' => PositionController::class,
-    'friends' => FriendController::class,
-]);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::resources([
+        'users' => UserController::class,
+        'robots' => RobotController::class,
+        'areas' => AreaController::class,
+        'progression' => ProgressionController::class,
+        'types' => TypeController::class,
+        'positions' => PositionController::class,
+        'friends' => FriendController::class,
+    ]);
+});
+
 
 // Route pour récupérer les données supprimées
 Route::post('users/{user}/restore', [UserController::class, 'restore'])->name('users.restore');
@@ -48,10 +46,11 @@ Route::post('areas/{area}/restore', [AreaController::class, 'restore'])->name('a
 Route::post('robots/{robot}/restore', [RobotController::class, 'restore'])->name('robots.restore');
 Route::post('progression/{progression}/restore', [ProgressionController::class, 'restore'])->name('progression.restore');
 Route::post('types/{type}/restore', [TypeController::class, 'restore'])->name('types.restore');
+Route::post('positions/{area}/{position}/restore', [PositionController::class, 'restore'])->name('positions.restore');
+
 
 Route::put('positions/{area}/{position}', [PositionController::class, 'update'])->name('positions.update');
 Route::delete('positions/{area}/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
-Route::post('positions/{area}/{position}/restore', [PositionController::class, 'restore'])->name('positions.restore');
 Route::delete('friends/{user1}/{user2}', [FriendController::class, 'deleteFriend'])->name('friends.deleteFriend');
 
 /* Ajout du middleware pour les routes ressources

@@ -18,18 +18,15 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
-        $user = User::create([
+        User::create([
             'pseudo' => $validatedData['pseudo'],
             'email' => $validatedData['email'],
             'password' => $validatedData['password'],
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+        return response()->json('Compte crée !');
     }
 
     public function login(Request $request)
@@ -48,10 +45,5 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
-    }
-
-    public function me(Request $request)
-    {
-        return $request->user();
     }
 }

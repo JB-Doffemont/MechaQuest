@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('robot_name');
             $table->string('robot_image')->nullable();
             $table->string('user_email')->nullable();
-            $table->foreign('user_email')->references('email')->on('users')->onUpdate('cascade')->onDelete('cascade'); // soft deleting ?
+            $table->foreign('user_email')->references('email')->on('users')->onDelete('cascade');
             $table->string('type_robot');
             $table->foreign('type_robot')->references('type_name')->on('types');
             $table->boolean('main_robot')->nullable();

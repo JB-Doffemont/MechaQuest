@@ -14,9 +14,9 @@ class RobotController extends Controller
      */
     public function index()
     {
-        $robot = Robot::all()->toArray();
+        $robot = Robot::all();
 
-        return array($robot);
+        return response()->json($robot);
     }
 
     /**

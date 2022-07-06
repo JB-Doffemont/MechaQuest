@@ -85,7 +85,9 @@ class UserController extends Controller
     public function destroy($email)
     {
         $user = User::where("email", $email)->first();
-
+        foreach ($user->robots as $r) {
+            $r->delete();
+        }
         $user->delete();
 
         return response()->json("L'utilisateur a été supprimé.");

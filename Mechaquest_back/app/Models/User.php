@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, "friends", "email_user1", "email_user2");
     }
+
+    public function robots()
+    {
+        return $this->hasMany(Robot::class, "user_email");
+    }
 }

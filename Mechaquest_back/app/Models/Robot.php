@@ -15,6 +15,7 @@ class Robot extends Model
         'type_robot',
         'reward',
         'price',
+        'main_robot',
 
     ];
 }

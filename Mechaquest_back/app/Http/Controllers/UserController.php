@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        // Redirection vers formulaire d'enregistrement
     }
 
     /**
@@ -38,6 +38,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // Cette store est dans AuthController fonction register
     }
 
     /**
@@ -58,9 +59,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($email)
     {
-        //
+        $user = User::where("email", $email)->first();
+        return response()->json($user);
+
+        // Redirection vers formulaire de modification des données
+
     }
 
     /**

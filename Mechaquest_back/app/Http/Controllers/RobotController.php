@@ -70,7 +70,9 @@ class RobotController extends Controller
      */
     public function edit($id)
     {
-        //
+        $robot = Robot::findOrFail($id);
+
+        return response()->json($robot);
     }
 
     /**

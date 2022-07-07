@@ -26,7 +26,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 
-// Routes ressources
+// Routes ressources accessible en étant connecté
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resources(
         [
@@ -38,10 +38,25 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             'positions' => PositionController::class,
             'friends' => FriendController::class,
         ],
-        ['except' => ['create', 'store', 'update', 'destroy']]
+        ['except' => ['create', 'store', 'update', 'destroy']] // permet d'exclure l'accès à  certaines routes pour tous les utilisateurs connectés
     );
 
-    Route::group(['middleware' => 'isAdmin'], function () {
+
+    // Accès aux routes uniquement en tant qu'admin
+    Route::group(['middleware' => 'admin'], function () {
+
+        Route::resources(
+            [
+                'users' => UserController::class,
+                'robots' => RobotController::class,
+                'areas' => AreaController::class,
+                'progression' => ProgressionController::class,
+                'types' => TypeController::class,
+                'positions' => PositionController::class,
+                'friends' => FriendController::class,
+            ],
+            ['only' => ['create', 'store', 'update', 'destroy']] // Permet l'accès uniquement à certaines routes en tant qu'admin
+        );
 
 
         // Route pour récupérer les données supprimées
@@ -53,6 +68,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('positions/{area}/{position}/restore', [PositionController::class, 'restore'])->name('positions.restore');
 
 
+        // Route personalisées
         Route::put('positions/{area}/{position}', [PositionController::class, 'update'])->name('positions.update');
         Route::delete('positions/{area}/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
         Route::delete('friends/{user1}/{user2}', [FriendController::class, 'deleteFriend'])->name('friends.deleteFriend');

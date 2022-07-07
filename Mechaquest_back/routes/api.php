@@ -30,15 +30,21 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resources(
         [
-            'users' => UserController::class,
-            'robots' => RobotController::class,
+
             'areas' => AreaController::class,
             'progression' => ProgressionController::class,
             'types' => TypeController::class,
             'positions' => PositionController::class,
             'friends' => FriendController::class,
         ],
-        ['except' => ['create', 'store', 'update', 'destroy']] // permet d'exclure l'accès à  certaines routes pour tous les utilisateurs connectés
+        ['except' => ['store', 'update', 'destroy']] // permet d'exclure l'accès à  certaines routes pour tous les utilisateurs connectés
+    );
+    Route::resources(
+        [
+            'users' => UserController::class,
+            'robots' => RobotController::class,
+        ],
+        ['except' => ['store', 'destroy']] // permet d'exclure l'accès à  certaines routes pour tous les utilisateurs connectés
     );
 
 

@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             'positions' => PositionController::class,
             'friends' => FriendController::class,
         ],
-        ['except' => ['destroy']]
+        ['except' => ['create', 'store', 'update', 'destroy']]
     );
 
     Route::group(['middleware' => 'isAdmin'], function () {

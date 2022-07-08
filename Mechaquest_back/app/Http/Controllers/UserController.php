@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Robot;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -50,7 +51,11 @@ class UserController extends Controller
     {
         $user = User::where("email", $email)->with('friends')->first();
 
-        return response()->json($user);
+        // permet de récupérer les robots d'un utilisateur
+        $robotUser = Robot::where("user_email", $email)->get();
+
+
+        return response()->json([$user, $robotUser]);
     }
 
     /**
@@ -90,8 +95,8 @@ class UserController extends Controller
     public function destroy($email)
     {
         $user = User::where("email", $email)->first();
-        foreach ($user->robots as $r) {
-            $r->delete();
+        foreach ($user->robots as $robot) {
+            $robot->delete();
         }
         $user->delete();
 

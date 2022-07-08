@@ -57,9 +57,6 @@ class RobotController extends Controller
      */
     public function show($id)
     {
-        $robot = Robot::findOrFail($id);
-
-        return response()->json($robot);
     }
 
     /**
@@ -85,9 +82,10 @@ class RobotController extends Controller
     public function update(Request $request, $id)
     {
         $robot = Robot::findOrFail($id);
-        $robot->update($request->all());
 
-        return response($robot);
+        $robot->update($request->only('main_robot'));
+
+        return response()->json($robot);
     }
 
     /**

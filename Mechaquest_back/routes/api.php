@@ -30,7 +30,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::resources(
         [
-
             'areas' => AreaController::class,
             'progression' => ProgressionController::class,
             'types' => TypeController::class,
@@ -53,8 +52,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         Route::resources(
             [
-                'users' => UserController::class,
-                'robots' => RobotController::class,
+
                 'areas' => AreaController::class,
                 'progression' => ProgressionController::class,
                 'types' => TypeController::class,
@@ -62,6 +60,15 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
                 'friends' => FriendController::class,
             ],
             ['only' => ['store', 'update', 'destroy']] // Permet l'accès uniquement à certaines routes en tant qu'admin
+        );
+
+        // On doit exclure ces routes resources pour qu'un utilisateur non Admin puisse modifier son profil et le champ main_robot
+        Route::resources(
+            [
+                'users' => UserController::class,
+                'robots' => RobotController::class,
+            ],
+            ['except' => ['update']]
         );
 
 

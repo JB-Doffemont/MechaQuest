@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Robot;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RobotController extends Controller
@@ -82,10 +83,19 @@ class RobotController extends Controller
     public function update(Request $request, $id)
     {
         $robot = Robot::findOrFail($id);
+        $user = User::where('email', $robot->user_email)->first();
 
-        $robot->update($request->only('main_robot'));
 
-        return response()->json($robot);
+        switch ($user->role) {
+            case ('0'):
+                $robot->update($request->only('main_robot'));
+                break;
+            case ('1'):
+                $robot->update($request->all());
+                break;
+        }
+
+        return response()->json([$robot, $user]);
     }
 
     /**
@@ -97,7 +107,7 @@ class RobotController extends Controller
     public function destroy($id)
     {
         $robot = Robot::findOrFail($id);
-        var_dump($robot);
+
 
         $robot->delete();
 

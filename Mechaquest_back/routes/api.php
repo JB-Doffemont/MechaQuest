@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
                 'positions' => PositionController::class,
                 'friends' => FriendController::class,
             ],
-            ['only' => ['create', 'store', 'update', 'destroy']] // Permet l'accès uniquement à certaines routes en tant qu'admin
+            ['only' => ['store', 'update', 'destroy']] // Permet l'accès uniquement à certaines routes en tant qu'admin
         );
 
 

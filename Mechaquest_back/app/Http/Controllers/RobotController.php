@@ -89,12 +89,15 @@ class RobotController extends Controller
         // On récupère l'utilisateur connecté
         $user = Auth::user();
 
+        /** On vérifie si l'email de l'utilisateur connecté correspond bien au user_emeil du robot qui sera modifié
+         *   En fonction des rôles on autorise la modification d'un ou plusieurs champs
+         */
         if ($user->email === $robot->user_email && $user->role === 0) {
             $robot->update($request->only('main_robot'));
         } else if ($user->role === 1) {
             $robot->update($request->all());
         } else {
-            echo ("Vous n'êtes pas autorisé");
+            return response()->json("Vous n'êtes pas autorisé.");
         }
 
         return response()->json([$robot, $user]);

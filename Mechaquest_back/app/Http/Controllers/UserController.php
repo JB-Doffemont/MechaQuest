@@ -6,6 +6,7 @@ use App\Models\Robot;
 use App\Models\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -81,8 +82,21 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // On récupère l'utilisateur connecté
+        $userConnected = Auth::user();
 
-        $user->update($request->all());
+        /**
+         * On vérifie que l'email de l'utilisateur connecté correspond bien à l'utilisateur qui sera modifié
+         * En fonction des rôles on autorise la modifications de certains champs
+         */
+        if ($userConnected->email === $user->email) {
+            $user->update($request->only('pseudo'));
+            $user->update($request->only('avatar'));
+        } else if ($userConnected->role === 1) {
+            $user->update($request->all());
+        } else {
+            return response()->json("Vous n'êtes pas autorisé");
+        }
 
         return response()->json($user);
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Robot;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RobotController extends Controller
 {
@@ -82,17 +83,18 @@ class RobotController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // On récupère le robot
         $robot = Robot::findOrFail($id);
-        $user = User::where('email', $robot->user_email)->first();
 
+        // On récupère l'utilisateur connecté
+        $user = Auth::user();
 
-        switch ($user->role) {
-            case ('0'):
-                $robot->update($request->only('main_robot'));
-                break;
-            case ('1'):
-                $robot->update($request->all());
-                break;
+        if ($user->email === $robot->user_email && $user->role === 0) {
+            $robot->update($request->only('main_robot'));
+        } else if ($user->role === 1) {
+            $robot->update($request->all());
+        } else {
+            echo ("Vous n'êtes pas autorisé");
         }
 
         return response()->json([$robot, $user]);

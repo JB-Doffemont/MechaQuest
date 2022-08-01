@@ -15,8 +15,6 @@ class UserTest extends TestCase
      */
     public function test_if_user_get_registered()
     {
-        $faker = User::factory();
-
         $user = $this->post('api/register', [
             'pseudo' => Str::random(10),
             'email' => Str::random(10) . "@gmail.com",
@@ -30,6 +28,32 @@ class UserTest extends TestCase
         ])
             ->assertStatus(201);
     }
+
+    public function test_if_user_not_registered_pseudo_invalid()
+    {
+
+        $user = $this->post('api/register', [
+            'pseudo' => 'Jérome%:/',
+            'email' => Str::random(10) . "@gmail.com",
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+
+        ]);
+
+        $user->assertStatus(422);
+    }
+
+    // public function test_if_user_not_registered_email_invalid()
+    // {
+
+    //     $user = $this->post('api/register', [
+    //         'pseudo' => Str::random(10),
+    //         'email' => Str::random(10) . "gmail.com",
+    //         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+
+    //     ]);
+
+    //     $user->assertStatus(400);
+    // }
 
     public function test_if_user_can_login()
     {

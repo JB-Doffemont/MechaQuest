@@ -48,7 +48,7 @@ class RobotController extends Controller
 
         $robot->save();
 
-        return response()->json($robot);
+        return response()->json($robot, 201);
     }
 
     /**

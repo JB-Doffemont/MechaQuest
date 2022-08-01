@@ -13,9 +13,8 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function test_if_user_get_registered()
+    /*public function test_if_user_get_registered()
     {
-        $faker = User::factory();
 
         $user = $this->post('api/register', [
             'pseudo' => Str::random(10),
@@ -55,6 +54,7 @@ class UserTest extends TestCase
 
         $this->assertTrue($user1->pseudo != $user2->pseudo);
     }
+    */
 
     public function test_delete_user()
     {

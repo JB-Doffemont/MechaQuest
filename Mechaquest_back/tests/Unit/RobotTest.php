@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 
@@ -40,9 +41,8 @@ class RobotTest extends TestCase
 
     public function test_if_robot_get_registered()
     {
-        $user = Auth::user();
+        $user = User::where('email', 'admin@admin.fr')->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
-
 
         $userAdmin = $this->post('api/login', [
             'email' => 'admin@admin.fr',

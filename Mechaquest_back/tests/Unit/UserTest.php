@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
+
     /**
      * A basic unit test example.
      *
@@ -42,27 +43,58 @@ class UserTest extends TestCase
         $user->assertStatus(422);
     }
 
-    // public function test_if_user_not_registered_email_invalid()
-    // {
+    public function test_if_user_not_registered_email_invalid()
+    {
 
-    //     $user = $this->post('api/register', [
-    //         'pseudo' => Str::random(10),
-    //         'email' => Str::random(10) . "gmail.com",
-    //         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+        $user = $this->post('api/register', [
+            'pseudo' => Str::random(10),
+            'email' => Str::random(10) . "gmail.com",
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
 
-    //     ]);
+        ]);
 
-    //     $user->assertStatus(400);
-    // }
+        $user->assertStatus(422);
+    }
+
+    public function test_if_user_not_registered_password_invalid()
+    {
+
+        $user = $this->post('api/register', [
+            'pseudo' => Str::random(10),
+            'email' => Str::random(10) . "@gmail.com",
+            'password' => 'Fail'
+
+        ]);
+
+        $user->assertStatus(422);
+    }
 
     public function test_if_user_can_login()
     {
-        $response = $this->post('api/login', [
+
+        $user = $this->post('api/login', [
+            'email' => 'jbABCD@gmail.com',
+            'password' => '12345678'
+        ]);
+
+        // $user->assertStatus(200);
+
+        $user->assertJsonStructure(
+            [
+                'access_token',
+                'token_type'
+            ]
+        )->assertStatus(200);
+    }
+
+    public function test_if_invalid_login_details()
+    {
+        $user = $this->post('api/login', [
             'email' => 'dary1116@gmail.com',
             'password' => 'dary1234556'
         ]);
 
-        $response->assertStatus(200);
+        $user->assertStatus(401);
     }
 
     public function test_user_duplication()

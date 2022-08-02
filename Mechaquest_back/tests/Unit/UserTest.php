@@ -9,6 +9,7 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
+
     /**
      * A basic unit test example.
      *
@@ -16,7 +17,6 @@ class UserTest extends TestCase
      */
     /*public function test_if_user_get_registered()
     {
-
         $user = $this->post('api/register', [
             'pseudo' => Str::random(10),
             'email' => Str::random(10) . "@gmail.com",
@@ -31,20 +31,69 @@ class UserTest extends TestCase
             ->assertStatus(201);
     }*/
 
+    public function test_if_user_not_registered_pseudo_invalid()
+    {
+
+        $user = $this->post('api/register', [
+            'pseudo' => 'Jérome%:/',
+            'email' => Str::random(10) . "@gmail.com",
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+
+        ]);
+
+        $user->assertStatus(422);
+    }
+
+    public function test_if_user_not_registered_email_invalid()
+    {
+
+        $user = $this->post('api/register', [
+            'pseudo' => Str::random(10),
+            'email' => Str::random(10) . "gmail.com",
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+
+        ]);
+
+        $user->assertStatus(422);
+    }
+
+    public function test_if_user_not_registered_password_invalid()
+    {
+
+        $user = $this->post('api/register', [
+            'pseudo' => Str::random(10),
+            'email' => Str::random(10) . "@gmail.com",
+            'password' => 'Fail'
+
+        ]);
+
+        $user->assertStatus(422);
+    }
+
     public function test_if_user_can_login()
     {
 
-        $response = $this->post('api/login', [
-            'email' => 'lucas9@a.fr',
-            'password' => 'adminadmin'
+        $user = $this->post('api/login', [
+            'email' => 'jbABCDE@gmail.com',
+            'password' => '12345678'
         ]);
 
+        $user->assertJsonStructure(
+            [
+                'access_token',
+                'token_type'
+            ]
+        )->assertStatus(200);
+    }
 
-        $response->assertJsonStructure([
-            'access_token',
-            'token_type',
-        ])
-            ->assertStatus(200);
+    public function test_if_invalid_login_details()
+    {
+        $user = $this->post('api/login', [
+            'email' => 'dary1116@gmail.com',
+            'password' => 'dary1234556'
+        ]);
+
+        $user->assertStatus(401);
     }
 
     public function test_user_duplication()
@@ -62,22 +111,66 @@ class UserTest extends TestCase
         $this->assertTrue($user1->pseudo != $user2->pseudo);
     }
 
+    public function test_success_delete_user_and_his_robots()
+    {
+        $admin = $this->post('api/login', [
+            'email' => 'jbABCDE@gmail.com',
+            'password' => '12345678'
+        ]);
 
-    // public function test_delete_user()
-    // {
+        $admin->assertJsonStructure(
+            [
+                'access_token',
+                'token_type'
+            ]
+        );
 
-    //     $user = User::factory()->count(1)->make();
-
-    //     $user = User::first();
+        $user = User::where("email", "lbecker@example.com")->first();
 
 
-    //     if ($user) {
-    //         foreach ($user->robots as $robot) {
-    //             $robot->delete();
-    //         }
-    //         $user->delete();
-    //     }
+        if (!empty($user)) {
+            foreach ($user->robots as $robot) {
+                $robot->delete();
+            }
+            $response = $this->delete('api/users/' . $user->email);
+        }
 
-    //     $this->assertTrue(true);
-    // }
+
+
+        $response->assertStatus(200);
+        $this->assertTrue(true);
+    }
+
+    public function test_delete_user_and_his_robots_not_admin()
+
+    {
+        $this->post('api/login', [
+            'email' => 'jbaaa@gmail.com',
+            'password' => '12345678'
+        ]);
+
+        $response = $this->delete('api/users/' . "pkovacek@example.net");
+
+        // Redirection cause sanctum
+        $response->assertStatus(302);
+    }
+    public function test_delete_user_and_his_robots_already_deleted()
+
+    {
+        $this->post('api/login', [
+            'email' => 'jbABCDE@gmail.com',
+            'password' => '12345678'
+        ]);
+
+        // $admin->assertJsonStructure(
+        //     [
+        //         'access_token',
+        //         'token_type'
+        //     ]
+        // );
+
+        $response = $this->delete('api/users/' . "pkovacek@example.net");
+
+        $response->assertStatus(404);
+    }
 }

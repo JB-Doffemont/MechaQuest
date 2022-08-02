@@ -4,33 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\Contracts\HasApiTokens;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
 
     public function register(Request $request)
     {
-        $validatedData = $request->validate([
-            'pseudo' => 'required|string|max:255',
+
+        // Création d'une instance permettant de personnaliser la vérification des données, la reponse et son status
+        $validated = Validator::make($request->all(), [
+            'pseudo' => 'required|alpha_num|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
-
-        if ($validatedData) {
-
-            $user = User::create([
-                'pseudo' => $validatedData['pseudo'],
-                'email' => $validatedData['email'],
-                'password' => $validatedData['password'],
-            ]);
-
-            // $token = $user->createToken('auth_token')->plainTextToken;
-
-            return response()->json($user, 201);
+        if ($validated->fails()) {
+            return response()->json($validated->errors(), 422);
         }
+
+        // Récupération des entrées validées
+        $validatedData = $validated->validated();
+
+
+        $user = User::create([
+            'pseudo' => $validatedData['pseudo'],
+            'email' => $validatedData['email'],
+            'password' => $validatedData['password'],
+        ]);
+
+        return response()->json($user, 201);
     }
 
     public function login(Request $request)
@@ -45,10 +48,12 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+        return response()->json(
+            [
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+            ]
+        );
     }
 
     public function logout()

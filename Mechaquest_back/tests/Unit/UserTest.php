@@ -15,7 +15,7 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    /*public function test_if_user_get_registered()
+    public function test_if_user_get_registered()
     {
         $user = $this->post('api/register', [
             'pseudo' => Str::random(10),
@@ -29,7 +29,7 @@ class UserTest extends TestCase
             'email'
         ])
             ->assertStatus(201);
-    }*/
+    }
 
     public function test_if_user_not_registered_pseudo_invalid()
     {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\Contracts\HasApiTokens;
 
 class AuthController extends Controller
 {
@@ -48,5 +49,18 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);
+    }
+
+    public function logout()
+    {
+        $user = request()->user();
+        $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+
+        // $request->user()->currentAccessToken()->delete();
+
+        // $user = Auth::user()->token();
+        // $user->revoke();
+
+        return response()->json("Vous êtes déconnecté");
     }
 }

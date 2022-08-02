@@ -85,5 +85,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::put('positions/{area}/{position}', [PositionController::class, 'update'])->name('positions.update');
         Route::delete('positions/{area}/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
         Route::delete('friends/{user1}/{user2}', [FriendController::class, 'deleteFriend'])->name('friends.deleteFriend');
+        Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
     });
 });

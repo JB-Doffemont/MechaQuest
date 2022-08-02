@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -28,16 +29,22 @@ class UserTest extends TestCase
             'email'
         ])
             ->assertStatus(201);
-    }
+    }*/
 
     public function test_if_user_can_login()
     {
+
         $response = $this->post('api/login', [
-            'email' => 'dary1116@gmail.com',
-            'password' => 'dary1234556'
+            'email' => 'lucas8@a.fr',
+            'password' => 'adminadmin'
         ]);
 
-        $response->assertStatus(200);
+
+        $response->assertJsonStructure([
+            'access_token',
+            'token_type',
+        ])
+            ->assertStatus(200);
     }
 
     public function test_user_duplication()
@@ -54,19 +61,19 @@ class UserTest extends TestCase
 
         $this->assertTrue($user1->pseudo != $user2->pseudo);
     }
-    */
 
-    public function test_delete_user()
-    {
 
-        $user = User::factory()->count(1)->make();
+    // public function test_delete_user()
+    // {
 
-        $user = User::first();
+    //     $user = User::factory()->count(1)->make();
 
-        if ($user) {
-            $user->delete();
-        }
+    //     $user = User::first();
 
-        $this->assertTrue(true);
-    }
+    //     if ($user) {
+    //         $user->delete();
+    //     }
+
+    //     $this->assertTrue(true);
+    // }
 }

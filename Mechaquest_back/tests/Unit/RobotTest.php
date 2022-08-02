@@ -41,24 +41,20 @@ class RobotTest extends TestCase
 
     public function test_if_robot_get_registered()
     {
-        $user = User::where('email', 'admin@admin.fr')->firstOrFail();
+        $user = User::where('email', 'admin@admin.com')->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $userAdmin = $this->post('api/login', [
-            'email' => 'admin@admin.fr',
+            'email' => 'admin@admin.com',
             'password' => 'admin',
         ]);
 
         $userAdmin->assertJsonStructure([
-            'pseudo',
-            'email',
-            'password',
-            'role',
-            'access_token' => $token,
-            'token_type' => 'Bearer'
+            'access_token',
+            'token_type',
         ]);
 
-        if ($userAdmin->role === 1) {
+        if ($user->role === 1) {
             $robot = $this->post('api/robots', [
 
                 'robot_name' => Str::random(10),

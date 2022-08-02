@@ -162,13 +162,6 @@ class UserTest extends TestCase
             'password' => '12345678'
         ]);
 
-        // $admin->assertJsonStructure(
-        //     [
-        //         'access_token',
-        //         'token_type'
-        //     ]
-        // );
-
         $response = $this->delete('api/users/' . "pkovacek@example.net");
 
         $response->assertStatus(404);

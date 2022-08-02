@@ -8,6 +8,7 @@ use App\Http\Controllers\ProgressionController;
 use App\Http\Controllers\RobotController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
+use App\Models\Robot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -84,7 +85,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         // Route personalisées
         Route::put('positions/{area}/{position}', [PositionController::class, 'update'])->name('positions.update');
         Route::delete('positions/{area}/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
-        Route::delete('friends/{user1}/{user2}', [FriendController::class, 'deleteFriend'])->name('friends.deleteFriend');
-        Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
     });
+
+    Route::delete('friends/{user1}/{user2}', [FriendController::class, 'deleteFriend'])->name('friends.deleteFriend');
+    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/duplicate', [RobotController::class, 'register_heros'])->name('robots.heros');
 });

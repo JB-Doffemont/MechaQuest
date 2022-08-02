@@ -6,6 +6,8 @@ use App\Models\Robot;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDO;
+use PDOException;
 
 class RobotController extends Controller
 {
@@ -124,5 +126,19 @@ class RobotController extends Controller
         Robot::withTrashed()->whereId($id)->restore();
 
         return response()->json('Robot à nouveau actif !');
+    }
+
+    // Ajout d'une entrée dans la BDD qui duplique un robot existant parent lorsqu'un joueur obtient un robot
+    public function register_heros()
+    {
+        $userEmail = Auth::user()->email;
+        $robot = Robot::where("robot_name", "Madonna LeRobot")->first();
+
+        // Duplication du robot, et modification de la valeur user_email dans la table robot
+        $newRobot = $robot->replicate();
+        $newRobot->user_email = $userEmail;
+        $newRobot->save();
+
+        return response()->json("Vous venez d'obtenir Madonna!");
     }
 }

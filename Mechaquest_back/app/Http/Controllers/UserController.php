@@ -110,13 +110,19 @@ class UserController extends Controller
     // Utilisation d'un softdelete pour supprimer un utilisateur de la base de données
     public function destroy($email)
     {
-        $user = User::where("email", $email)->first();
-        foreach ($user->robots as $robot) {
-            $robot->delete();
-        }
-        $user->delete();
 
-        return response()->json("L'utilisateur a été supprimé.");
+        $user = User::where("email", $email)->first();
+
+        if ($user) {
+            foreach ($user->robots as $robot) {
+                $robot->delete();
+            }
+            $user->delete();
+
+            return response()->json("L'utilisateur a été supprimé.", 200);
+        } else {
+            return response()->json([], 404);
+        }
     }
 
 

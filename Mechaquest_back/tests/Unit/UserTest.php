@@ -73,11 +73,9 @@ class UserTest extends TestCase
     {
 
         $user = $this->post('api/login', [
-            'email' => 'jbABCD@gmail.com',
+            'email' => 'jbABCDE@gmail.com',
             'password' => '12345678'
         ]);
-
-        // $user->assertStatus(200);
 
         $user->assertJsonStructure(
             [
@@ -112,17 +110,66 @@ class UserTest extends TestCase
         $this->assertTrue($user1->pseudo != $user2->pseudo);
     }
 
-    public function test_delete_user()
+    public function test_success_delete_user_and_his_robots()
     {
+        $admin = $this->post('api/login', [
+            'email' => 'jbABCDE@gmail.com',
+            'password' => '12345678'
+        ]);
 
-        $user = User::factory()->count(1)->make();
+        $admin->assertJsonStructure(
+            [
+                'access_token',
+                'token_type'
+            ]
+        );
 
-        $user = User::first();
+        $user = User::where("email", "lbecker@example.com")->first();
 
-        if ($user) {
-            $user->delete();
+
+        if (!empty($user)) {
+            foreach ($user->robots as $robot) {
+                $robot->delete();
+            }
+            $response = $this->delete('api/users/' . $user->email);
         }
 
+
+
+        $response->assertStatus(200);
         $this->assertTrue(true);
+    }
+
+    public function test_delete_user_and_his_robots_not_admin()
+
+    {
+        $this->post('api/login', [
+            'email' => 'jbaaa@gmail.com',
+            'password' => '12345678'
+        ]);
+
+        $response = $this->delete('api/users/' . "pkovacek@example.net");
+
+        // Redirection cause sanctum
+        $response->assertStatus(302);
+    }
+    public function test_delete_user_and_his_robots_already_deleted()
+
+    {
+        $this->post('api/login', [
+            'email' => 'jbABCDE@gmail.com',
+            'password' => '12345678'
+        ]);
+
+        // $admin->assertJsonStructure(
+        //     [
+        //         'access_token',
+        //         'token_type'
+        //     ]
+        // );
+
+        $response = $this->delete('api/users/' . "pkovacek@example.net");
+
+        $response->assertStatus(404);
     }
 }

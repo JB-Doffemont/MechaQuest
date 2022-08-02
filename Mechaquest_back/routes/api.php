@@ -52,7 +52,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         Route::resources(
             [
-
                 'areas' => AreaController::class,
                 'progression' => ProgressionController::class,
                 'types' => TypeController::class,

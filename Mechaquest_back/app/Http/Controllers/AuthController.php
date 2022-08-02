@@ -50,10 +50,6 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-
-        $user->forceFill(['last_used_at' => now()])->save();
-
-
         return response()->json(
             [
                 'access_token' => $token,

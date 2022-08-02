@@ -35,7 +35,7 @@ class UserTest extends TestCase
     {
 
         $response = $this->post('api/login', [
-            'email' => 'lucas8@a.fr',
+            'email' => 'lucas9@a.fr',
             'password' => 'adminadmin'
         ]);
 
@@ -70,7 +70,11 @@ class UserTest extends TestCase
 
     //     $user = User::first();
 
+
     //     if ($user) {
+    //         foreach ($user->robots as $robot) {
+    //             $robot->delete();
+    //         }
     //         $user->delete();
     //     }
 

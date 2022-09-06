@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { View } from "react-native";
+import { View, ScrollView} from "react-native";
 import styles from "../style/SignUpFormStyle"
 import InputWithLabel from "./usable/InputWithLabel";
 import Button from "./usable/Button";
@@ -10,6 +10,33 @@ export default function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [pseudo, setPseudo] = useState("");
     const [email, setEmail] = useState("");
+
+    
+    const register = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/register', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  pseudo: pseudo,
+                  email: email,
+                  password: password,
+                })
+              });
+
+            const json = await response.json();
+            setData(json);
+            console.log(json);
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     function matchPassword(props) {
       const{nativeEvent: {text},} = props;  
@@ -21,6 +48,7 @@ export default function SignUp() {
 
     return(
         <View style={styles.container}>
+        <ScrollView>
         <InputWithLabel label="Pseudo"
                         value={pseudo}
                         onChangeText={setPseudo}
@@ -47,7 +75,7 @@ export default function SignUp() {
 
         <Button buttonLabel="Go to login"
                 route="LogInForm"/>
-        
+        </ScrollView>
         </View>
     );
 }

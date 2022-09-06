@@ -39,6 +39,7 @@ class AreaController extends Controller
         $area = new Area([
             'name' => $request->input('name'),
             'background' => $request->input('background'),
+            'description' => $request->input('description'),
             'number_of_battle' => $request->input('number_of_battle'),
             'reward' => $request->input('reward'),
             'required_stam' => $request->input('required_stam'),

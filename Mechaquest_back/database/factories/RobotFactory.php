@@ -32,6 +32,7 @@ class RobotFactory extends Factory
             'current_xp' => $this->faker->numerify('####'),
             'reward' => $this->faker->numerify('####'),
             'price' => $this->faker->numerify('####'),
+            'description' => $this->faker->sentence(),
         ];
     }
 }

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->integer('current_xp')->default(0);
             $table->integer('reward');
             $table->integer('price');
+            $table->string('description');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -20,6 +20,7 @@ class AreaFactory extends Factory
         return [
             'name' => Str::random(6),
             'background' => Str::random(10),
+            'description' => $this->faker->sentence(),
             'number_of_battle' => $this->faker->numerify('######'),
             'reward' => $this->faker->numerify('######'),
             'required_stam' => $this->faker->numerify('######'),

@@ -11,6 +11,33 @@ export default function SignUp() {
     const [pseudo, setPseudo] = useState("");
     const [email, setEmail] = useState("");
 
+    
+    const register = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/register', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  pseudo: pseudo,
+                  email: email,
+                  password: password,
+                })
+              });
+
+            const json = await response.json();
+            setData(json);
+            console.log(json);
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     function matchPassword(props) {
       const{nativeEvent: {text},} = props;  
 

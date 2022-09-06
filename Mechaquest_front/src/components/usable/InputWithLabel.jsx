@@ -7,7 +7,7 @@ export default function InputWithLabel() {
     return(
         <View>
             <Text style={styles.label}>Test</Text>
-            <TextInput/>
+            <TextInput />
         </View>
     );
 }

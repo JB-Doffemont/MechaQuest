@@ -3,12 +3,11 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   inputsView: {
     padding: 18,
-    backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
   },
   label: {
-    color: "white",
+    color: "black",
     padding: 8,
     fontSize: 18,
   },

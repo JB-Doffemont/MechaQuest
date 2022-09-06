@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { View } from "react-native";
+import { View, ScrollView} from "react-native";
 import styles from "../style/SignUpFormStyle"
 import InputWithLabel from "./usable/InputWithLabel";
 import Button from "./usable/Button";
@@ -21,6 +21,7 @@ export default function SignUp() {
 
     return(
         <View style={styles.container}>
+        <ScrollView>
         <InputWithLabel label="Pseudo"
                         value={pseudo}
                         onChangeText={setPseudo}
@@ -47,7 +48,7 @@ export default function SignUp() {
 
         <Button buttonLabel="Go to login"
                 route="LogInForm"/>
-        
+        </ScrollView>
         </View>
     );
 }

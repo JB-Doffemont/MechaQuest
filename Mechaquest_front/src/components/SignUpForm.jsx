@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { View } from "react-native";
+import styles from "../style/SignUpFormStyle"
 import InputWithLabel from "./usable/InputWithLabel";
+import Button from "./usable/Button";
 
-export default function SignUp() {
+export default function SignUp({navigation}) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [pseudo, setPseudo] = useState("");
@@ -18,7 +20,7 @@ export default function SignUp() {
     }
 
     return(
-        <View>
+        <View style={styles.container}>
         <InputWithLabel label="Pseudo"
                         value={pseudo}
                         onChangeText={setPseudo}
@@ -42,6 +44,9 @@ export default function SignUp() {
                         placeholder="Confirmez votre mot de passe"
                         secureTextEntry
                         />
+
+        <Button buttonLabel="Go to login"
+                route="LogInForm"/>
         
         </View>
     );

@@ -7,14 +7,4 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  logo: {
-    width: 605,
-    height: 359,
-    marginBottom: 10,
-  },
-  title: {
-    color: "#888",
-    fontSize: 58,
-    marginHorizontal: 15,
-  },
 });

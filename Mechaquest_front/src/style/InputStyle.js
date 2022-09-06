@@ -7,11 +7,12 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   label: {
-    color: "black",
+    color: "white",
     padding: 8,
     fontSize: 18,
   },
   input: {
+    borderColor: "white",
     height: 40,
     margin: 12,
     borderWidth: 1,

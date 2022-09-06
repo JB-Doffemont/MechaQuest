@@ -5,7 +5,7 @@ import styles from "../style/SignUpFormStyle"
 import InputWithLabel from "./usable/InputWithLabel";
 import Button from "./usable/Button";
 
-export default function SignUp({navigation}) {
+export default function SignUp() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [pseudo, setPseudo] = useState("");

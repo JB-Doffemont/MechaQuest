@@ -10,7 +10,7 @@ export default function Button({buttonLabel, route}) {
     
     return(
         <View>
-            <TouchableOpacity         onPress={() => navigation.navigate(`${route}`)}
+            <TouchableOpacity         onPress={() => navigation.navigate(`${route}`, {navigation})}
                 style={styles.button}>
             <Text style={styles.button_text}>{buttonLabel}</Text>
             </TouchableOpacity>

@@ -2,19 +2,19 @@ import React from "react";
 import logo from "../assets/logo.png";
 import styles from "../style/StarterScreenStyle"
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import Button from "./usable/Button";
 
 export default function StarterScreen({navigation}) {
     return(
        <View style={styles.container}>
-        <Image source={logo} style={styles.logo} />
-        <TouchableOpacity         onPress={() => navigation.navigate('SignUpForm')}
- style={styles.button}>
-            <Text style={styles.button_text}>S'inscrire</Text>
-        </TouchableOpacity>
-        <TouchableOpacity         onPress={() => navigation.navigate('LogIn')}
- style={styles.button}>
-            <Text style={styles.button_text}>Connexion</Text>
-        </TouchableOpacity>
+        <Image source={logo} style={styles.logo}/>
+       <Button
+       buttonLabel="Inscription"
+       route="SignUpForm"/>
+       <Button
+       buttonLabel="Connexion"
+       route="LogInForm"/>
+   
        </View>
     );
 }

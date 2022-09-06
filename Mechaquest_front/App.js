@@ -16,7 +16,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="StarterScreen" component={StarterScreen} />
         <Stack.Screen
-          name="LogIn"
+          name="LogInForm"
           component={LogInForm}
           options={{ title: "Log-in" }}
         />

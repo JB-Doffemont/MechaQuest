@@ -1,6 +1,4 @@
 import React from "react";
-import { View, Text, TextInput } from "react-native";
-import styles from "./src/style/AppStyle";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -16,7 +14,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="StarterScreen" component={StarterScreen} />
         <Stack.Screen
-          name="LogIn"
+          name="LogInForm"
           component={LogInForm}
           options={{ title: "Log-in" }}
         />

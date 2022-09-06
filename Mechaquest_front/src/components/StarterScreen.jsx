@@ -11,7 +11,7 @@ export default function StarterScreen({navigation}) {
  style={styles.button}>
             <Text style={styles.button_text}>S'inscrire</Text>
         </TouchableOpacity>
-        <TouchableOpacity         onPress={() => navigation.navigate('LogIn')}
+        <TouchableOpacity         onPress={() => navigation.navigate('LogInForm')}
  style={styles.button}>
             <Text style={styles.button_text}>Connexion</Text>
         </TouchableOpacity>

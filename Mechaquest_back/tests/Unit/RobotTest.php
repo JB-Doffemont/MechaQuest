@@ -77,4 +77,24 @@ class RobotTest extends TestCase
         ])
             ->assertStatus(201);
     }
+
+    public function test_success_delete_robot()
+    {
+        $admin = $this->post('api/login', [
+            'email' => 'lucas10@a.fr',
+            'password' => 'adminadmin'
+        ]);
+
+        $admin->assertJsonStructure(
+            [
+                'access_token',
+                'token_type'
+            ]
+        );
+
+        $robot = Robot::find(2);
+        $response = $this->delete('api/robots/' . $robot->id);
+
+        $response->assertStatus(200);
+    }
 }

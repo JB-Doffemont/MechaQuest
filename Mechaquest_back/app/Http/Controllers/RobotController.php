@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Robot;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use PDO;
-use PDOException;
+
 
 class RobotController extends Controller
 {

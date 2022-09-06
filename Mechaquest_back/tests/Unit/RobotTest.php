@@ -45,8 +45,8 @@ class RobotTest extends TestCase
         // Key admin: 38|rtdXRgQE73PsHhDzt1DrYE1YECJY9eZAttodo81v
 
         $response = $this->post('api/login', [
-            'email' => 'lucas9@a.fr',
-            'password' => 'adminadmin'
+            'email' => 'jbABCDE@gmail.com',
+            'password' => '12345678'
         ]);
 
 

@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { TouchableOpacity, Text,  View } from "react-native";
+import { View } from "react-native";
 import styles from "../style/LogInFormStyle";
 import InputWithLabel from "./usable/InputWithLabel";
+import ButtonRequest from "../components/usable/ButtonRequest";
+
 
 
 export default function SignUp(navigator) {
@@ -10,8 +12,7 @@ export default function SignUp(navigator) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [errorEmail, seterrorEmail] = useState("");
-    const [errorPassword, seterrorPassword] = useState("");
+    const [error, seterror] = useState("");
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -32,10 +33,9 @@ export default function SignUp(navigator) {
              const json = await response.json();
              setData(json);
 
-             seterrorEmail(json.email[0]);
-             seterrorPassword(json.password[0]);
+             seterror(json.message);
 
-             console.log(json);
+             console.log(json.message);
            } catch (error) {
              console.error(error);
            } finally {
@@ -55,7 +55,7 @@ export default function SignUp(navigator) {
                 onChangeText={setEmail}
                 placeholder="Entrez votre e-mail"
                 />
-                  {errorEmail && (<p> {errorEmail} </p>)}
+                  {error && (<p> {error} </p>)}
 
             <InputWithLabel 
                 label="Mot de passe"
@@ -64,13 +64,11 @@ export default function SignUp(navigator) {
                 placeholder="Entrez votre mot de passe"
                 secureTextEntry
                 />
-                {errorPassword && (<p> {errorPassword} </p>)}
+                {error && (<p> {error} </p>)}
 
 
-        <TouchableOpacity  onPress={() => getLoginData()}
-         style={styles.button}>
-        <Text style={styles.button_text}>Me Connecter</Text>
-        </TouchableOpacity>
+                <ButtonRequest buttonLabel="Me Connecter"
+                method={getLoginData}/>
         </View>
     );
 }

@@ -9,6 +9,10 @@ export default function SignUp(navigator) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const [errorEmail, seterrorEmail] = useState("");
+    const [errorPassword, seterrorPassword] = useState("");
+
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
@@ -21,20 +25,24 @@ export default function SignUp(navigator) {
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  email: 'a@a1.com',
-                  password: 'adminadmin'
+                  email: email,
+                  password: password,
                 })
               });;
              const json = await response.json();
              setData(json);
+
+             seterrorEmail(json.email[0]);
+             seterrorPassword(json.password[0]);
+
              console.log(json);
            } catch (error) {
              console.error(error);
            } finally {
              setLoading(false);
            }
-           console.log(navigator);
-           navigator.navigation.navigate('SignUpForm');
+           // console.log(navigator);
+          // navigator.navigation.navigate('SignUpForm');
          };
     
   
@@ -47,6 +55,8 @@ export default function SignUp(navigator) {
                 onChangeText={setEmail}
                 placeholder="Entrez votre e-mail"
                 />
+                  {errorEmail && (<p> {errorEmail} </p>)}
+
             <InputWithLabel 
                 label="Mot de passe"
                 value={password}
@@ -54,9 +64,11 @@ export default function SignUp(navigator) {
                 placeholder="Entrez votre mot de passe"
                 secureTextEntry
                 />
-        
+                {errorPassword && (<p> {errorPassword} </p>)}
+
+
         <TouchableOpacity  onPress={() => getLoginData()}
-         style={styles.button} >
+         style={styles.button}>
         <Text style={styles.button_text}>Me Connecter</Text>
         </TouchableOpacity>
         </View>

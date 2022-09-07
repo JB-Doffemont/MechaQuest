@@ -7,4 +7,12 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+  error: {
+    color: "white",
+  },
+
+  red: {
+    color: "red",
+  },
 });

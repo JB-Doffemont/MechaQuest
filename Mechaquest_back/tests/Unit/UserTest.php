@@ -25,10 +25,12 @@ class UserTest extends TestCase
         ]);
 
         $user->assertJsonStructure([
-            'pseudo',
-            'email'
+            [
+                'pseudo',
+                'email'
+            ]
         ])
-            ->assertStatus(201);
+            ->assertStatus(200);
     }
 
     public function test_if_user_not_registered_pseudo_invalid()

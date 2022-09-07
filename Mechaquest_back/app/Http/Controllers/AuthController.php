@@ -26,14 +26,15 @@ class AuthController extends Controller
         // Récupération des entrées validées
         $validatedData = $validated->validated();
 
-
         $user = User::create([
             'pseudo' => $validatedData['pseudo'],
             'email' => $validatedData['email'],
             'password' => $validatedData['password'],
         ]);
 
-        return response()->json($user, 201);
+
+
+        return response()->json([$user, 'status_code' => 200]);
     }
 
     public function login(Request $request)

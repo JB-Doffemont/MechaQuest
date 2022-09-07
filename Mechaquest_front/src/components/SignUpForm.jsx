@@ -3,7 +3,7 @@ import { useState } from "react";
 import { View, ScrollView} from "react-native";
 import styles from "../style/SignUpFormStyle"
 import InputWithLabel from "./usable/InputWithLabel";
-import Button from "./usable/Button";
+import Button from "./usable/ButtonRedirect";
 
 export default function SignUp() {
     const [password, setPassword] = useState("");
@@ -39,7 +39,7 @@ export default function SignUp() {
     }
 
     function matchPassword(props) {
-      const{nativeEvent: {text},} = props;  
+      const{nativeEvent: {text}} = props;  
 
       if(text !== password) {
         alert("Le mot de passe et la confirmation doivent être identiques !")

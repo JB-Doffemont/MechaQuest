@@ -3,13 +3,15 @@ import { useState } from "react";
 import { View, ScrollView} from "react-native";
 import styles from "../style/SignUpFormStyle"
 import InputWithLabel from "./usable/InputWithLabel";
-import Button from "./usable/ButtonRedirect";
+import ButtonRequest from "../components/usable/ButtonRequest";
 
-export default function SignUp() {
+export default function SignUp(navigator) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [pseudo, setPseudo] = useState("");
     const [email, setEmail] = useState("");
+    const [data, setData] = useState([]);
+    const [isLoading, setLoading] = useState(true);
 
     
     const register = async () => {
@@ -29,7 +31,13 @@ export default function SignUp() {
 
             const json = await response.json();
             setData(json);
-            console.log(json);
+
+            if (json.status_code == 200) {
+                navigator.navigation.navigate('LogInForm');
+            }
+            
+
+
 
         } catch (error) {
             console.error(error);
@@ -73,8 +81,8 @@ export default function SignUp() {
                         secureTextEntry
                         />
 
-        <Button buttonLabel="Go to login"
-                route="LogInForm"/>
+        <ButtonRequest buttonLabel="Valider"
+                method={register}/>
         </ScrollView>
         </View>
     );

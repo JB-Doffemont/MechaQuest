@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../assets/logo.png";
 import styles from "../style/StarterScreenStyle"
 import { Image, View } from "react-native";
-import Button from "./usable/Button";
+import Button from "./usable/ButtonRedirect";
 
 export default function StarterScreen() {
     return(

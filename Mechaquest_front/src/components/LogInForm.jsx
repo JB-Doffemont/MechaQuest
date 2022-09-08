@@ -7,17 +7,19 @@ import ButtonRequest from "../components/usable/ButtonRequest";
 
 
 
-export default function SignUp(navigator) {
+export default function LogIn(navigator) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [error, setError] = useState("");
+    const [errorEmail, setErrorEmail] = useState("");
+    const [errorPassword, setErrorPassword] = useState("");
+
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 
-    const getLoginData = async () => {
+    const LoginData = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/login', {
                 method: 'POST',
@@ -33,7 +35,8 @@ export default function SignUp(navigator) {
              const json = await response.json();
              setData(json);
 
-             setError(json.message);
+             setErrorEmail(json.email);
+             setErrorPassword(json.password);
 
            } catch (error) {
              console.error(error);
@@ -52,7 +55,7 @@ export default function SignUp(navigator) {
                 onChangeText={setEmail}
                 placeholder="Entrez votre e-mail"
                 />
-                 <Text> {error && (<p> {error} </p>)} </Text>
+                 <Text> {errorEmail && (<p> {errorEmail} </p>)} </Text>
 
             <InputWithLabel 
                 label="Mot de passe"
@@ -61,11 +64,11 @@ export default function SignUp(navigator) {
                 placeholder="Entrez votre mot de passe"
                 secureTextEntry
                 />
-                 <Text> {error && (<p> {error} </p>)} </Text>
+                 <Text> {errorPassword && (<p> {errorPassword} </p>)} </Text>
 
 
                 <ButtonRequest buttonLabel="Connexion"
-                method={getLoginData}/>
+                method={LoginData}/>
         </View>
     );
 }

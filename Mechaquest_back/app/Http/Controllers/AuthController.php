@@ -47,7 +47,8 @@ class AuthController extends Controller
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
-                'message' => 'Identifiant invalide.'
+                'email' => 'L\'email n\'est pas valide.',
+                'password' => 'Le mot de passe n\'est pas valide.',
             ], 401);
         }
 

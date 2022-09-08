@@ -20,7 +20,13 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
         ]);
         if ($validated->fails()) {
-            return response()->json($validated->errors(), 422);
+            return response()->json([
+                'pseudo' => 'Le pseudo ne peut contenir que des lettres et des chiffres.',
+                'email' => 'L\'email doit être une adresse valide.',
+                'password' => 'Le mot de passe doit contenir au moins 8 caractères.'
+
+            ], 422);
+            //return response()->json($validated->errors(), 422);
         }
 
         // Récupération des entrées validées

@@ -64,7 +64,7 @@ export default function SignUp(navigator) {
                  <Text> {error && (<p> {error} </p>)} </Text>
 
 
-                <ButtonRequest buttonLabel="Me Connecter"
+                <ButtonRequest buttonLabel="Connexion"
                 method={getLoginData}/>
         </View>
     );

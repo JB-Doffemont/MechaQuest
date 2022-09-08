@@ -7,6 +7,9 @@ export default StyleSheet.create({
     borderRadius: 5,
     transition: 0.5,
     color: "#41403E",
+    width: 150,
+    textAlign: "center",
+    margin: 15,
     // font-size:2rem;
     // letter-spacing:1px;
     // outline:none;

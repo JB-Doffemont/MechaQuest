@@ -19,4 +19,8 @@ export default StyleSheet.create({
     padding: 10,
     color: "white",
   },
+
+  error: {
+    color: "red",
+  },
 });

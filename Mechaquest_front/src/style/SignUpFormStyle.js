@@ -6,13 +6,6 @@ export default StyleSheet.create({
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
-  },
-
-  error: {
-    color: "white",
-  },
-
-  red: {
-    color: "red",
+    textAlign: "center",
   },
 });

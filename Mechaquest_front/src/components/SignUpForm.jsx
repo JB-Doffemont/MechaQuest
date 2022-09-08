@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { View, ScrollView} from "react-native";
-import styles from "../style/SignUpFormStyle"
+import { View, ScrollView, Text} from "react-native";
+import styles from "../style/SignUpFormStyle";
+import inputStyle from "../style/InputStyle";
 import InputWithLabel from "./usable/InputWithLabel";
 import ButtonRequest from "../components/usable/ButtonRequest";
 
@@ -18,7 +19,7 @@ export default function SignUp(navigator) {
 
 
     const [data, setData] = useState([]);
-    const [isLoading, setLoading] = useState(true);
+   
 
     
     const register = async () => {
@@ -43,7 +44,6 @@ export default function SignUp(navigator) {
             setErrorPseudo(json.pseudo[0]);
             setErrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
 
-            console.log(json.email[0]);
 
             if (json.status_code == 200) {
                 navigator.navigation.navigate('LogInForm');
@@ -51,9 +51,7 @@ export default function SignUp(navigator) {
 
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
-        }
+        } 
     }
 
     return(
@@ -64,14 +62,22 @@ export default function SignUp(navigator) {
                         onChangeText={setPseudo}
                         placeholder="Entrez votre pseudo"
                         />
-        {errorPseudo && (<p> {errorPseudo} </p>)}
+       
+        <Text style={inputStyle.error}>
+            {errorPseudo && (<p> {errorPseudo} </p>)}
+        </Text>
+      
+        
 
         <InputWithLabel label="Email"
                         value={email}
                         onChangeText={setEmail}
                         placeholder="Entrez votre e-mail"
                         />
-        {errorEmail && (<p> {errorEmail} </p>)}
+        <Text style={inputStyle.error}>
+            {errorEmail && (<p> {errorEmail} </p>)}
+        </Text>
+       
 
         <InputWithLabel label="Mot de passe"
                         value={password}
@@ -79,7 +85,10 @@ export default function SignUp(navigator) {
                         placeholder="Entrez votre mot de passe"
                         secureTextEntry
                         />
-        {errorPassword && (<p> {errorPassword} </p>)}
+        <Text style={inputStyle.error}>
+            {errorPassword && (<p> {errorPassword} </p>)}
+        </Text>
+        
 
         <InputWithLabel label="Confirmation"
                         value={confirmPassword}
@@ -87,10 +96,15 @@ export default function SignUp(navigator) {
                         placeholder="Confirmez votre mot de passe"
                         secureTextEntry
                         />
-        {errorConfirmPassword && (<p> {errorConfirmPassword} </p>)}
-
+        <Text style={inputStyle.error}>
+            {errorConfirmPassword && (<p> {errorConfirmPassword} </p>)}
+        </Text>
+        
+       <View style={{alignItems:"center"}}>
         <ButtonRequest buttonLabel="Valider"
-                method={register}/>
+                method={register} />
+        </View>
+       
         </ScrollView>
         </View>
     );

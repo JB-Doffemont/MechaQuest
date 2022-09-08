@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { View, ScrollView} from "react-native";
+import { View, ScrollView, Text} from "react-native";
 import styles from "../style/SignUpFormStyle"
 import InputWithLabel from "./usable/InputWithLabel";
 import ButtonRequest from "../components/usable/ButtonRequest";
@@ -62,14 +62,14 @@ export default function SignUp(navigator) {
                         onChangeText={setPseudo}
                         placeholder="Entrez votre pseudo"
                         />
-        {errorPseudo && (<p> {errorPseudo} </p>)}
+        <Text>{errorPseudo && (<p> {errorPseudo} </p>)} </Text>
 
         <InputWithLabel label="Email"
                         value={email}
                         onChangeText={setEmail}
                         placeholder="Entrez votre e-mail"
                         />
-        {errorEmail && (<p> {errorEmail} </p>)}
+        <Text>{errorEmail && (<p> {errorEmail} </p>)}</Text>
 
         <InputWithLabel label="Mot de passe"
                         value={password}
@@ -77,7 +77,7 @@ export default function SignUp(navigator) {
                         placeholder="Entrez votre mot de passe"
                         secureTextEntry
                         />
-        {errorPassword && (<p> {errorPassword} </p>)}
+        <Text>{errorPassword && (<p> {errorPassword} </p>)}</Text>
 
         <InputWithLabel label="Confirmation"
                         value={confirmPassword}
@@ -85,7 +85,7 @@ export default function SignUp(navigator) {
                         placeholder="Confirmez votre mot de passe"
                         secureTextEntry
                         />
-        {errorConfirmPassword && (<p> {errorConfirmPassword} </p>)}
+        <Text>{errorConfirmPassword && (<p> {errorConfirmPassword} </p>)}</Text>
 
         <ButtonRequest buttonLabel="Valider"
                 method={register}/>

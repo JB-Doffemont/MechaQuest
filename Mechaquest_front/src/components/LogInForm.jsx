@@ -35,7 +35,6 @@ export default function SignUp(navigator) {
 
              setError(json.message);
 
-             console.log(json);
            } catch (error) {
              console.error(error);
            } finally {

@@ -43,8 +43,6 @@ export default function SignUp(navigator) {
             setErrorPseudo(json.pseudo);
             setErrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
 
-            console.log(json);
-
             if (json.status_code == 200) {
                 navigator.navigation.navigate('LogInForm');
             }

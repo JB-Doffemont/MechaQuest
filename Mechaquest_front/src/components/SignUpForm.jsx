@@ -39,13 +39,14 @@ export default function SignUp(navigator) {
 
             const json = await response.json();
             setData(json);
-            setErrorEmail(json.email);
-            setErrorPassword(json.password);
-            setErrorPseudo(json.pseudo);
-            setErrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
 
             if (json.status_code == 200) {
                 navigator.navigation.navigate('LogInForm');
+            } else {
+                setErrorEmail(json.email);
+                setErrorPassword(json.password);
+                setErrorPseudo(json.pseudo);
+                setErrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
             }
 
         } catch (error) {

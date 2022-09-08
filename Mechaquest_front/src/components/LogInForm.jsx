@@ -2,22 +2,22 @@ import React from "react";
 import { useState } from "react";
 import { View, Text } from "react-native";
 import styles from "../style/LogInFormStyle";
+import inputStyle from "../style/InputStyle";
 import InputWithLabel from "./usable/InputWithLabel";
 import ButtonRequest from "../components/usable/ButtonRequest";
 
 
 
-export default function SignUp(navigator) {
+export default function LogIn(navigator) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [error, setError] = useState("");
 
-    const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
 
-    const getLoginData = async () => {
+    const loginData = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/login', {
                 method: 'POST',
@@ -33,13 +33,18 @@ export default function SignUp(navigator) {
              const json = await response.json();
              setData(json);
 
-             setError(json.message);
-
+             if (json.status_code == 200) {
+              navigator.navigation.navigate('IntroScreen');
+          } else {
+            setError(json.message);
+          }
+             
            } catch (error) {
-             console.error(error);
+          
+            console.error(error);
            } 
-           // console.log(navigator);
-          // navigator.navigation.navigate('SignUpForm');
+          
+          
          };
     
   
@@ -52,7 +57,7 @@ export default function SignUp(navigator) {
                 onChangeText={setEmail}
                 placeholder="Entrez votre e-mail"
                 />
-                 <Text> {error && (<p> {error} </p>)} </Text>
+                 <Text style={inputStyle.error}> {error && (<p> {error}  </p>)} </Text>
 
             <InputWithLabel 
                 label="Mot de passe"
@@ -61,11 +66,11 @@ export default function SignUp(navigator) {
                 placeholder="Entrez votre mot de passe"
                 secureTextEntry
                 />
-                 <Text> {error && (<p> {error} </p>)} </Text>
+                 <Text style={inputStyle.error}> {error && (<p> {error} </p>)} </Text>
 
 
                 <ButtonRequest buttonLabel="Connexion"
-                method={getLoginData}/>
+                method={loginData}/>
         </View>
     );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import styles from "../style/LogInFormStyle";
 import InputWithLabel from "./usable/InputWithLabel";
 import ButtonRequest from "../components/usable/ButtonRequest";
@@ -35,12 +35,9 @@ export default function SignUp(navigator) {
 
              setError(json.message);
 
-             console.log(json);
            } catch (error) {
              console.error(error);
-           } finally {
-             setLoading(false);
-           }
+           } 
            // console.log(navigator);
           // navigator.navigation.navigate('SignUpForm');
          };
@@ -55,7 +52,7 @@ export default function SignUp(navigator) {
                 onChangeText={setEmail}
                 placeholder="Entrez votre e-mail"
                 />
-                  {error && (<p> {error} </p>)}
+                 <Text> {error && (<p> {error} </p>)} </Text>
 
             <InputWithLabel 
                 label="Mot de passe"
@@ -64,7 +61,7 @@ export default function SignUp(navigator) {
                 placeholder="Entrez votre mot de passe"
                 secureTextEntry
                 />
-                {error && (<p> {error} </p>)}
+                 <Text> {error && (<p> {error} </p>)} </Text>
 
 
                 <ButtonRequest buttonLabel="Me Connecter"

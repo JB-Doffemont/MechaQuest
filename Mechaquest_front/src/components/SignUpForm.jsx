@@ -11,10 +11,10 @@ export default function SignUp(navigator) {
     const [pseudo, setPseudo] = useState("");
     const [email, setEmail] = useState("");
 
-    const [errorEmail, seterrorEmail] = useState('');
-    const [errorPassword, seterrorPassword] = useState('');
-    const [errorPseudo, seterrorPseudo] = useState('');
-    const [errorConfirmPassword, seterrorConfirmPassword] = useState('');
+    const [errorEmail, setErrorEmail] = useState('');
+    const [errorPassword, setErrorPassword] = useState('');
+    const [errorPseudo, setErrorPseudo] = useState('');
+    const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
 
 
     const [data, setData] = useState([]);
@@ -38,10 +38,10 @@ export default function SignUp(navigator) {
 
             const json = await response.json();
             setData(json);
-            seterrorEmail(json.email[0]);
-            seterrorPassword(json.password[0]);
-            seterrorPseudo(json.pseudo[0]);
-            seterrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
+            setErrorEmail(json.email[0]);
+            setErrorPassword(json.password[0]);
+            setErrorPseudo(json.pseudo[0]);
+            setErrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
 
             console.log(json.email[0]);
 
@@ -54,14 +54,6 @@ export default function SignUp(navigator) {
         } finally {
             setLoading(false);
         }
-    }
-
-    function matchPassword(props) {
-      const{nativeEvent: {text}} = props;  
-
-      if(text !== password) {
-        alert("Le mot de passe et la confirmation doivent être identiques !")
-      }
     }
 
     return(
@@ -92,7 +84,6 @@ export default function SignUp(navigator) {
         <InputWithLabel label="Confirmation"
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}
-                        onSubmitEditing={matchPassword}
                         placeholder="Confirmez votre mot de passe"
                         secureTextEntry
                         />

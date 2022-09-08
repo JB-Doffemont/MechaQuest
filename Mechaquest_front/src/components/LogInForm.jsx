@@ -12,7 +12,7 @@ export default function SignUp(navigator) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [error, seterror] = useState("");
+    const [error, setError] = useState("");
 
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
@@ -33,9 +33,9 @@ export default function SignUp(navigator) {
              const json = await response.json();
              setData(json);
 
-             seterror(json.message);
+             setError(json.message);
 
-             console.log(json.message);
+             console.log(json);
            } catch (error) {
              console.error(error);
            } finally {

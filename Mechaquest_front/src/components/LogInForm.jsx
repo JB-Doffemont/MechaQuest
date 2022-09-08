@@ -13,7 +13,9 @@ export default function LogIn(navigator) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [error, setError] = useState("");
+    const [errorEmail, setErrorEmail] = useState("");
+    const [errorPassword, setErrorPassword] = useState("");
+
 
     const [data, setData] = useState({});
 
@@ -36,7 +38,8 @@ export default function LogIn(navigator) {
              if (json.status_code == 200) {
               navigator.navigation.navigate('IntroScreen');
           } else {
-            setError(json.message);
+            setErrorEmail(json.email);
+             setErrorPassword(json.password);
           }
              
            } catch (error) {
@@ -57,7 +60,7 @@ export default function LogIn(navigator) {
                 onChangeText={setEmail}
                 placeholder="Entrez votre e-mail"
                 />
-                 <Text style={inputStyle.error}> {error && (<p> {error}  </p>)} </Text>
+                 <Text style={inputStyle.error}> {errorEmail && (<p> {errorEmail}  </p>)} </Text>
 
             <InputWithLabel 
                 label="Mot de passe"
@@ -66,7 +69,7 @@ export default function LogIn(navigator) {
                 placeholder="Entrez votre mot de passe"
                 secureTextEntry
                 />
-                 <Text style={inputStyle.error}> {error && (<p> {error} </p>)} </Text>
+                 <Text style={inputStyle.error}> {errorPassword && (<p> {errorPassword} </p>)} </Text>
 
 
                 <ButtonRequest buttonLabel="Connexion"

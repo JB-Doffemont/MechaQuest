@@ -47,7 +47,8 @@ class AuthController extends Controller
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
-                'message' => 'Identifiant invalide.'
+                'email' => 'L\'email n\'est pas valide.',
+                'password' => 'Le mot de passe n\'est pas valide.',
             ], 401);
         }
 
@@ -59,6 +60,7 @@ class AuthController extends Controller
             [
                 'access_token' => $token,
                 'token_type' => 'Bearer',
+                'status_code' => 200
             ]
         );
     }

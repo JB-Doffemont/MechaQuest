@@ -9,12 +9,10 @@ import logo from "../assets/logo.png";
 import styles from "../style/StarterScreenStyle"
 import { Image, View } from "react-native";
 
-export default function StarterScreen() {
+export default function PreStarterScreen() {
     return(
        <View style={styles.container}>
-        <Image source={logo} style={styles.logo}/>
-      
-   
+            <Image source={logo} style={styles.logo}/>
        </View>
     );
 }

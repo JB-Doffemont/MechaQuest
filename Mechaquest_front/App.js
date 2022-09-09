@@ -4,7 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SignUpForm from "./src/components/SignUpForm";
 import LogInForm from "./src/components/LogInForm";
-import StarterScreen from "./src/components/StarterScreenCo";
+import PreStarterScreen from "./src/components/PreStarterScreen";
+import StarterScreen from "./src/components/StarterScreen";
 import IntroScreen from "./src/components/IntroScreen";
 
 /**
@@ -17,6 +18,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="PreStarterScreen" component={PreStarterScreen} />
         <Stack.Screen name="StarterScreen" component={StarterScreen} />
         <Stack.Screen
           name="LogInForm"

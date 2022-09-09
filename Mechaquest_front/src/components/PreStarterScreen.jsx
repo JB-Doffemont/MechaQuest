@@ -7,12 +7,16 @@
 import React from "react";
 import logo from "../assets/logo.png";
 import styles from "../style/StarterScreenStyle"
-import { Image, View } from "react-native";
+import { Image, View, ActivityIndicator } from "react-native";
+import { AntDesign } from '@expo/vector-icons'; 
 
 export default function PreStarterScreen() {
+
+    //const token = await AsyncStorage.getItem('access_token');
     return(
        <View style={styles.container}>
             <Image source={logo} style={styles.logo}/>
+            <ActivityIndicator size="large" color="#61FFF5" />
        </View>
     );
 }

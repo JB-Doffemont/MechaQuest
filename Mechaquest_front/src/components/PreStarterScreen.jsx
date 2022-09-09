@@ -6,10 +6,30 @@
 
 import React from "react";
 import logo from "../assets/logo.png";
-import styles from "../style/StarterScreenStyle"
+import styles from "../style/StarterScreenStyle";
+import { useEffect } from "react";
 import { Image, View } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function PreStarterScreen() {
+    async function redirection () {
+        const token = await AsyncStorage.getItem('access_token');
+        console.log(token);
+
+        if(token) {
+            console.log('bonjour');
+        }
+    }
+
+    useEffect(() => {
+
+     redirection();
+      }, []);
+
+
+    // useEffect(() => {
+    //     function redirection();
+    //     }, [])
     return(
        <View style={styles.container}>
             <Image source={logo} style={styles.logo}/>

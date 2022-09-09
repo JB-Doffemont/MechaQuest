@@ -7,6 +7,10 @@ import LogInForm from "./src/components/LogInForm";
 import StarterScreen from "./src/components/StarterScreen";
 import IntroScreen from "./src/components/IntroScreen";
 
+/**
+ * Mon Ip préférée : http://192.168.43.192:8000
+ */
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {

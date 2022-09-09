@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SignUpForm from "./src/components/SignUpForm";
 import LogInForm from "./src/components/LogInForm";
-import StarterScreen from "./src/components/StarterScreen";
+import StarterScreen from "./src/components/StarterScreenCo";
 import IntroScreen from "./src/components/IntroScreen";
 
 /**

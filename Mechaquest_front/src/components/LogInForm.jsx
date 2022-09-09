@@ -21,7 +21,9 @@ export default function LogIn(navigator) {
 
     const loginData = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/login', {
+            const response = await fetch('http://172.20.10.7:8000/api/login', {
+            // Pour se connecter, ne pas oublier php artisan serve avec le bon host  http://172.20.10.7:19000/api/login
+            // localhost pc http://127.0.0.1:8000/api/login
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',
@@ -60,7 +62,7 @@ export default function LogIn(navigator) {
                 onChangeText={setEmail}
                 placeholder="Entrez votre e-mail"
                 />
-                 <Text style={inputStyle.error}> {errorEmail && (<p> {errorEmail}  </p>)} </Text>
+                 <Text style={inputStyle.error}> {errorEmail && (<Text> {errorEmail}  </Text>)} </Text>
 
             <InputWithLabel 
                 label="Mot de passe"
@@ -69,7 +71,7 @@ export default function LogIn(navigator) {
                 placeholder="Entrez votre mot de passe"
                 secureTextEntry
                 />
-                 <Text style={inputStyle.error}> {errorPassword && (<p> {errorPassword} </p>)} </Text>
+                 <Text style={inputStyle.error}> {errorPassword && (<Text> {errorPassword} </Text>)} </Text>
 
 
                 <ButtonRequest buttonLabel="Connexion"

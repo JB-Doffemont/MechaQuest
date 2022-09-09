@@ -24,7 +24,10 @@ export default function SignUp(navigator) {
     
     const register = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/register', {
+            const response = await fetch('http://172.20.10.7:8000/api/register', {
+                // portable 4G http://172.20.10.7:8000/api/register
+                // Local host ordi: http://127.0.0.1:8000/api/register
+                
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',
@@ -64,7 +67,7 @@ export default function SignUp(navigator) {
                         />
        
         <Text style={inputStyle.error}>
-            {errorPseudo && (<p> {errorPseudo} </p>)}
+            {errorPseudo && (<Text> {errorPseudo} </Text>)}
         </Text>
       
         
@@ -75,7 +78,7 @@ export default function SignUp(navigator) {
                         placeholder="Entrez votre e-mail"
                         />
         <Text style={inputStyle.error}>
-            {errorEmail && (<p> {errorEmail} </p>)}
+            {errorEmail && (<Text> {errorEmail} </Text>)}
         </Text>
        
 
@@ -86,7 +89,7 @@ export default function SignUp(navigator) {
                         secureTextEntry
                         />
         <Text style={inputStyle.error}>
-            {errorPassword && (<p> {errorPassword} </p>)}
+            {errorPassword && (<Text> {errorPassword} </Text>)}
         </Text>
         
 
@@ -97,7 +100,7 @@ export default function SignUp(navigator) {
                         secureTextEntry
                         />
         <Text style={inputStyle.error}>
-            {errorConfirmPassword && (<p> {errorConfirmPassword} </p>)}
+            {errorConfirmPassword && (<Text> {errorConfirmPassword} </Text>)}
         </Text>
         
        <View style={{alignItems:"center"}}>

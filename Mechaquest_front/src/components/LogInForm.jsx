@@ -39,11 +39,12 @@ export default function LogIn(navigator) {
              setData(json);
 
              if (json.status_code == 200) {
+              console.log(json);
               await AsyncStorage.setItem('access_token', json.access_token);
+              await AsyncStorage.setItem('email', email);
 
               // const value = await AsyncStorage.getItem('access_token');
 
-              // console.log(value);
               navigator.navigation.navigate('IntroScreen');
              
           } else {

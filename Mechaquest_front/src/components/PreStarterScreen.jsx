@@ -4,30 +4,32 @@
 - Si pas de présence du token, doit renvoyer sur le "Starter Screen Unco" pour permettre de s'enregistrer ou de se connecter (if getItem == null)
  */
 
-import React from "react";
+
 import logo from "../assets/logo.png";
 import styles from "../style/StarterScreenStyle";
 import { useEffect } from "react";
+import React, { useState } from "react";
 import { Image, View } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function PreStarterScreen(navigator) {
+    const [user, setUser] = useState([]);
+    const token = AsyncStorage.getItem('access_token');
+
     function redirection () {
         // const token = await AsyncStorage.getItem('access_token');
         getUser();
         
-
-        // if(!token) {
-        //     navigator.navigation.navigate('IntroScreen');
-        // }
-        
-
-        // if(token) {
-        //     console.log('bonjour');
-        // }
+        if(token && user.first_connexion == 1) {
+            navigator.navigation.navigate('HomeScreen');
+        }
+        else if(token && user.first_connexion == 0) {
+            navigator.navigation.navigate('TutorialScreen');
+         } else {
+            navigator.navigation.navigate('StarterScreen');
+         }
     }
 
-    
     const getUser = async () => {
         try {
         const userEmail = await AsyncStorage.getItem('email');
@@ -44,8 +46,9 @@ export default function PreStarterScreen(navigator) {
               });
          
           const json = await response.json();
-         
-          console.log(json);
+              
+         setUser(json[0]);
+          
         } catch (error) {
           console.error(error);
         }

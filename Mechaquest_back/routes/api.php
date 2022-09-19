@@ -8,8 +8,6 @@ use App\Http\Controllers\ProgressionController;
 use App\Http\Controllers\RobotController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
-use App\Models\Robot;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*

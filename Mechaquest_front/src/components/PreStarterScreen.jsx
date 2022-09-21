@@ -16,47 +16,41 @@ export default function PreStarterScreen(navigator) {
     const [user, setUser] = useState([]);
     const token = AsyncStorage.getItem('access_token');
 
-    function redirection () {
-        // const token = await AsyncStorage.getItem('access_token');
-        getUser();
-        
         if(token && user.first_connexion == 1) {
             navigator.navigation.navigate('HomeScreen');
         }
         else if(token && user.first_connexion == 0) {
-            navigator.navigation.navigate('TutorialScreen');
+            navigator.navigation.navigate('IntroScreen');
+            console.log("bonjour");
          } else {
             navigator.navigation.navigate('StarterScreen');
          }
-    }
-
-    const getUser = async () => {
-        try {
-        const userEmail = await AsyncStorage.getItem('email');
-       
-          const response = await fetch(
-            `http://192.168.43.192:8000/api/users/${userEmail}`, {
-                method: 'GET',
-                // mode: 'no-cors',
-                headers: {
-                    "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',  
-                },
-              });
-         
-          const json = await response.json();
-              
-         setUser(json[0]);
-          
-        } catch (error) {
-          console.error(error);
-        }
-      };
 
     useEffect(() => {
-
-     redirection();
+        const getUser = async () => {
+            try {
+            const userEmail = await AsyncStorage.getItem('email');
+           
+              const response = await fetch(
+                `http://192.168.43.192:8000/api/users/${userEmail}`, {
+                    method: 'GET',
+                    // mode: 'no-cors',
+                    headers: {
+                        "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',  
+                    },
+                  });
+             
+              const json = await response.json();
+                  
+              setUser(json[0]);
+              
+            } catch (error) {
+              console.error(error);
+            }
+          };
+     getUser();
       }, []);
 
     return(

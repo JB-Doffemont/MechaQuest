@@ -14,45 +14,56 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function PreStarterScreen(navigator) {
     const [user, setUser] = useState([]);
-    const token = AsyncStorage.getItem('access_token');
-
-        if(token && user.first_connexion == 1) {
-            navigator.navigation.navigate('HomeScreen');
-        }
-        else if(token && user.first_connexion == 0) {
-            navigator.navigation.navigate('IntroScreen');
-            console.log("bonjour");
-         } else {
-            navigator.navigation.navigate('StarterScreen');
-         }
+    const [token, setToken] = useState("");
+    console.log(token);
 
     useEffect(() => {
-        const getUser = async () => {
-            try {
-            const userEmail = await AsyncStorage.getItem('email');
-           
-              const response = await fetch(
-                `http://192.168.43.192:8000/api/users/${userEmail}`, {
-                    method: 'GET',
-                    // mode: 'no-cors',
-                    headers: {
-                        "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',  
-                    },
-                  });
-             
-              const json = await response.json();
-                  
-              setUser(json[0]);
-              
-            } catch (error) {
-              console.error(error);
-            }
-          };
-     getUser();
+            const getUser = async () => {
+                try {
+                const userEmail = await AsyncStorage.getItem('email');
+                console.log(userEmail);
+                const token = await AsyncStorage.getItem('access_token');
+                console.log(token);
+
+                if(!token && !userEmail) {
+                    navigator.navigation.navigate('StarterScreen');
+                } 
+                  const response = await fetch(
+                    `http://192.168.43.192:8000/api/users/${userEmail}`, {
+                        method: 'GET',
+                        // mode: 'no-cors',
+                        headers: {
+                            "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',  
+                        },
+                      });
+                 
+                  const json = await response.json();
+                      
+                  setUser(json[0]);
+                  setToken(token);
+
+                } catch (error) {
+                  console.error(error);
+                }
+              };
+            getUser();
+
+          
       }, []);
 
+      if(token && user.first_connexion == 0) {
+        navigator.navigation.navigate('IntroScreen');
+       
+      } 
+      else if (token && user.first_connexion == 1) {
+        //   navigator.navigation.navigate('HomeScreen');
+         console.log('Ca fonctionne bébé');
+      }
+
+     
+    
     return(
        <View style={styles.container}>
             <Image source={logo} style={styles.logo}/>

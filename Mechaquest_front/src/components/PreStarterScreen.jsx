@@ -28,32 +28,30 @@ export default function PreStarterScreen(navigator) {
                 const token = await AsyncStorage.getItem('access_token');
                 console.log(token);
 
-                if(!token && !userEmail) {
+                if(!token) {
                     navigator.navigation.navigate('StarterScreen');
-                } 
-                  const response = await fetch(
-                    `http://192.168.43.192:8000/api/users/${userEmail}`, {
-                        method: 'GET',
-                        // mode: 'no-cors',
-                        headers: {
-                            "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json',  
-                        },
-                      });
-                 
-                  const json = await response.json();
-                      
-                  setUser(json[0]);
-                  setToken(token);
-
+                } else {
+                    const response = await fetch(
+                        `http://192.168.43.192:8000/api/users/${userEmail}`, {
+                            method: 'GET',
+                            // mode: 'no-cors',
+                            headers: {
+                                "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+                                Accept: 'application/json',
+                                'Content-Type': 'application/json',  
+                            },
+                        });
+                        
+                        const json = await response.json();
+                        
+                        setUser(json[0]);
+                        setToken(token);
+                    }
                 } catch (error) {
                   console.error(error);
                 }
               };
             getUser();
-
-          
       }, []);
 
       if(token && user.first_connexion == 0) {

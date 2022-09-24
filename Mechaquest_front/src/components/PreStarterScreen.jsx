@@ -32,7 +32,8 @@ export default function PreStarterScreen(navigator) {
                     navigator.navigation.navigate('StarterScreen');
                 } else {
                     const response = await fetch(
-                        `http://192.168.43.192:8000/api/users/${userEmail}`, {
+                        `http://127.0.0.1:8000/api/users/${userEmail}`, {
+                          // http://127.0.0.1:8000/api/users/${userEmail}
                             method: 'GET',
                             // mode: 'no-cors',
                             headers: {
@@ -51,17 +52,22 @@ export default function PreStarterScreen(navigator) {
                   console.error(error);
                 }
               };
+              
             getUser();
-      }, []);
 
-      if(token && user.first_connexion == 0) {
-        navigator.navigation.navigate('IntroScreen');
-       
-      } 
-      else if (token && user.first_connexion == 1) {
-        //   navigator.navigation.navigate('HomeScreen');
-         console.log('Ca fonctionne bébé');
-      }
+            if(token && user.first_connexion == 0) {
+              navigator.navigation.navigate('IntroScreen');
+             
+            } 
+            else if (token && user.first_connexion == 1) {
+              //   navigator.navigation.navigate('HomeScreen');
+               console.log('Ca fonctionne bébé');
+            }
+          
+            
+      }, [token]);
+    
+    
 
      
     
@@ -71,4 +77,6 @@ export default function PreStarterScreen(navigator) {
             <ActivityIndicator size="large" color="#61FFF5" />
        </View>
     );
+
+    
 }

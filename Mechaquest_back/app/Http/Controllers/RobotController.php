@@ -16,7 +16,7 @@ class RobotController extends Controller
      */
     public function index()
     {
-        $robot = Robot::all();
+        $robot = Robot::where("user_email", null)->get();
 
         return response()->json($robot);
     }

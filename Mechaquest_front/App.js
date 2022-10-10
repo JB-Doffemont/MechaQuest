@@ -7,6 +7,7 @@ import LogInForm from "./src/components/LogInForm";
 import PreStarterScreen from "./src/components/PreStarterScreen";
 import StarterScreen from "./src/components/StarterScreen";
 import IntroScreen from "./src/components/IntroScreen";
+import RobotChoice from "./src/components/RobotChoice";
 
 /**
  * Mon Ip préférée : http://192.168.43.192:8000
@@ -18,6 +19,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        {/* <Stack.Screen name="RobotChoice" component={RobotChoice} /> */}
         <Stack.Screen name="PreStarterScreen" component={PreStarterScreen} />
         <Stack.Screen name="StarterScreen" component={StarterScreen} />
         <Stack.Screen

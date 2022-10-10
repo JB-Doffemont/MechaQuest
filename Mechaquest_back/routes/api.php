@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
                 'users' => UserController::class,
                 'robots' => RobotController::class,
             ],
-            ['except' => ['update', 'show']]
+            ['except' => ['update', 'show', 'index']]
         );
 
 

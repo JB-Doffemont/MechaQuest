@@ -22,9 +22,10 @@ export default function LogIn(navigator) {
 
     const loginData = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/login', {
+            const response = await fetch('http://192.168.43.192:8000/api/login', {
             // Pour se connecter, ne pas oublier php artisan serve avec le bon host  http://172.20.10.7:8000/api/login
             // localhost pc http://127.0.0.1:8000/api/login
+            // http://192.168.43.192:8000
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',

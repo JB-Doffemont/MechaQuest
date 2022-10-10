@@ -18,22 +18,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function PreStarterScreen(navigator) {
     const [user, setUser] = useState([]);
     const [token, setToken] = useState("");
-    console.log(token);
+    
 
     useEffect(() => {
+      AsyncStorage.clear();
             const getUser = async () => {
                 try {
                 const userEmail = await AsyncStorage.getItem('email');
                 console.log(userEmail);
                 const token = await AsyncStorage.getItem('access_token');
-                console.log(token);
+                console.log(token + 2);
 
                 if(!token) {
                     navigator.navigation.navigate('StarterScreen');
+                  
+                    
                 } else {
+                    
                     const response = await fetch(
-                        `http://127.0.0.1:8000/api/users/${userEmail}`, {
+                        `http://192.168.43.192:8000/api/users/${userEmail}`, {
                           // http://127.0.0.1:8000/api/users/${userEmail}
+                          // http://192.168.43.192:8000/api/users/${userEmail}
                             method: 'GET',
                             // mode: 'no-cors',
                             headers: {
@@ -44,7 +49,7 @@ export default function PreStarterScreen(navigator) {
                         });
                         
                         const json = await response.json();
-                        
+                        console.log(json[0]);
                         setUser(json[0]);
                         setToken(token);
                     }
@@ -54,7 +59,8 @@ export default function PreStarterScreen(navigator) {
               };
               
             getUser();
-
+                
+              
             if(token && user.first_connexion == 0) {
               navigator.navigation.navigate('IntroScreen');
              
@@ -66,10 +72,6 @@ export default function PreStarterScreen(navigator) {
           
             
       }, [token]);
-    
-    
-
-     
     
     return(
        <View style={styles.container}>

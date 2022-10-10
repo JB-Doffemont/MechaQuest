@@ -44,8 +44,6 @@ export default function LogIn(navigator) {
               await AsyncStorage.setItem('access_token', json.access_token);
               await AsyncStorage.setItem('email', email);
 
-              // const value = await AsyncStorage.getItem('access_token');
-
               navigator.navigation.navigate('IntroScreen');
              
           } else {

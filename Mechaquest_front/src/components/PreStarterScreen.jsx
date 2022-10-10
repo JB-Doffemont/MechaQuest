@@ -21,7 +21,7 @@ export default function PreStarterScreen(navigator) {
     
 
     useEffect(() => {
-      AsyncStorage.clear();
+      // AsyncStorage.clear();
             const getUser = async () => {
                 try {
                 const userEmail = await AsyncStorage.getItem('email');

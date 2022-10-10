@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import React, { useState } from "react";
+import ButtonRequest from "../components/usable/ButtonRequest";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { View, Image, Text } from "react-native";
@@ -8,8 +9,6 @@ import { View, Image, Text } from "react-native";
 export default function RobotChoice() {
     const [robots, setRobots] = useState([]);
   
-    
-
     useEffect(() => {
         const getRobots = async () => {
             try {
@@ -46,19 +45,21 @@ export default function RobotChoice() {
 
     }, []);
 
+    const robotChoice = async() => {
+        console.log('Hey !');
+    }
+
     return (
         <View>
-
                 <Text>
                     <Text>
-                        
-                            Choix des robots
-                        
+                        Choix des robots
                     </Text>
                 </Text>
             
-            {robots.map(({robot, id,robot_name, robot_image}, index) => (
-                <View key={index}>
+                {robots.map(({robot_name, robot_image}, index) => (
+                <View key={`${robot_name}-${index}`}>
+                <View >
                     <Text>{robot_name}</Text>
                     <Image
                      style={{
@@ -66,10 +67,15 @@ export default function RobotChoice() {
                         height: 150,
                         resizeMode: 'contain'
                       }}
-                    // source={{uri: 'assets:/robotCards/MQ_Samos_card.png'}}
-                    source={require(`${robot_image}`)} 
+                   
+                    source={{uri: `http://192.168.43.192:8000/${robot_image}`}}
                     />
+                    
                 </View>
+                <ButtonRequest buttonLabel="Selectionner robot"
+                        method={robotChoice}/>
+            </View>
+                    
             ))}
             
         </View>

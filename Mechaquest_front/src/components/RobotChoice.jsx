@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import React, { useState } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import Carousel from "./usable/Carousel";
 
 import { View, Image, Text } from "react-native";
 
@@ -20,7 +21,7 @@ export default function RobotChoice() {
 
              
                 const response = await fetch(
-                    'http://192.168.43.192:8000/api/robots', {
+                    'http://127.0.0.1:8000/api/robots', {
                       // http://127.0.0.1:8000/api/users/${userEmail}
                       // http://192.168.43.192:8000/api/users/${userEmail}
                         method: 'GET',
@@ -66,11 +67,13 @@ export default function RobotChoice() {
                         height: 150,
                         resizeMode: 'contain'
                       }}
-                    // source={{uri: 'assets:/robotCards/MQ_Samos_card.png'}}
-                    source={require(`${robot_image}`)} 
+                    source={{uri: `http://127.0.0.1:8000/${robot_image}`}} 
                     />
                 </View>
             ))}
+
+        {/* <Stack.Screen name="Carousel" component={Carousel} /> */}
+
             
         </View>
     );

@@ -36,7 +36,7 @@ export default function PreStarterScreen(navigator) {
                 } else {
                     
                     const response = await fetch(
-                        `http://192.168.43.192:8000/api/users/${userEmail}`, {
+                        `http://127.0.0.1:8000/api/users/${userEmail}`, {
                           // http://127.0.0.1:8000/api/users/${userEmail}
                           // http://192.168.43.192:8000/api/users/${userEmail}
                             method: 'GET',

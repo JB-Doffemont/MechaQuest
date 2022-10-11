@@ -45,8 +45,31 @@ export default function RobotChoice() {
 
     }, []);
 
-    const robotChoice = async() => {
-        console.log('Hey !');
+    const robotChoice = async(robot_name) => {
+        try {
+            const response = await fetch(`http://192.168.43.192:8000/api/duplicate/${robot_name}`, {
+                // portable 4G http://172.20.10.7:8000/api/register
+                // Local host ordi: http://127.0.0.1:8000/api/register
+                // http://192.168.43.192:8000
+                
+                method: 'POST',
+                headers: {
+                    "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',  
+                },
+                
+              });
+
+            const json = await response.json();
+            console.log(json);
+            
+            if (json.status_code == 200) {
+                console.log(json);
+            } 
+        } catch (error) {
+            console.error(error);
+        } 
     }
 
     return (
@@ -73,7 +96,7 @@ export default function RobotChoice() {
                     
                 </View>
                 <ButtonRequest buttonLabel="Selectionner robot"
-                        method={robotChoice}/>
+                        method={() => robotChoice(robot_name)}/>
             </View>
                     
             ))}

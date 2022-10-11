@@ -27,6 +27,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 
 // Routes ressources accessible en étant connecté
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('/duplicate/{robotName}', [RobotController::class, 'register_heros'])->name('robots.heros');
     Route::resources(
         [
             'areas' => AreaController::class,
@@ -86,5 +87,4 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
     Route::delete('friends/{user1}/{user2}', [FriendController::class, 'deleteFriend'])->name('friends.deleteFriend');
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::post('/duplicate', [RobotController::class, 'register_heros'])->name('robots.heros');
 });

@@ -127,16 +127,16 @@ class RobotController extends Controller
     }
 
     // Ajout d'une entrée dans la BDD qui duplique un robot existant parent lorsqu'un joueur obtient un robot
-    public function register_heros()
+    public function register_heros($robotName)
     {
         $userEmail = Auth::user()->email;
-        $robot = Robot::where("robot_name", "Madonna LeRobot")->first();
+        $robot = Robot::where("robot_name", $robotName)->first();
 
         // Duplication du robot, et modification de la valeur user_email dans la table robot
         $newRobot = $robot->replicate();
         $newRobot->user_email = $userEmail;
         $newRobot->save();
 
-        return response()->json("Vous venez d'obtenir Madonna!");
+        return response()->json("Vous venez d'obtenir $robotName !");
     }
 }

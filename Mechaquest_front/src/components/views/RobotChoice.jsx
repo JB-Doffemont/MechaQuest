@@ -19,8 +19,8 @@ export default function RobotChoice() {
 
              
                 const response = await fetch(
-                    'http://192.168.43.192:8000/api/robots', {
-                      // http://127.0.0.1:8000/api/users/${userEmail}
+                    'http://127.0.0.1:8000/api/robots', {
+                      // http://127.0.0.1:8000/api/robots
                       // http://192.168.43.192:8000/api/users/${userEmail}
                         method: 'GET',
                      

@@ -1,8 +1,8 @@
 import React from "react";
-import logo from "../assets/logo.png";
-import styles from "../style/StarterScreenStyle"
+import logo from "../../assets/logo.png";
+import styles from "../../style/StarterScreenStyle"
 import { Image, View } from "react-native";
-import Button from "./usable/ButtonRedirect";
+import Button from "../usable/ButtonRedirect";
 
 export default function StarterScreen() {
     return(

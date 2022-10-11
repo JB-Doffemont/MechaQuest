@@ -7,7 +7,7 @@ Il va falloir faire une requete en back qui compare notre "access_token" à l'au
  */
 
 
-import logo from "../assets/logo.png";
+import logo from "../../assets/logo.png";
 import styles from "../../style/StarterScreenStyle";
 import { useEffect } from "react";
 import React, { useState } from "react";

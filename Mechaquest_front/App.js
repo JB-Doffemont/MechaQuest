@@ -2,10 +2,10 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import SignUpForm from "./src/components/SignUpForm";
-import LogInForm from "./src/components/LogInForm";
+import SignUpForm from "./src/components/views/SignUpForm";
+import LogInForm from "./src/components/views/LogInForm";
 import PreStarterScreen from "./src/components/views/PreStarterScreen";
-import StarterScreen from "./src/components/StarterScreen";
+import StarterScreen from "./src/components/views/StarterScreen";
 import IntroScreen from "./src/components/views/IntroScreen";
 import RobotChoice from "./src/components/views/RobotChoice";
 import Carousel from "./src/components/usable/Carousel";
@@ -20,7 +20,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen name="Carousel" component={Carousel} /> */}
         <Stack.Screen name="RobotChoice" component={RobotChoice} />
         <Stack.Screen name="PreStarterScreen" component={PreStarterScreen} />
         <Stack.Screen name="StarterScreen" component={StarterScreen} />

@@ -63,7 +63,7 @@ export default function Carousel({robots}) {
     const slideList = robots.map(({id, robot_name, robot_image, description}, i) => {
     return {
       id: id,
-      image: `http://192.168.43.192:8000/${robot_image}`,
+      image: `http://127.0.0.1:8000/${robot_image}`,
       title: robot_name,
       subtitle: description,
       

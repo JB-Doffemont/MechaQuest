@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { View, ScrollView, Text} from "react-native";
-import styles from "../style/SignUpFormStyle";
-import inputStyle from "../style/InputStyle";
-import InputWithLabel from "./usable/InputWithLabel";
-import ButtonRequest from "../components/usable/ButtonRequest";
+import styles from "../../style/SignUpFormStyle";
+import inputStyle from "../../style/InputStyle";
+import InputWithLabel from "../usable/InputWithLabel";
+import ButtonRequest from "../usable/ButtonRequest";
 
 export default function SignUp(navigator) {
     const [password, setPassword] = useState("");

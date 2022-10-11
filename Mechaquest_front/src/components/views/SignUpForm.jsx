@@ -18,7 +18,6 @@ export default function SignUp(navigator) {
     const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
 
 
-
     const [data, setData] = useState([]);
    
 

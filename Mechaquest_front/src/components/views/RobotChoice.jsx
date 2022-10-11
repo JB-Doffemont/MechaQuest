@@ -47,11 +47,9 @@ export default function RobotChoice() {
 
     return (
         <View>
-                <Text>
-                    <Text>
-                        Choix des robots
+                    <Text style={{color: "white", backgroundColor: "#020829", textAlign:"center", fontSize:18, fontWeight: "bold"}}>
+                        CHOIX DU ROBOT
                     </Text>
-                </Text>
         <View>
             <Carousel robots={robots} />
         </View>

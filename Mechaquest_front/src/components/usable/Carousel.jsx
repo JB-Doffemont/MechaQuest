@@ -43,12 +43,14 @@ const robotChoice = async(robot_name) => {
 
 const Slide = memo(function Slide({ data }) {
   return (
+    
     <View style={styles.slide}>
       <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
-      <Text style={styles.slideTitle}>{data.title}</Text>
-      <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
-      <ButtonRequest buttonLabel="Selectionner robot"
-                        method={() => robotChoice(data.title)}/>
+      <View style={styles.container}>
+        <Text style={styles.slideTitle}>{data.title}</Text>
+        <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
+        <ButtonRequest buttonLabel="Selectionner robot" method={() => robotChoice(data.title)}/>
+      </View>
     </View>
   );
 });

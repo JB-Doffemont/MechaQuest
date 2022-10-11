@@ -1,4 +1,4 @@
-import React, { useCallback, memo, useRef, useState } from "react";
+import React, { useCallback, memo, useRef, useState, useEffect } from "react";
 import {
   FlatList,
   View,
@@ -7,49 +7,42 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import RobotChoice from "../RobotChoice";
+import ButtonRequest from "../usable/ButtonRequest";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
-const styles = StyleSheet.create({
-  slide: {
-    height: windowHeight,
-    width: windowWidth,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  slideImage: { width: windowWidth * 0.9, height: windowHeight * 0.7 },
-  slideTitle: { fontSize: 24 },
-  slideSubtitle: { fontSize: 18 },
 
-  pagination: {
-    position: "absolute",
-    bottom: 8,
-    width: "100%",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  paginationDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginHorizontal: 2,
-  },
-  paginationDotActive: { backgroundColor: "lightblue" },
-  paginationDotInactive: { backgroundColor: "gray" },
 
-  carousel: { flex: 1 },
-});
+const robotChoice = async(robot_name) => {
+  try {
+      const response = await fetch(`http://192.168.43.192:8000/api/duplicate/${robot_name}`, {
+          // portable 4G http://172.20.10.7:8000/api/register
+          // Local host ordi: http://127.0.0.1:8000/api/register
+          // http://192.168.43.192:8000
+          
+          method: 'POST',
+          headers: {
+              "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+              Accept: 'application/json',
+              'Content-Type': 'application/json',  
+          },
+          
+        });
 
-const slideList = Array.from({ length: 3 }).map((_, i, robot_image) => {
-  return {
-    id: i,
-    image: robot_image,
-    // image: `https://picsum.photos/1440/2842?random=${i}`,
-    title: `This is the title ${i + 1}!`,
-    subtitle: `This is the subtitle ${i + 1}!`,
-  };
-});
+      const json = await response.json();
+      console.log(json);
+      
+      if (json.status_code == 200) {
+          console.log(json);
+      } 
+  } catch (error) {
+      console.error(error);
+  } 
+}
+
+
+
 
 const Slide = memo(function Slide({ data }) {
   return (
@@ -61,30 +54,81 @@ const Slide = memo(function Slide({ data }) {
   );
 });
 
-function Pagination({ index }) {
-  return (
-    <View style={styles.pagination} pointerEvents="none">
-      {slideList.map((_, i) => {
-        return (
-          <View
-            key={i}
-            style={[
-              styles.paginationDot,
-              index === i
-                ? styles.paginationDotActive
-                : styles.paginationDotInactive,
-            ]}
-          />
-        );
-      })}
-    </View>
-  );
-}
+
 
 export default function Carousel() {
+
   const [index, setIndex] = useState(0);
+  const [robots, setRobots] = useState([]);
   const indexRef = useRef(index);
   indexRef.current = index;
+  useEffect(() => {
+    const getRobots = async () => {
+        try {
+        const userEmail = await AsyncStorage.getItem('email');
+        console.log(userEmail);
+        const token = await AsyncStorage.getItem('access_token');
+        console.log(token);
+  
+         
+            const response = await fetch(
+                'http://127.0.0.1:8000/api/robots', {
+                  // http://127.0.0.1:8000/api/users/${userEmail}
+                  // http://192.168.43.192:8000/api/users/${userEmail}
+                    method: 'GET',
+                 
+                    headers: {
+                        "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',  
+                    },
+                });
+            
+                const json = await response.json();
+                console.log(json);
+                setRobots(json);
+                
+            
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    
+    getRobots();
+  
+  }, []);
+
+  // const slideList = robots.map((_, i, robot_name, robot_image) => {
+    const slideList = robots.map(({id, robot_name, robot_image, type_robot, description}, i) => {
+    return {
+      id: id,
+      image: `http://127.0.0.1:8000/${robot_image}`,
+      // image: `https://picsum.photos/1440/2842?random=${i}`,
+      title: robot_name,
+      subtitle: description,
+    };
+  });
+
+  function Pagination({ index }) {
+    return (
+      <View style={styles.pagination} pointerEvents="none">
+        {slideList.map((_, i) => {
+          return (
+            <View
+              key={i}
+              style={[
+                styles.paginationDot,
+                index === i
+                  ? styles.paginationDotActive
+                  : styles.paginationDotInactive,
+              ]}
+            />
+          );
+        })}
+      </View>
+    );
+  }
+
   const onScroll = useCallback((event) => {
     const slideSize = event.nativeEvent.layoutMeasurement.width;
     const index = event.nativeEvent.contentOffset.x / slideSize;
@@ -136,7 +180,37 @@ export default function Carousel() {
         onScroll={onScroll}
         {...flatListOptimizationProps}
       />
-      <Pagination index={index}></Pagination>
+      <Pagination index={robots}></Pagination>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  slide: {
+    height: windowHeight,
+    width: windowWidth,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  slideImage: { width: windowWidth * 0.9, height: windowHeight * 0.7 },
+  slideTitle: { fontSize: 24 },
+  slideSubtitle: { fontSize: 18 },
+
+  pagination: {
+    position: "absolute",
+    bottom: 8,
+    width: "100%",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  paginationDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 2,
+  },
+  paginationDotActive: { backgroundColor: "lightblue" },
+  paginationDotInactive: { backgroundColor: "gray" },
+
+  carousel: { flex: 1 },
+});

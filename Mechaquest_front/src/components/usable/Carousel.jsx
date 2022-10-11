@@ -9,10 +9,9 @@ import {
 } from "react-native";
 import ButtonRequest from "../usable/ButtonRequest";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import styles from "../../style/CarouselStyle";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-
-
 
 const robotChoice = async(robot_name) => {
   try {
@@ -49,7 +48,7 @@ const Slide = memo(function Slide({ data }) {
     <View style={styles.slide}>
       <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
       <Text style={styles.slideTitle}>{data.title}</Text>
-      <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
+      <Text style={styles.slideSubtitle}>{data.description}</Text>
     </View>
   );
 });
@@ -69,7 +68,6 @@ export default function Carousel() {
         console.log(userEmail);
         const token = await AsyncStorage.getItem('access_token');
         console.log(token);
-  
          
             const response = await fetch(
                 'http://127.0.0.1:8000/api/robots', {
@@ -105,7 +103,7 @@ export default function Carousel() {
       image: `http://127.0.0.1:8000/${robot_image}`,
       // image: `https://picsum.photos/1440/2842?random=${i}`,
       title: robot_name,
-      subtitle: description,
+      description: description,
     };
   });
 
@@ -185,32 +183,3 @@ export default function Carousel() {
   );
 }
 
-const styles = StyleSheet.create({
-  slide: {
-    height: windowHeight,
-    width: windowWidth,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  slideImage: { width: windowWidth * 0.9, height: windowHeight * 0.7 },
-  slideTitle: { fontSize: 24 },
-  slideSubtitle: { fontSize: 18 },
-
-  pagination: {
-    position: "absolute",
-    bottom: 8,
-    width: "100%",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  paginationDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginHorizontal: 2,
-  },
-  paginationDotActive: { backgroundColor: "lightblue" },
-  paginationDotInactive: { backgroundColor: "gray" },
-
-  carousel: { flex: 1 },
-});

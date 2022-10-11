@@ -19,12 +19,22 @@ export default StyleSheet.create({
     marginBottom: 100,
     // flex: 0.5,
   },
-  slideTitle: { fontSize: 24, color: "white" },
-  slideSubtitle: {
-    fontSize: 18,
+  slideTitle: {
+    fontSize: 24,
     color: "white",
-    width: windowWidth * 0.3,
+    marginTop: 10,
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  slideDescription: {
+    fontSize: 14,
+    color: "white",
+    width: windowWidth * 0.5,
     height: windowHeight * 0.3,
+  },
+  button: {
+    color: "red",
+    backgroundColor: "green",
   },
 
   pagination: {

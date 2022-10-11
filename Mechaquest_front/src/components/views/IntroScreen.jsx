@@ -1,5 +1,5 @@
 import { View, ScrollView, Text } from "react-native";
-import styles from "../style/IntroScreen";
+import styles from "../../style/IntroScreen";
 
 export default function IntroScreen() {
     return (

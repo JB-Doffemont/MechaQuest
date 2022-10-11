@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import React, { useState } from "react";
-import Carousel from "./usable/Carousel";
-import ButtonRequest from "../components/usable/ButtonRequest";
+import Carousel from "../usable/Carousel";
+import ButtonRequest from "../usable/ButtonRequest";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { View, Image, Text } from "react-native";

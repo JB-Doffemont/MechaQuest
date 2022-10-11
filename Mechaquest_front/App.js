@@ -4,10 +4,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import SignUpForm from "./src/components/SignUpForm";
 import LogInForm from "./src/components/LogInForm";
-import PreStarterScreen from "./src/components/PreStarterScreen";
+import PreStarterScreen from "./src/components/views/PreStarterScreen";
 import StarterScreen from "./src/components/StarterScreen";
-import IntroScreen from "./src/components/IntroScreen";
-import RobotChoice from "./src/components/RobotChoice";
+import IntroScreen from "./src/components/views/IntroScreen";
+import RobotChoice from "./src/components/views/RobotChoice";
 import Carousel from "./src/components/usable/Carousel";
 
 /**

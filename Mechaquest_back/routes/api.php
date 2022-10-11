@@ -27,6 +27,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 
 // Routes ressources accessible en étant connecté
 Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('/duplicate/{robotName}', [RobotController::class, 'register_heros'])->name('robots.heros');
     Route::resources(
         [
             'areas' => AreaController::class,

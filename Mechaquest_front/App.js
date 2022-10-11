@@ -9,6 +9,7 @@ import StarterScreen from "./src/components/views/StarterScreen";
 import IntroScreen from "./src/components/views/IntroScreen";
 import RobotChoice from "./src/components/views/RobotChoice";
 import Carousel from "./src/components/usable/Carousel";
+import HomeScreen from "./src/components/views/HomeScreen";
 
 /**
  * Mon Ip préférée : http://192.168.43.192:8000
@@ -20,7 +21,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="RobotChoice" component={RobotChoice} />
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="PreStarterScreen" component={PreStarterScreen} />
         <Stack.Screen name="StarterScreen" component={StarterScreen} />
         <Stack.Screen
@@ -30,6 +35,7 @@ export default function App() {
         />
         <Stack.Screen name="SignUpForm" component={SignUpForm} />
         <Stack.Screen name="IntroScreen" component={IntroScreen} />
+        <Stack.Screen name="RobotChoice" component={RobotChoice} />
       </Stack.Navigator>
     </NavigationContainer>
   );

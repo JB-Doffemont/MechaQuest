@@ -25,14 +25,10 @@ export default function PreStarterScreen(navigator) {
             const getUser = async () => {
                 try {
                 const userEmail = await AsyncStorage.getItem('email');
-                console.log(userEmail);
                 const token = await AsyncStorage.getItem('access_token');
-                console.log(token + 2);
-
+                
                 if(!token) {
-                    navigator.navigation.navigate('StarterScreen');
-                  
-                    
+                    navigator.navigation.navigate('StarterScreen');   
                 } else {
                     
                     const response = await fetch(

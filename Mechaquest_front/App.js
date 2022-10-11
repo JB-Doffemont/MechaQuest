@@ -20,7 +20,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Carousel" component={Carousel} />
+        {/* <Stack.Screen name="Carousel" component={Carousel} /> */}
         <Stack.Screen name="RobotChoice" component={RobotChoice} />
         <Stack.Screen name="PreStarterScreen" component={PreStarterScreen} />
         <Stack.Screen name="StarterScreen" component={StarterScreen} />

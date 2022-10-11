@@ -1,4 +1,5 @@
-import React, { useCallback, memo, useRef, useState, useEffect } from "react";
+import React, { useCallback, memo, useRef, useState} from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   FlatList,
   View,
@@ -8,11 +9,9 @@ import {
   Image,
 } from "react-native";
 import ButtonRequest from "../usable/ButtonRequest";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-
-
 
 const robotChoice = async(robot_name) => {
   try {
@@ -42,71 +41,34 @@ const robotChoice = async(robot_name) => {
 }
 
 
-
-
 const Slide = memo(function Slide({ data }) {
   return (
     <View style={styles.slide}>
       <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
       <Text style={styles.slideTitle}>{data.title}</Text>
       <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
+      <ButtonRequest buttonLabel="Selectionner robot"
+                        method={() => robotChoice(data.title)}/>
     </View>
   );
 });
 
-
-
-export default function Carousel() {
+export default function Carousel({robots}) {
 
   const [index, setIndex] = useState(0);
-  const [robots, setRobots] = useState([]);
+  
   const indexRef = useRef(index);
   indexRef.current = index;
-  useEffect(() => {
-    const getRobots = async () => {
-        try {
-        const userEmail = await AsyncStorage.getItem('email');
-        console.log(userEmail);
-        const token = await AsyncStorage.getItem('access_token');
-        console.log(token);
   
-         
-            const response = await fetch(
-                'http://127.0.0.1:8000/api/robots', {
-                  // http://127.0.0.1:8000/api/users/${userEmail}
-                  // http://192.168.43.192:8000/api/users/${userEmail}
-                    method: 'GET',
-                 
-                    headers: {
-                        "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',  
-                    },
-                });
-            
-                const json = await response.json();
-                console.log(json);
-                setRobots(json);
-                
-            
-        } catch (error) {
-          console.error(error);
-        }
-      };
-    
-    getRobots();
-  
-  }, []);
-
-  // const slideList = robots.map((_, i, robot_name, robot_image) => {
-    const slideList = robots.map(({id, robot_name, robot_image, type_robot, description}, i) => {
+    const slideList = robots.map(({id, robot_name, robot_image, description}, i) => {
     return {
       id: id,
-      image: `http://127.0.0.1:8000/${robot_image}`,
-      // image: `https://picsum.photos/1440/2842?random=${i}`,
+      image: `http://192.168.43.192:8000/${robot_image}`,
       title: robot_name,
       subtitle: description,
+      
     };
+    
   });
 
   function Pagination({ index }) {
@@ -181,6 +143,7 @@ export default function Carousel() {
         {...flatListOptimizationProps}
       />
       <Pagination index={robots}></Pagination>
+      
     </>
   );
 }

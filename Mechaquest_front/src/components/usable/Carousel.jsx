@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import ButtonRequest from "../usable/ButtonRequest";
 import styles from "../../style/CarouselStyle";
+import { useNavigation } from "@react-navigation/native";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
@@ -41,7 +42,10 @@ const robotChoice = async(robot_name) => {
 }
 
 
-const Slide = memo(function Slide({ data }) {
+const Slide = memo(function Slide({ data, screenName }) {
+  const navigation = useNavigation();
+  console.log(screenName);
+  
   return (
     
     <View style={styles.slide}>
@@ -49,9 +53,13 @@ const Slide = memo(function Slide({ data }) {
       <View style={styles.container}>
         <Text style={styles.slideTitle}>{data.title}</Text>
         <Text style={styles.slideDescription}>{data.description}</Text>
-        <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" method={() => robotChoice(data.title)}/>
+        <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot"  onPress={() => navigation.navigate(screenName)}
+ method={() => robotChoice(data.title)}/>
+
+        
       </View>
     </View>
+    
   );
 });
 

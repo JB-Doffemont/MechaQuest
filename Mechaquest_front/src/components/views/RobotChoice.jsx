@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { View, Image, Text } from "react-native";
 
-export default function RobotChoice() {
+export default function RobotChoice(navigation) {
     const [robots, setRobots] = useState([]);
   
     useEffect(() => {
@@ -34,6 +34,7 @@ export default function RobotChoice() {
                     const json = await response.json();
                     console.log(json);
                     setRobots(json);
+
                     
                 
             } catch (error) {
@@ -44,6 +45,8 @@ export default function RobotChoice() {
         getRobots();
 
     }, []);
+    // navigator.navigation.navigate('HomeScreen');
+
 
     return (
         <View>
@@ -51,7 +54,7 @@ export default function RobotChoice() {
                         CHOIX DU ROBOT
                     </Text>
         <View>
-            <Carousel robots={robots} />
+            <Carousel robots={robots} navigation={navigation} />
         </View>
        
         </View>

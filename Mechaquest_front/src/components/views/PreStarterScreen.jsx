@@ -14,11 +14,9 @@ import React, { useState } from "react";
 import { Image, View, ActivityIndicator } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 export default function PreStarterScreen(navigator) {
     const [user, setUser] = useState([]);
-    const [token, setToken] = useState("");
-    
+    const [token, setToken] = useState("");  
 
     useEffect(() => {
       // AsyncStorage.clear();
@@ -62,7 +60,7 @@ export default function PreStarterScreen(navigator) {
              
             } 
             else if (token && user.first_connexion == 1) {
-              //   navigator.navigation.navigate('HomeScreen');
+                // navigator.navigation.navigate('HomeScreen');
                console.log('Ca fonctionne bébé');
             }
           

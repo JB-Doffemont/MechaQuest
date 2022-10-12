@@ -18,14 +18,13 @@ export default function SignUp(navigator) {
     const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
 
 
-
     const [data, setData] = useState([]);
    
 
     
     const register = async () => {
         try {
-            const response = await fetch('http://192.168.43.192:8000/api/register', {
+            const response = await fetch('http://127.0.0.1:8000/api/register', {
                 // portable 4G http://172.20.10.7:8000/api/register
                 // Local host ordi: http://127.0.0.1:8000/api/register
                 // http://192.168.43.192:8000

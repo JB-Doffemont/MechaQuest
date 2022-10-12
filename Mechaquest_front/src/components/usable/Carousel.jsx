@@ -15,9 +15,9 @@ const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 const robotChoice = async(robot_name) => {
   try {
-      const response = await fetch(`http://192.168.43.192:8000/api/duplicate/${robot_name}`, {
+      const response = await fetch(`http://127.0.0.1:8000/api/duplicate/${robot_name}`, {
           // portable 4G http://172.20.10.7:8000/api/register
-          // Local host ordi: http://127.0.0.1:8000/api/register
+          // Local host ordi: http://127.0.0.1:8000/api/duplicate
           // http://192.168.43.192:8000
           
           method: 'POST',
@@ -43,12 +43,14 @@ const robotChoice = async(robot_name) => {
 
 const Slide = memo(function Slide({ data }) {
   return (
+    
     <View style={styles.slide}>
       <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
-      <Text style={styles.slideTitle}>{data.title}</Text>
-      <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
-      <ButtonRequest buttonLabel="Selectionner robot"
-                        method={() => robotChoice(data.title)}/>
+      <View style={styles.container}>
+        <Text style={styles.slideTitle}>{data.title}</Text>
+        <Text style={styles.slideDescription}>{data.description}</Text>
+        <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" method={() => robotChoice(data.title)}/>
+      </View>
     </View>
   );
 });
@@ -63,10 +65,11 @@ export default function Carousel({robots}) {
     const slideList = robots.map(({id, robot_name, robot_image, description}, i) => {
     return {
       id: id,
-      image: `http://192.168.43.192:8000/${robot_image}`,
+      image: `http://127.0.0.1:8000/${robot_image}`,
         // http://192.168.43.192:8000
+      // http://127.0.0.1:8000
       title: robot_name,
-      subtitle: description,
+      description: description,
       
     };
     

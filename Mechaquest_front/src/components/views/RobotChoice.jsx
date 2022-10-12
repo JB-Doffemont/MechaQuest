@@ -19,7 +19,7 @@ export default function RobotChoice() {
 
              
                 const response = await fetch(
-                    'http://192.168.43.192:8000/api/robots', {
+                    ' http://127.0.0.1:8000/api/robots', {
                       // http://127.0.0.1:8000/api/robots
                       // http://192.168.43.192:8000/api/users/${userEmail}
                         method: 'GET',
@@ -47,11 +47,9 @@ export default function RobotChoice() {
 
     return (
         <View>
-                <Text>
-                    <Text>
-                        Choix des robots
+                    <Text style={{color: "white", backgroundColor: "#020829", textAlign:"center", fontSize:18, fontWeight: "bold"}}>
+                        CHOIX DU ROBOT
                     </Text>
-                </Text>
         <View>
             <Carousel robots={robots} />
         </View>

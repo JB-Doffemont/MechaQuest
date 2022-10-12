@@ -149,8 +149,9 @@ class RobotController extends Controller
 
     public function get_main_robot()
     {
+        $userEmail = Auth::user()->email;
 
-        $mainRobot = Robot::where("user_email", "Jbjb@gmail.com")
+        $mainRobot = Robot::where("user_email", $userEmail)
             ->where("main_robot", 1)
             ->get();
 

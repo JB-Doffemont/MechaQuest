@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 export default StyleSheet.create({
   container: {
@@ -9,27 +11,36 @@ export default StyleSheet.create({
 
   greetingsContainer: {
     flexDirection: "row",
-    width: 100,
+    position: "absolute",
+    alignItems: "center",
+    top: 20,
+    left: 10,
+    width: 250,
     height: 50,
   },
 
   logo: {
-    position: "absolute",
-    top: 10,
-    left: 10,
-    width: 70,
-    height: 70,
+    flex: 1,
+    height: 50,
   },
 
   greetings: {
+    flex: 1,
     color: "white",
     fontSize: 20,
-    textAlign: "center",
+  },
+
+  gameModeContainer: {
     position: "absolute",
-    top: 32,
-    left: 90,
-    width: 150,
-    height: 50,
+    left: "10%",
+    top: "40%",
+  },
+
+  options: {
+    color: "white",
+    fontSize: 32,
+    marginBottom: 5,
+    marginTop: 5,
   },
 
   navigationContainer: {
@@ -38,5 +49,33 @@ export default StyleSheet.create({
     top: 35,
     width: "55%",
     flexDirection: "row",
+  },
+
+  link: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 16,
+    color: "white",
+  },
+
+  robotContainer: {
+    position: "absolute",
+    alignItems: "center",
+    width: windowWidth * 0.3,
+    height: windowHeight * 0.6,
+    right: "15%",
+    top: "20%",
+  },
+
+  card: {
+    flex: 5,
+    width: windowWidth * 0.2,
+  },
+
+  stam: {
+    flex: 1,
+    color: "white",
+    fontSize: 24,
   },
 });

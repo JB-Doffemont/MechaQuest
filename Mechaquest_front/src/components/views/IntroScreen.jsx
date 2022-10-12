@@ -1,5 +1,6 @@
 import { View, ScrollView, Text } from "react-native";
 import styles from "../../style/IntroScreen";
+import Button from "../usable/ButtonRedirect";
 
 export default function IntroScreen() {
     return (
@@ -16,6 +17,9 @@ export default function IntroScreen() {
                 sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
                 recusandae alias error harum maxime adipisci amet laborum.
             </Text>
+            <Button
+            buttonLabel="robotChoice"
+            route="RobotChoice"/>
         </View>
     );
 }

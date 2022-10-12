@@ -24,7 +24,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} /> */}
         <Stack.Screen name="PreStarterScreen" component={PreStarterScreen} />
         <Stack.Screen name="StarterScreen" component={StarterScreen} />
         <Stack.Screen
@@ -35,6 +34,11 @@ export default function App() {
         <Stack.Screen name="SignUpForm" component={SignUpForm} />
         <Stack.Screen name="IntroScreen" component={IntroScreen} />
         <Stack.Screen name="RobotChoice" component={RobotChoice} />
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="CollectionScreen" component={CollectionScreen} />
         <Stack.Screen name="ShopScreen" component={ShopScreen} />
         <Stack.Screen name="RankingScreen" component={RankingScreen} />

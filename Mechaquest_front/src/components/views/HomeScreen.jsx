@@ -1,15 +1,15 @@
-import { View } from "react-native";
+import logo from "../../assets/logo.png";
+import { View, Image, Text, Button } from "react-native";
 import { useEffect } from "react";
 import React, { useState } from "react";
 import styles from "../../style/HomeScreen";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
     const [user, setUser] = useState([]);
     const [robots, setRobots] = useState([]);
     const [token, setToken] = useState("");
-
     
     useEffect(() => {
               const getUser = async () => {
@@ -45,7 +45,31 @@ export default function HomeScreen() {
                 
               getUser();
         }, []);
+
     return(
-        <View style={styles.container}></View>
+        <View style={styles.container}>
+            <View style={styles.greetingsContainer}>
+                <Image source={logo} style={styles.logo}/>
+                <Text style={styles.greetings}> Bonjour {user.pseudo} !</Text>
+            </View>
+            <View >
+                <Text style={{ flex: 1, alignItems: 'center', justifyContent: 'center', fontSize:16, color:"white" }}
+                  onPress={() => navigation.navigate('CollectionScreen')}>
+                    Collection
+                  </Text>
+                <Text style={{ flex: 1, alignItems: 'center', justifyContent: 'center', fontSize:16, color:"white" }}
+                  onPress={() => navigation.navigate('ShopScreen')}>
+                    Boutique
+                  </Text>
+                <Text style={{ flex: 1, alignItems: 'center', justifyContent: 'center', fontSize:16, color:"white" }}
+                  onPress={() => navigation.navigate('RankingScreen')}>
+                    Classement
+                  </Text>
+                <Text style={{ flex: 1, alignItems: 'center', justifyContent: 'center', fontSize:16, color:"white" }}
+                  onPress={() => navigation.navigate('ProfilScreen')}>
+                    Profil
+                  </Text>
+            </View>
+        </View>
     );
 }

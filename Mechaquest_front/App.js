@@ -8,8 +8,11 @@ import PreStarterScreen from "./src/components/views/PreStarterScreen";
 import StarterScreen from "./src/components/views/StarterScreen";
 import IntroScreen from "./src/components/views/IntroScreen";
 import RobotChoice from "./src/components/views/RobotChoice";
-import Carousel from "./src/components/usable/Carousel";
 import HomeScreen from "./src/components/views/HomeScreen";
+import CollectionScreen from "./src/components/views/CollectionScreen";
+import ProfilScreen from "./src/components/views/ProfilScreen";
+import RankingScreen from "./src/components/views/RankingScreen";
+import ShopScreen from "./src/components/views/ShopScreen";
 
 /**
  * Mon Ip préférée : http://192.168.43.192:8000
@@ -36,6 +39,10 @@ export default function App() {
         <Stack.Screen name="SignUpForm" component={SignUpForm} />
         <Stack.Screen name="IntroScreen" component={IntroScreen} />
         <Stack.Screen name="RobotChoice" component={RobotChoice} />
+        <Stack.Screen name="CollectionScreen" component={CollectionScreen} />
+        <Stack.Screen name="ShopScreen" component={ShopScreen} />
+        <Stack.Screen name="RankingScreen" component={RankingScreen} />
+        <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

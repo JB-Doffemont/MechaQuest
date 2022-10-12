@@ -3,7 +3,7 @@
     "name": "MechaQuestFront",
     "slug": "MechaQuestFront",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "landscape",
     "icon": "",
     "userInterfaceStyle": "light",
     "splash": {

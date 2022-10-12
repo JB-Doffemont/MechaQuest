@@ -7,12 +7,35 @@ export default StyleSheet.create({
     height: windowHeight,
     width: windowWidth,
     backgroundColor: "#020829",
+    flexDirection: "row",
+    // flex: 1,
+    justifyContent: "space-around",
     // justifyContent: "center",
     // alignItems: "center",
   },
-  slideImage: { width: windowWidth * 0.3, height: windowHeight * 0.8 },
-  slideTitle: { fontSize: 24, color: "white" },
-  slideSubtitle: { fontSize: 18, color: "white" },
+  slideImage: {
+    flexBasis: 100,
+    flexGrow: 0.45,
+    marginBottom: 100,
+    // flex: 0.5,
+  },
+  slideTitle: {
+    fontSize: 24,
+    color: "white",
+    marginTop: 10,
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  slideDescription: {
+    fontSize: 14,
+    color: "white",
+    width: windowWidth * 0.5,
+    height: windowHeight * 0.3,
+  },
+  slideButton: {
+    color: "red",
+    backgroundColor: "green",
+  },
 
   pagination: {
     position: "absolute",

@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import styles from "../../style/HomeScreen";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 export default function HomeScreen({navigation}) {
     const [user, setUser] = useState([]);
     const [robots, setRobots] = useState([]);
@@ -52,7 +51,7 @@ export default function HomeScreen({navigation}) {
                 <Image source={logo} style={styles.logo}/>
                 <Text style={styles.greetings}> Bonjour {user.pseudo} !</Text>
             </View>
-            <View >
+            <View style={styles.navigationContainer}>
                 <Text style={{ flex: 1, alignItems: 'center', justifyContent: 'center', fontSize:16, color:"white" }}
                   onPress={() => navigation.navigate('CollectionScreen')}>
                     Collection

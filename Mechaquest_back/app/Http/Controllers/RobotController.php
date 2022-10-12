@@ -83,6 +83,7 @@ class RobotController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         // On récupère le robot
         $robot = Robot::findOrFail($id);
 
@@ -93,6 +94,11 @@ class RobotController extends Controller
          *   En fonction des rôles on autorise la modification d'un ou plusieurs champs
          */
         if ($user->email === $robot->user_email && $user->role === 0) {
+
+            Robot::where("user_email", $user->email)
+                ->where("main_robot", 1)
+                ->update(['main_robot' => 0]);
+
             $robot->update($request->only('main_robot'));
         } else if ($user->role === 1) {
             $robot->update($request->all());
@@ -135,8 +141,19 @@ class RobotController extends Controller
         // Duplication du robot, et modification de la valeur user_email dans la table robot
         $newRobot = $robot->replicate();
         $newRobot->user_email = $userEmail;
+        $newRobot->main_robot = 1;
         $newRobot->save();
 
         return response()->json("Vous venez d'obtenir $robotName !");
+    }
+
+    public function get_main_robot()
+    {
+
+        $mainRobot = Robot::where("user_email", "Jbjb@gmail.com")
+            ->where("main_robot", 1)
+            ->get();
+
+        return response()->json($mainRobot);
     }
 }

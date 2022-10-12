@@ -88,4 +88,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('friends/{user1}/{user2}', [FriendController::class, 'deleteFriend'])->name('friends.deleteFriend');
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/duplicate/{robotName}', [RobotController::class, 'register_heros'])->name('robots.heros');
+    Route::get('/mainrobot', [RobotController::class, 'get_main_robot'])->name('main_robot');
 });

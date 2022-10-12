@@ -8,10 +8,8 @@ export default StyleSheet.create({
   },
 
   greetingsContainer: {
-    flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
-    width: 400,
+    width: 100,
     height: 50,
   },
 
@@ -26,10 +24,19 @@ export default StyleSheet.create({
   greetings: {
     color: "white",
     fontSize: 20,
+    textAlign: "center",
     position: "absolute",
-    top: 30,
+    top: 32,
     left: 90,
     width: 150,
     height: 50,
+  },
+
+  navigationContainer: {
+    position: "absolute",
+    right: 10,
+    top: 35,
+    width: "55%",
+    flexDirection: "row",
   },
 });

@@ -32,7 +32,7 @@ export default StyleSheet.create({
     width: windowWidth * 0.5,
     height: windowHeight * 0.3,
   },
-  button: {
+  slideButton: {
     color: "red",
     backgroundColor: "green",
   },

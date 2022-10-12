@@ -49,7 +49,7 @@ const Slide = memo(function Slide({ data }) {
       <View style={styles.container}>
         <Text style={styles.slideTitle}>{data.title}</Text>
         <Text style={styles.slideDescription}>{data.description}</Text>
-        <ButtonRequest style={styles.button} buttonLabel="Selectionner robot" method={() => robotChoice(data.title)}/>
+        <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" method={() => robotChoice(data.title)}/>
       </View>
     </View>
   );

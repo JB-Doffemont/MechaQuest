@@ -1,5 +1,5 @@
 import logo from "../../assets/logo.png";
-import { View, Image, Text, Button } from "react-native";
+import { View, Image, Text} from "react-native";
 import { useEffect } from "react";
 import React, { useState } from "react";
 import styles from "../../style/HomeScreen";
@@ -9,7 +9,6 @@ export default function HomeScreen({navigation}) {
     const [user, setUser] = useState([]);
     const [mainRobot, setMainRobot] = useState([]);
 
-    
     useEffect(() => {
               const getUser = async () => {
                   try {

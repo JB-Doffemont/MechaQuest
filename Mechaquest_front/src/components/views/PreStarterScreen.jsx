@@ -46,14 +46,14 @@ export default function PreStarterScreen(navigator) {
                         setUser(json[0]);
                         setToken(token);
                     }
+                    
                 } catch (error) {
                   console.error(error);
                 }
               };
               
             getUser();
-                
-              
+            console.log(11111111111111111111111111111111111111111111111111111111111111);
             if(token && user.first_connexion == 0) {
               navigator.navigation.navigate('IntroScreen');
              
@@ -62,6 +62,7 @@ export default function PreStarterScreen(navigator) {
                 navigator.navigation.navigate('HomeScreen');
                
             }
+            
           
             
       }, [token]);

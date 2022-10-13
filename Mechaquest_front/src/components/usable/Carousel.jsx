@@ -9,9 +9,16 @@ import {
 } from "react-native";
 import ButtonRequest from "../usable/ButtonRequest";
 import styles from "../../style/CarouselStyle";
+import { useNavigation } from '@react-navigation/native';
 
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+
+
+export default function Carousel({robots}) {
+
+const navigation = useNavigation();
+const [index, setIndex] = useState(0);
 
 const robotChoice = async(robot_name) => {
   
@@ -34,13 +41,14 @@ const robotChoice = async(robot_name) => {
       console.log(json);
       
       if (json.status_code == 200) {
-        
-          
+        console.log('Test');
+        navigation.navigate('HomeScreen');
       } 
   } catch (error) {
       console.error(error);
   } 
 }
+
 const Slide = memo(function Slide({ data}) {
   
   return (
@@ -59,10 +67,6 @@ const Slide = memo(function Slide({ data}) {
     
   );
 });
-
-export default function Carousel({robots}) {
-
-  const [index, setIndex] = useState(0);
   
   const indexRef = useRef(index);
   indexRef.current = index;

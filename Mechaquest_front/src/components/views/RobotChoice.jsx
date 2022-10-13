@@ -13,8 +13,7 @@ export default function RobotChoice() {
             try {
             const userEmail = await AsyncStorage.getItem('email');
             console.log(userEmail);
-            const token = await AsyncStorage.getItem('access_token');
-            console.log(token);
+            
 
                 const response = await fetch(
                     'http://192.168.43.192:8000/api/robots', {

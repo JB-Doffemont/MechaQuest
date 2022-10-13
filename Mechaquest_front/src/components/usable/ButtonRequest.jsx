@@ -9,13 +9,9 @@ export default function Button({buttonLabel, method}) {
     const route = useRoute();
     
         if (route.name == 'RobotChoice') {
-            function handleSubmit() {
-                
-                console.log('You clicked submit.');
-              }
             return(
                 <View>
-                        <TouchableOpacity onPress={() => {method(); handleSubmit(); navigation.navigate('HomeScreen')}} style={[styles.choiceButton]}>
+                        <TouchableOpacity onPress={method} style={[styles.choiceButton]}>
                         <Text style={styles.button_text}>{buttonLabel}</Text>
                         </TouchableOpacity>
                 </View>

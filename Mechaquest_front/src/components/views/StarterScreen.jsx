@@ -8,13 +8,14 @@ export default function StarterScreen() {
     return(
        <View style={styles.container}>
         <Image source={logo} style={styles.logo}/>
-       <Button
-       buttonLabel="Inscription"
-       route="SignUpForm"/>
-       <Button
-       buttonLabel="Connexion"
-       route="LogInForm"/>
-   
-       </View>
+            <View style={styles.buttonsContainer}>
+               <Button
+               buttonLabel="Inscription"
+               route="SignUpForm"/>
+               <Button
+               buttonLabel="Connexion"
+               route="LogInForm"/>
+            </View>
+    </View>
     );
 }

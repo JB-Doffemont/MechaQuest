@@ -8,13 +8,14 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    width: 605,
-    height: 359,
+    width: 400,
+    height: 235,
     marginBottom: 10,
   },
-  title: {
-    color: "#888",
-    fontSize: 58,
-    marginHorizontal: 15,
+
+  buttonsContainer: {
+    flexDirection: "row",
+    width: 400,
+    placeContent: "space-between",
   },
 });

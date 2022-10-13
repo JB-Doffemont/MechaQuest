@@ -8,7 +8,6 @@ export default StyleSheet.create({
     transition: 0.5,
     color: "#41403E",
     width: 150,
-    textAlign: "center",
     margin: 15,
     // borderRadius: [10, 10, 10, 10],
     // borderTopLeftRadius: 15,
@@ -43,6 +42,7 @@ export default StyleSheet.create({
     borderBottomLeftRadius: 0,
   },
   button_text: {
+    textAlign: "center",
     fontSize: 20,
     color: "#fff",
   },

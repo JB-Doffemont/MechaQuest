@@ -29,14 +29,22 @@ export default function App() {
           component={PreStarterScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="StarterScreen" component={StarterScreen} />
         <Stack.Screen
-          name="LogInForm"
-          component={LogInForm}
-          options={{ title: "Log-in" }}
+          name="StarterScreen"
+          component={StarterScreen}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen name="SignUpForm" component={SignUpForm} />
-        <Stack.Screen name="IntroScreen" component={IntroScreen} />
+        <Stack.Screen name="LogInForm" component={LogInForm} />
+        <Stack.Screen
+          name="SignUpForm"
+          component={SignUpForm}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="IntroScreen"
+          component={IntroScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="RobotChoice"
           component={RobotChoice}

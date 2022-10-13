@@ -13,6 +13,7 @@ export default StyleSheet.create({
   },
   input: {
     borderColor: "white",
+    width: 250,
     height: 40,
     margin: 12,
     borderWidth: 1,

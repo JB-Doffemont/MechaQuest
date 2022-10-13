@@ -19,7 +19,7 @@ export default function PreStarterScreen(navigator) {
     const [token, setToken] = useState("");  
 
     useEffect(() => {
-      // AsyncStorage.clear();
+      AsyncStorage.clear();
             const getUser = async () => {
                 try {
                 const userEmail = await AsyncStorage.getItem('email');
@@ -53,7 +53,6 @@ export default function PreStarterScreen(navigator) {
               };
               
             getUser();
-            console.log(11111111111111111111111111111111111111111111111111111111111111);
             if(token && user.first_connexion == 0) {
               navigator.navigation.navigate('IntroScreen');
              

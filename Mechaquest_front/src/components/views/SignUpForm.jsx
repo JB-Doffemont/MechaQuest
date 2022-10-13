@@ -59,57 +59,54 @@ export default function SignUp(navigator) {
     }
 
     return(
-        <View style={styles.container}>
         <ScrollView>
-        <InputWithLabel label="Pseudo"
-                        value={pseudo}
-                        onChangeText={setPseudo}
-                        placeholder="Entrez votre pseudo"
-                        />
-       
-        <Text style={inputStyle.error}>
-            {errorPseudo && (<Text> {errorPseudo} </Text>)}
-        </Text>
-      
-        
+            <View style={styles.container}>
+                <InputWithLabel label="Pseudo"
+                                value={pseudo}
+                                onChangeText={setPseudo}
+                                placeholder="Entrez votre pseudo"
+                                />
 
-        <InputWithLabel label="Email"
-                        value={email}
-                        onChangeText={setEmail}
-                        placeholder="Entrez votre e-mail"
-                        />
-        <Text style={inputStyle.error}>
-            {errorEmail && (<Text> {errorEmail} </Text>)}
-        </Text>
-       
+                <Text style={inputStyle.error}>
+                    {errorPseudo && (<Text> {errorPseudo} </Text>)}
+                </Text>
 
-        <InputWithLabel label="Mot de passe"
-                        value={password}
-                        onChangeText={setPassword}
-                        placeholder="Entrez votre mot de passe"
-                        secureTextEntry
-                        />
-        <Text style={inputStyle.error}>
-            {errorPassword && (<Text> {errorPassword} </Text>)}
-        </Text>
-        
+                <InputWithLabel label="Email"
+                                value={email}
+                                onChangeText={setEmail}
+                                placeholder="Entrez votre e-mail"
+                                />
+                <Text style={inputStyle.error}>
+                    {errorEmail && (<Text> {errorEmail} </Text>)}
+                </Text>
 
-        <InputWithLabel label="Confirmation"
-                        value={confirmPassword}
-                        onChangeText={setConfirmPassword}
-                        placeholder="Confirmez votre mot de passe"
-                        secureTextEntry
-                        />
-        <Text style={inputStyle.error}>
-            {errorConfirmPassword && (<Text> {errorConfirmPassword} </Text>)}
-        </Text>
-        
-       <View style={{alignItems:"center"}}>
-        <ButtonRequest buttonLabel="Valider"
-                method={register} />
-        </View>
-       
+
+                <InputWithLabel label="Mot de passe"
+                                value={password}
+                                onChangeText={setPassword}
+                                placeholder="Entrez votre mot de passe"
+                                secureTextEntry
+                                />
+                <Text style={inputStyle.error}>
+                    {errorPassword && (<Text> {errorPassword} </Text>)}
+                </Text>
+
+
+                <InputWithLabel label="Confirmation"
+                                value={confirmPassword}
+                                onChangeText={setConfirmPassword}
+                                placeholder="Confirmez votre mot de passe"
+                                secureTextEntry
+                                />
+                <Text style={inputStyle.error}>
+                    {errorConfirmPassword && (<Text> {errorConfirmPassword} </Text>)}
+                </Text>
+
+                <View>
+                <ButtonRequest buttonLabel="Valider"
+                        method={register} />
+                </View>
+            </View>
         </ScrollView>
-        </View>
     );
 }

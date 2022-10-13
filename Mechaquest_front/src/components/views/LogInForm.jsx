@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import styles from "../../style/LogInFormStyle";
 import inputStyle from "../../style/InputStyle";
 import InputWithLabel from "../usable/InputWithLabel";
@@ -62,6 +62,7 @@ export default function LogIn(navigator) {
   
 
     return(
+      <ScrollView>
         <View style={styles.container}>
             <InputWithLabel 
                 label="Email"
@@ -82,8 +83,9 @@ export default function LogIn(navigator) {
 
 
                 <ButtonRequest buttonLabel="Connexion"
-                method={loginData}/>
+                method={loginData}/>   
         </View>
+      </ScrollView>
     );
 }
 

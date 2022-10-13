@@ -4,8 +4,6 @@ import {Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 export default function Button({buttonLabel, route}) {
-
-   
     const navigation = useNavigation();
     
     return(

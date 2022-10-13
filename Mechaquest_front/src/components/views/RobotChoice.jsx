@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { View, Text } from "react-native";
 
-export default function RobotChoice(navigation) {
+export default function RobotChoice() {
     const [robots, setRobots] = useState([]);
   
     useEffect(() => {
@@ -16,9 +16,8 @@ export default function RobotChoice(navigation) {
             const token = await AsyncStorage.getItem('access_token');
             console.log(token);
 
-             
                 const response = await fetch(
-                    ' http://127.0.0.1:8000/api/robots', {
+                    'http://192.168.43.192:8000/api/robots', {
                       // http://127.0.0.1:8000/api/robots
                       // http://192.168.43.192:8000/api/users/${userEmail}
                         method: 'GET',
@@ -33,9 +32,7 @@ export default function RobotChoice(navigation) {
                     const json = await response.json();
                     console.log(json);
                     setRobots(json);
-
-                    
-                
+   
             } catch (error) {
               console.error(error);
             }
@@ -53,7 +50,7 @@ export default function RobotChoice(navigation) {
                         CHOIX DU ROBOT
                     </Text>
         <View>
-            <Carousel robots={robots} navigation={navigation} />
+            <Carousel robots={robots} />
         </View>
        
         </View>

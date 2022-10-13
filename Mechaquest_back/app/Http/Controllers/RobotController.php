@@ -144,7 +144,7 @@ class RobotController extends Controller
         $newRobot->main_robot = 1;
         $newRobot->save();
 
-        return response()->json("Vous venez d'obtenir $robotName !");
+        return response()->json(["Vous venez d'obtenir $robotName !", "status_code" => 200]);
     }
 
     public function get_main_robot()

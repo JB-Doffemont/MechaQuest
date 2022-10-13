@@ -30,7 +30,7 @@ export default function PreStarterScreen(navigator) {
                 } else {
                     
                     const response = await fetch(
-                        `http://127.0.0.1:8000/api/users/${userEmail}`, {
+                        `http://192.168.43.192:8000/api/users/${userEmail}`, {
                           // http://127.0.0.1:8000/api/users/${userEmail}
                           // http://192.168.43.192:8000/api/users/${userEmail}
                             method: 'GET',
@@ -43,7 +43,6 @@ export default function PreStarterScreen(navigator) {
                         });
                         
                         const json = await response.json();
-                        console.log(json[0]);
                         setUser(json[0]);
                         setToken(token);
                     }
@@ -60,7 +59,7 @@ export default function PreStarterScreen(navigator) {
              
             } 
             else if (token && user.first_connexion == 1) {
-                // navigator.navigation.navigate('HomeScreen');
+                navigator.navigation.navigate('HomeScreen');
                console.log('Ca fonctionne bébé');
             }
           

@@ -24,7 +24,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="PreStarterScreen" component={PreStarterScreen} />
+        <Stack.Screen
+          name="PreStarterScreen"
+          component={PreStarterScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen name="StarterScreen" component={StarterScreen} />
         <Stack.Screen
           name="LogInForm"
@@ -33,7 +37,11 @@ export default function App() {
         />
         <Stack.Screen name="SignUpForm" component={SignUpForm} />
         <Stack.Screen name="IntroScreen" component={IntroScreen} />
-        <Stack.Screen name="RobotChoice" component={RobotChoice} />
+        <Stack.Screen
+          name="RobotChoice"
+          component={RobotChoice}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}

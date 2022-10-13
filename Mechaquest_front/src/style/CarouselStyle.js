@@ -53,5 +53,5 @@ export default StyleSheet.create({
   paginationDotActive: { backgroundColor: "lightblue" },
   paginationDotInactive: { backgroundColor: "black" },
 
-  carousel: { flex: 1 },
+  // carousel: { flex: 1 },
 });

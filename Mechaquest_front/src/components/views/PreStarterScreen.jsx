@@ -60,7 +60,7 @@ export default function PreStarterScreen(navigator) {
             } 
             else if (token && user.first_connexion == 1) {
                 navigator.navigation.navigate('HomeScreen');
-               console.log('Ca fonctionne bébé');
+               
             }
           
             

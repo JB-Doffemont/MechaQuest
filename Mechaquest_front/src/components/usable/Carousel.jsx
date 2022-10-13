@@ -13,8 +13,8 @@ import styles from "../../style/CarouselStyle";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
-const robotChoice = async(robot_name, event) => {
-  event.preventDefault();
+const robotChoice = async(robot_name) => {
+  
   try {
       const response = await fetch(`http://192.168.43.192:8000/api/duplicate/${robot_name}`, {
           // portable 4G http://172.20.10.7:8000/api/register
@@ -34,8 +34,8 @@ const robotChoice = async(robot_name, event) => {
       console.log(json);
       
       if (json.status_code == 200) {
+        
           
-          navigation.navigate("HomeScreen");
       } 
   } catch (error) {
       console.error(error);

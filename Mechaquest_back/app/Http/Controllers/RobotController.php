@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Robot;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -137,6 +138,9 @@ class RobotController extends Controller
     {
         $userEmail = Auth::user()->email;
         $robot = Robot::where("robot_name", $robotName)->first();
+
+        User::where("email", $userEmail)
+            ->update(['first_connexion' => 1]);
 
         // Duplication du robot, et modification de la valeur user_email dans la table robot
         $newRobot = $robot->replicate();

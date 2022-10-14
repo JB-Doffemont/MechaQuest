@@ -7,19 +7,27 @@ export default StyleSheet.create({
     height: windowHeight,
     width: windowWidth,
     backgroundColor: "#020829",
-    flexDirection: "row",
     justifyContent: "space-around",
   },
+
+  containerTop: {
+    flex: 2,
+    width: windowWidth,
+  },
+  containerBottom: {
+    flex: 3,
+    width: windowWidth,
+  },
+
   slideImage: {
     flexBasis: 100,
     flexGrow: 0.45,
     marginBottom: 100,
   },
-  slideTitle: {
+
+  title: {
     fontSize: 24,
     color: "white",
-    marginTop: 10,
-    marginBottom: 10,
     textAlign: "center",
   },
   slideDescription: {

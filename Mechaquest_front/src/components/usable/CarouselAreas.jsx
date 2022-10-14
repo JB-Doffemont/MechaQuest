@@ -52,10 +52,17 @@ const Slide = memo(function Slide({ data}) {
   return (
     
     <View style={styles.slide}>
-      <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
-      <View style={styles.container}>
-        <Text style={styles.slideTitle}>{data.title}</Text>
+        <View style={styles.containerTop}>
+            <Image source={{ uri: data.image }} ></Image>
+            <Text style={styles.title}>{data.title}</Text>
+        </View>
+      
+      <View style={styles.containerBottom}>
+        
         <Text style={styles.slideDescription}>{data.description}</Text>
+        <Text style={styles.slideDescription}>{data.number_of_battle}</Text>
+        <Text style={styles.slideDescription}>{data.reward}</Text>
+        <Text style={styles.slideDescription}>{data.required_stam}</Text>
         {/* <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
  method={() => robotChoice(data.title)}/> */}
       </View>
@@ -68,12 +75,13 @@ const Slide = memo(function Slide({ data}) {
   const indexRef = useRef(index);
   indexRef.current = index;
   
-    const slideList = areas.map(({menu_background, name, description}) => {
+    const slideList = areas.map(({menu_background, number_of_battle, required_stam, reward, name, description}) => {
     return {
       id: name,
       image: `${ipConfig}/${menu_background}`,
-        // http://192.168.43.192:8000
-      // http://127.0.0.1:8000
+      number_of_battle: number_of_battle,
+      required_stam: required_stam,
+      reward: reward,
       title: name,
       description: description,
       
@@ -143,7 +151,6 @@ const Slide = memo(function Slide({ data}) {
     <>
       <FlatList
         data={slideList}
-        style={styles.carousel}
         renderItem={renderItem}
         pagingEnabled
         horizontal

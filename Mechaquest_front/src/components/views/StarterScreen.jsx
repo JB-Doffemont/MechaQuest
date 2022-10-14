@@ -11,10 +11,10 @@ export default function StarterScreen() {
             <View style={styles.buttonsContainer}>
                <Button
                buttonLabel="Inscription"
-               route="SignUpForm"/>
+               route="SignUpFormScreen"/>
                <Button
                buttonLabel="Connexion"
-               route="LogInForm"/>
+               route="LogInFormScreen"/>
             </View>
     </View>
     );

@@ -2,7 +2,7 @@ import logo from "../../assets/logo.png";
 import { View, Image, Text} from "react-native";
 import { useEffect } from "react";
 import React, { useState } from "react";
-import styles from "../../style/HomeScreen";
+import styles from "../../style/HomeScreenStyle";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen({navigation}) {

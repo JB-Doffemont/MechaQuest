@@ -40,8 +40,6 @@ export default function RobotChoice() {
         getRobots();
 
     }, []);
-    // navigator.navigation.navigate('HomeScreen');
-
 
     return (
         <View>

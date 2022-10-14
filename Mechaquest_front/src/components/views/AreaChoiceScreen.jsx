@@ -38,8 +38,10 @@ export default function AreaChoiceScreen() {
     }, []);
 
     return (
-        <View style={styles.container}>
-            <Carousel areas={areas}/>
+        <View>
+            <View>
+                <Carousel areas={areas}/>
+            </View>
         </View>
     );
 }

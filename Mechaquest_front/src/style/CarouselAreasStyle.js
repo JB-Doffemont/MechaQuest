@@ -48,8 +48,6 @@ export default StyleSheet.create({
     marginHorizontal: 2,
   },
 
-  carousel: { flex: 1 },
-
   paginationDotActive: { backgroundColor: "red" },
   paginationDotInactive: { backgroundColor: "white" },
 });

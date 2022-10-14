@@ -16,7 +16,7 @@ const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 export default function Carousel({areas}) {
 const [index, setIndex] = useState(0);
-console.log(areas);
+
 
 // const robotChoice = async(robot_name) => {
   
@@ -147,7 +147,7 @@ const Slide = memo(function Slide({ data}) {
         renderItem={renderItem}
         pagingEnabled
         horizontal
-        showsHorizontalScrollIndicator={true}
+        showsHorizontalScrollIndicator={false}
         bounces={false}
         onScroll={onScroll}
         {...flatListOptimizationProps}

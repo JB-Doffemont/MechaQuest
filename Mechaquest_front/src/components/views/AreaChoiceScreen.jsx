@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import styles from "../../style/StarterScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import StaminaRefill from "../usable/StaminaRefill";
 
 export default function AreaChoiceScreen() {
     console.log(ipConfig);
@@ -41,7 +42,7 @@ export default function AreaChoiceScreen() {
     return (
         <View style={styles.container}>
             <View>
-
+                <StaminaRefill />
             </View>
             <View>
                 

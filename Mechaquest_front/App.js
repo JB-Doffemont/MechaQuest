@@ -18,15 +18,14 @@ import AreaChoiceScreen from "./src/components/views/AreaChoiceScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  // console.log(ipConfig);
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="AreaChoiceScreen"
           component={AreaChoiceScreen}
           options={{ headerShown: false }}
-        /> */}
+        />
         <Stack.Screen
           name="PreStarterScreen"
           component={PreStarterScreen}

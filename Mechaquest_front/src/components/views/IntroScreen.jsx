@@ -19,7 +19,7 @@ export default function IntroScreen() {
             </Text>
             <Button
             buttonLabel="robotChoice"
-            route="RobotChoice"/>
+            route="RobotChoiceScreen"/>
         </View>
     );
 }

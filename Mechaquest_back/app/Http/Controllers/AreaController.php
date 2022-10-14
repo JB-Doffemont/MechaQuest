@@ -14,8 +14,9 @@ class AreaController extends Controller
      */
     public function index()
     {
-        $areas = Area::all()->toArray();
-        return array($areas);
+        $areas = Area::all();
+
+        return response()->json($areas);
     }
 
     /**
@@ -27,7 +28,6 @@ class AreaController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *

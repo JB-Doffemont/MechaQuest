@@ -5,6 +5,7 @@ import styles from "../../style/SignUpFormStyle";
 import inputStyle from "../../style/InputStyle";
 import InputWithLabel from "../usable/InputWithLabel";
 import ButtonRequest from "../usable/ButtonRequest";
+import ipConfig from "../../../IpConfig";
 
 export default function SignUp(navigator) {
     const [password, setPassword] = useState("");

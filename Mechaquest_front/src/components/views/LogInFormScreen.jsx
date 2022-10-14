@@ -6,6 +6,7 @@ import inputStyle from "../../style/InputStyle";
 import InputWithLabel from "../usable/InputWithLabel";
 import ButtonRequest from "../usable/ButtonRequest";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ipConfig from "../../../IpConfig";
 
 
 export default function LogIn(navigator) {

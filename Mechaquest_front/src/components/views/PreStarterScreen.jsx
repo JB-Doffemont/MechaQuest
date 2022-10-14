@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import React, { useState } from "react";
 import { Image, View, ActivityIndicator } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ipConfig from "../../../IpConfig";
 
 export default function PreStarterScreen(navigator) {
     const [user, setUser] = useState([]);

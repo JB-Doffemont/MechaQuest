@@ -15,10 +15,6 @@ import RankingScreen from "./src/components/views/RankingScreen";
 import ShopScreen from "./src/components/views/ShopScreen";
 import AreaChoiceScreen from "./src/components/views/AreaChoiceScreen";
 
-/**
- * Mon Ip préférée : http://192.168.43.192:8000
- */
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -26,11 +22,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="AreaChoiceScreen"
           component={AreaChoiceScreen}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="PreStarterScreen"
           component={PreStarterScreen}

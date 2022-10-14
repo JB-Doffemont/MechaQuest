@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import React, { useState } from "react";
 import Carousel from "../usable/Carousel";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ipConfig from "../../../IpConfig";
 
 import { View, Text } from "react-native";
 

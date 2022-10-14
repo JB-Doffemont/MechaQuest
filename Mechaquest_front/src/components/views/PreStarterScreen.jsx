@@ -30,7 +30,7 @@ export default function PreStarterScreen(navigator) {
                 } else {
                     
                     const response = await fetch(
-                        `http://192.168.43.192:8000/api/users/${userEmail}`, {
+                        `${ipConfig}/api/users/${userEmail}`, {
                           // http://127.0.0.1:8000/api/users/${userEmail}
                           // http://192.168.43.192:8000/api/users/${userEmail}
                             method: 'GET',
@@ -60,10 +60,7 @@ export default function PreStarterScreen(navigator) {
             else if (token && user.first_connexion == 1) {
                 navigator.navigation.navigate('HomeScreen');
                
-            }
-            
-          
-            
+            }     
       }, [token]);
     
     return(

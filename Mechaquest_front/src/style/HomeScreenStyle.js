@@ -6,7 +6,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     position: "relative",
-    backgroundColor: "#070F3B",
+    backgroundColor: "#070F3C",
   },
 
   greetingsContainer: {

@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { View, Text } from "react-native";
+import styles from "../../style/StarterScreenStyle";
+import ipConfig from "../../../IpConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function AreaChoiceScreen() {
+    console.log(ipConfig);
     const [areas, setAreas] = useState([]);
 
+    
     useEffect(() => {
         const getAreas = async () => {
             try {
                 const response = await fetch(
-                    'http://192.168.43.192:8000/api/areas', {
+                    `${ipConfig}/api/areas`, {
                       // http://127.0.0.1:8000/api/robots
                       // http://192.168.43.192:8000/api/users/${userEmail}
                         method: 'GET',
@@ -35,7 +39,7 @@ export default function AreaChoiceScreen() {
     }, []);
 
     return (
-        <View>
+        <View style={styles.container}>
             <View>
 
             </View>

@@ -22,6 +22,7 @@ import AreaChoiceScreen from "./src/components/views/AreaChoiceScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  // console.log(ipConfig);
   return (
     <NavigationContainer>
       <Stack.Navigator>

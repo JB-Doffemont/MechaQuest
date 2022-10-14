@@ -15,7 +15,7 @@ export default function HomeScreen({navigation}) {
                   const userEmail = await AsyncStorage.getItem('email');
                 
                       const response = await fetch(
-                          `http://192.168.43.192:8000/api/users/${userEmail}`, {
+                          `${ipConfig}/api/users/${userEmail}`, {
                             // http://127.0.0.1:8000/api/users/${userEmail}
                             // http://192.168.43.192:8000/api/users/${userEmail}
                               method: 'GET',
@@ -40,7 +40,7 @@ export default function HomeScreen({navigation}) {
               const getMainRobot = async () => {
                 try {
                     const response = await fetch(
-                        `http://192.168.43.192:8000/api/mainrobot`, {
+                        `${ipConfig}/api/mainrobot`, {
                           // http://127.0.0.1:8000/api/users/${userEmail}
                           // http://192.168.43.192:8000/api/users/${userEmail}
                             method: 'GET',
@@ -97,7 +97,7 @@ export default function HomeScreen({navigation}) {
                 </Text>
             </View>
             <View style={styles.robotContainer}>
-                <Image source={{uri:  `http://192.168.43.192:8000/${mainRobot.robot_image}`}} style={styles.card}></Image>
+                <Image source={{uri:  `${ipConfig}/${mainRobot.robot_image}`}} style={styles.card}></Image>
                 <Text style={styles.stam}>Stamina {mainRobot.current_stam} / 50 pts</Text>
             </View>
         </View>

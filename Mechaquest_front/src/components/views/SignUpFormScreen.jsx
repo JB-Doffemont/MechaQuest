@@ -24,7 +24,7 @@ export default function SignUp(navigator) {
     
     const register = async () => {
         try {
-            const response = await fetch('http://192.168.43.192:8000/api/register', {
+            const response = await fetch(`${ipConfig}/api/register`, {
                 // portable 4G http://172.20.10.7:8000/api/register
                 // Local host ordi: http://127.0.0.1:8000/api/register
                 // http://192.168.43.192:8000
@@ -45,7 +45,7 @@ export default function SignUp(navigator) {
             setData(json);
 
             if (json.status_code == 200) {
-                navigator.navigation.navigate('LogInForm');
+                navigator.navigation.navigate('LogInFormScreen');
             } else {
                 setErrorEmail(json.email);
                 setErrorPassword(json.password);

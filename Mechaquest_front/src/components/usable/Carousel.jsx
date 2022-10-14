@@ -23,7 +23,7 @@ const [index, setIndex] = useState(0);
 const robotChoice = async(robot_name) => {
   
   try {
-      const response = await fetch(`http://192.168.43.192:8000/api/duplicate/${robot_name}`, {
+      const response = await fetch(`${ipConfig}/api/duplicate/${robot_name}`, {
           // portable 4G http://172.20.10.7:8000/api/register
           // Local host ordi: http://127.0.0.1:8000/api/duplicate
           // http://192.168.43.192:8000
@@ -74,7 +74,7 @@ const Slide = memo(function Slide({ data}) {
     const slideList = robots.map(({id, robot_name, robot_image, description}, i) => {
     return {
       id: id,
-      image: `http://192.168.43.192:8000/${robot_image}`,
+      image: `${ipConfig}/${robot_image}`,
         // http://192.168.43.192:8000
       // http://127.0.0.1:8000
       title: robot_name,

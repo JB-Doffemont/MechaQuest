@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->string('name')->primary();
-            $table->string('background');
+            $table->string('battle_background');
+            $table->string('menu_background');
             $table->string('description');
             $table->integer('number_of_battle');
             $table->integer('reward');

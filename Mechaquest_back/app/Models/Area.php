@@ -17,7 +17,8 @@ class Area extends Model
 
     protected $fillable = [
         'name',
-        'background',
+        'battle_background',
+        'menu_background',
         'description',
         'number_of_battle',
         'reward',

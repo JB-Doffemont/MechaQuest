@@ -19,7 +19,8 @@ class AreaFactory extends Factory
     {
         return [
             'name' => Str::random(6),
-            'background' => Str::random(10),
+            'battle_background' => Str::random(10),
+            'menu_background' => Str::random(10),
             'description' => $this->faker->sentence(),
             'number_of_battle' => $this->faker->numerify('######'),
             'reward' => $this->faker->numerify('######'),

@@ -25,11 +25,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen
+        <Stack.Screen
           name="AreaChoiceScreen"
           component={AreaChoiceScreen}
           options={{ headerShown: false }}
-        /> */}
+        />
         <Stack.Screen
           name="PreStarterScreen"
           component={PreStarterScreen}

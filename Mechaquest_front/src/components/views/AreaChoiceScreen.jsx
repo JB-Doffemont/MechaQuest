@@ -36,7 +36,12 @@ export default function AreaChoiceScreen() {
 
     return (
         <View>
+            <View>
 
+            </View>
+            <View>
+                
+            </View>
         </View>
     );
 }

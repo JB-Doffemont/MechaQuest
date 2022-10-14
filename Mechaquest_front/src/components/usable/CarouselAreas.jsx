@@ -1,5 +1,4 @@
 import React, { useCallback, memo, useRef, useState} from "react";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   FlatList,
   View,
@@ -8,45 +7,45 @@ import {
   Image,
 } from "react-native";
 import ButtonRequest from "../usable/ButtonRequest";
-import styles from "../../style/CarouselStyle";
-import { useNavigation } from '@react-navigation/native';
+import styles from "../../style/CarouselAreasStyle";
 import ipConfig from "../../../IpConfig";
 
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 
-export default function Carousel({robots}) {
+export default function Carousel({areas}) {
 const [index, setIndex] = useState(0);
+console.log(areas);
 
-const robotChoice = async(robot_name) => {
+// const robotChoice = async(robot_name) => {
   
-  try {
-      const response = await fetch(`${ipConfig}/api/duplicate/${robot_name}`, {
-          // portable 4G http://172.20.10.7:8000/api/register
-          // Local host ordi: http://127.0.0.1:8000/api/duplicate
-          // http://192.168.43.192:8000
+//   try {
+//       const response = await fetch(`${ipConfig}/api/duplicate/${robot_name}`, {
+//           // portable 4G http://172.20.10.7:8000/api/register
+//           // Local host ordi: http://127.0.0.1:8000/api/duplicate
+//           // http://192.168.43.192:8000
           
-          method: 'POST',
-          headers: {
-              "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
-              Accept: 'application/json',
-              'Content-Type': 'application/json',  
-          },
+//           method: 'POST',
+//           headers: {
+//               "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+//               Accept: 'application/json',
+//               'Content-Type': 'application/json',  
+//           },
           
-        });
+//         });
 
-      const json = await response.json();
-      console.log(json);
+//       const json = await response.json();
+//       console.log(json);
       
-      if (json.status_code == 200) {
-        console.log('Test');
-        navigation.navigate('HomeScreen');
-      } 
-  } catch (error) {
-      console.error(error);
-  } 
-}
+//       if (json.status_code == 200) {
+//         console.log('Test');
+//         navigation.navigate('HomeScreen');
+//       } 
+//   } catch (error) {
+//       console.error(error);
+//   } 
+// }
 
 const Slide = memo(function Slide({ data}) {
   
@@ -57,9 +56,8 @@ const Slide = memo(function Slide({ data}) {
       <View style={styles.container}>
         <Text style={styles.slideTitle}>{data.title}</Text>
         <Text style={styles.slideDescription}>{data.description}</Text>
-        <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
- method={() => robotChoice(data.title)}/>
- 
+        {/* <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
+ method={() => robotChoice(data.title)}/> */}
       </View>
 
     </View>
@@ -70,13 +68,13 @@ const Slide = memo(function Slide({ data}) {
   const indexRef = useRef(index);
   indexRef.current = index;
   
-    const slideList = robots.map(({id, robot_name, robot_image, description}, i) => {
+    const slideList = areas.map(({menu_background, name, description}) => {
     return {
-      id: id,
-      image: `${ipConfig}/${robot_image}`,
+      id: name,
+      image: `${ipConfig}/${menu_background}`,
         // http://192.168.43.192:8000
       // http://127.0.0.1:8000
-      title: robot_name,
+      title: name,
       description: description,
       
     };
@@ -149,12 +147,12 @@ const Slide = memo(function Slide({ data}) {
         renderItem={renderItem}
         pagingEnabled
         horizontal
-        showsHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={true}
         bounces={false}
         onScroll={onScroll}
         {...flatListOptimizationProps}
       />
-      <Pagination index={robots}></Pagination>
+      <Pagination index={areas}></Pagination>
       
     </>
   );

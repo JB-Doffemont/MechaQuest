@@ -39,6 +39,7 @@ export default StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     flexDirection: "row",
+    color: "white",
   },
   paginationDot: {
     width: 8,
@@ -46,6 +47,9 @@ export default StyleSheet.create({
     borderRadius: 4,
     marginHorizontal: 2,
   },
-  paginationDotActive: { backgroundColor: "lightblue" },
-  paginationDotInactive: { backgroundColor: "black" },
+
+  carousel: { flex: 1 },
+
+  paginationDotActive: { backgroundColor: "red" },
+  paginationDotInactive: { backgroundColor: "white" },
 });

@@ -3,12 +3,11 @@ import { View, Text } from "react-native";
 import styles from "../../style/StarterScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Carousel from "../usable/CarouselAreas";
 
 export default function AreaChoiceScreen() {
-    console.log(ipConfig);
     const [areas, setAreas] = useState([]);
 
-    
     useEffect(() => {
         const getAreas = async () => {
             try {
@@ -40,12 +39,7 @@ export default function AreaChoiceScreen() {
 
     return (
         <View style={styles.container}>
-            <View>
-
-            </View>
-            <View>
-                
-            </View>
+            <Carousel areas={areas}/>
         </View>
     );
 }

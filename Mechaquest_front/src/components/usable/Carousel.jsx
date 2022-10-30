@@ -1,3 +1,5 @@
+// Ce carousel permet à l'utilisateur de choisir entre plusieurs robots
+
 import React, { useCallback, memo, useRef, useState} from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -13,34 +15,28 @@ import { useNavigation } from '@react-navigation/native';
 import ipConfig from "../../../IpConfig";
 
 
-const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-
+const { width: windowWidth, height: windowHeight } = Dimensions.get("window"); // Obtention de la taille de l'écran pour un CSS responsive
 
 export default function Carousel({robots}) {
 const [index, setIndex] = useState(0);
 
 const robotChoice = async(robot_name) => {
-  
   try {
-      const response = await fetch(`${ipConfig}/api/duplicate/${robot_name}`, {
-          // portable 4G http://172.20.10.7:8000/api/register
-          // Local host ordi: http://127.0.0.1:8000/api/duplicate
-          // http://192.168.43.192:8000
-          
+      // Récupération d'un robot parent en base de données puis création d'une nouvelle entrée en BDD via duplication, en associant l'email de l'utilisateur
+      const response = await fetch(`${ipConfig}/api/duplicate/${robot_name}`, { 
           method: 'POST',
           headers: {
-              "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+              "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'), // Nécessite un bearer token récupéré en local storage
               Accept: 'application/json',
               'Content-Type': 'application/json',  
           },
-          
         });
 
       const json = await response.json();
       console.log(json);
       
+      // Si la réponse est correcte (200), redirection sur l'écran HomeScreen
       if (json.status_code == 200) {
-        console.log('Test');
         navigation.navigate('HomeScreen');
       } 
   } catch (error) {
@@ -48,41 +44,36 @@ const robotChoice = async(robot_name) => {
   } 
 }
 
+// Affichage du slide avec les datas voulues (image, nom du robot...)
 const Slide = memo(function Slide({ data}) {
-  
   return (
-    
     <View style={styles.slide}>
       <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
       <View style={styles.container}>
         <Text style={styles.slideTitle}>{data.title}</Text>
         <Text style={styles.slideDescription}>{data.description}</Text>
-        <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
- method={() => robotChoice(data.title)}/>
- 
+        {/* Utilisation de notre composant ButtonRequest en appelant la méthode robotChoice pour sauvegarder en BDD au click */}
+        <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" method={() => robotChoice(data.title)}/> 
       </View>
-
-    </View>
-    
+    </View>    
   );
 });
   
+  // L'index va nous servir pour la pagination
   const indexRef = useRef(index);
   indexRef.current = index;
   
+    // Stockage des datas telles que l'ID, l'image, le titre ou encore la description
     const slideList = robots.map(({id, robot_name, robot_image, description}, i) => {
     return {
       id: id,
       image: `${ipConfig}/${robot_image}`,
-        // http://192.168.43.192:8000
-      // http://127.0.0.1:8000
       title: robot_name,
       description: description,
-      
     };
-    
   });
 
+  // Pagination pour savoir sur quel slide on se situe via un Dot (petit rond en bas de l'écran de téléphone)
   function Pagination({ index }) {
     return (
       <View style={styles.pagination} pointerEvents="none">
@@ -107,7 +98,6 @@ const Slide = memo(function Slide({ data}) {
     const slideSize = event.nativeEvent.layoutMeasurement.width;
     const index = event.nativeEvent.contentOffset.x / slideSize;
     const roundIndex = Math.round(index);
-
     const distance = Math.abs(roundIndex - index);
 
     // Prevent one pixel triggering setIndex in the middle
@@ -120,6 +110,7 @@ const Slide = memo(function Slide({ data}) {
     }
   }, []);
 
+  // Différentes valeurs à toucher pour modifier le rendu
   const flatListOptimizationProps = {
     initialNumToRender: 0,
     maxToRenderPerBatch: 1,
@@ -137,26 +128,24 @@ const Slide = memo(function Slide({ data}) {
     ),
   };
 
+  // Permet l'affichage de notre slide
   const renderItem = useCallback(function renderItem({ item }) {
-    return <Slide data={item} />;
-  }, []);
-
-  return (
-    <>
-      <FlatList
-        data={slideList}
-        style={styles.carousel}
-        renderItem={renderItem}
-        pagingEnabled
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        bounces={false}
-        onScroll={onScroll}
-        {...flatListOptimizationProps}
-      />
-      <Pagination index={robots}></Pagination>
-      
-    </>
+    return <Slide data={item} />; }, []);
+    return (
+      <> 
+        <FlatList
+          data={slideList}
+          style={styles.carousel}
+          renderItem={renderItem}
+          pagingEnabled
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          bounces={false}
+          onScroll={onScroll}
+          {...flatListOptimizationProps}
+        />
+        <Pagination index={robots}></Pagination>
+      </>
   );
 }
 

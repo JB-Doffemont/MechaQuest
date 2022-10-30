@@ -1,3 +1,5 @@
+// ButtonRedirect permet une redirection qui ne nécessite pas d'exécuter une requête au click.
+
 import React from "react";
 import styles from "../../style/ButtonStyle"
 import {Text, TouchableOpacity, View } from "react-native";
@@ -8,7 +10,7 @@ export default function Button({buttonLabel, route}) {
     
     return(
         <View>
-            <TouchableOpacity         onPress={() => navigation.navigate(`${route}`)}
+            <TouchableOpacity onPress={() => navigation.navigate(`${route}`)}     // Redirection vers une autre route au click
                 style={styles.button}>
             <Text style={styles.button_text}>{buttonLabel}</Text>
             </TouchableOpacity>

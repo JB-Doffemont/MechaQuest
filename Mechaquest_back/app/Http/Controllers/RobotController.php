@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class RobotController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Récupère la liste des robots prototypes qui ne possèdent pas d'email.
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,7 +33,7 @@ class RobotController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Inscription d'un nouveau robot en BDD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -63,7 +63,7 @@ class RobotController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Récupère un robot précis grace à son ID.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -76,7 +76,7 @@ class RobotController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour un robot précis en bdd.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -92,26 +92,24 @@ class RobotController extends Controller
         $user = Auth::user();
 
         /** On vérifie si l'email de l'utilisateur connecté correspond bien au user_email du robot qui sera modifié
-         *   En fonction des rôles on autorise la modification d'un ou plusieurs champs
+         *  En fonction des rôles on autorise la modification d'un ou plusieurs champs
          */
         if ($user->email === $robot->user_email && $user->role === 0) {
 
             Robot::where("user_email", $user->email)
                 ->where("main_robot", 1)
                 ->update(['main_robot' => 0]);
-
             $robot->update($request->only('main_robot'));
         } else if ($user->role === 1) {
             $robot->update($request->all());
         } else {
             return response()->json("Vous n'êtes pas autorisé.");
         }
-
         return response()->json([$robot, $user]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Suppression d'un robot de la BDD via son id.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -133,7 +131,7 @@ class RobotController extends Controller
         return response()->json('Robot à nouveau actif !');
     }
 
-    // Ajout d'une entrée dans la BDD qui duplique un robot existant parent lorsqu'un joueur obtient un robot
+    // Ajout d'une entrée dans la BDD qui duplique un robot existant parent lorsqu'un joueur choisit un robot pour la première fois
     public function register_heros($robotName)
     {
         $userEmail = Auth::user()->email;
@@ -151,14 +149,16 @@ class RobotController extends Controller
         return response()->json(["Vous venez d'obtenir $robotName !", "status_code" => 200]);
     }
 
+    // Affiche le robot principal (ex: récupération de la carte dans la HomeScreen)
     public function get_main_robot()
     {
+        // Récupération de l'email de l'utilisateur connecté
         $userEmail = Auth::user()->email;
 
+        // Récupération de la valeur du champ "main_robot" lié à l'email récupéré auparavant
         $mainRobot = Robot::where("user_email", $userEmail)
             ->where("main_robot", 1)
             ->get();
-
         return response()->json($mainRobot);
     }
 }

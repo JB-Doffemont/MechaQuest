@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class ProgressionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affiche la table de progression dans un tableau.
+     * Par "progression", cela sous entend l'expérience nécessaire pour monter en niveau.
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,7 +30,7 @@ class ProgressionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistrement en BDD d'un palier de progression, l'expérience nécessaire pour lvl up.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -48,7 +49,7 @@ class ProgressionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Affiche le palier de progression.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -71,7 +72,7 @@ class ProgressionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour un palier de progression dans la BDD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -84,7 +85,7 @@ class ProgressionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Suppression d'un palier de progression.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

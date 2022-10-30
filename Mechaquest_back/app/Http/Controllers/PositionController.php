@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class PositionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Récupération de toutes les positions des ennemis dans une planete.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,13 +34,14 @@ class PositionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Création d'une nouvelle position pour une route.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // On spécifie le robot voulu, le nom de la planète concernée, et sa position de combat
         $position = new RobotPositionsBattles([
             'robot_id' => $request->input('robot_id'),
             'area_name' => $request->input('area_name'),
@@ -74,7 +75,7 @@ class PositionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Mis à jour d'une position deja existante en BDD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -108,7 +109,7 @@ class PositionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Suppression des positions d'une route (soft-delete).
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -123,6 +124,7 @@ class PositionController extends Controller
         return response()->json($position);
     }
 
+    // Récupération des positions
     public function restore($area, $positionId)
     {
         RobotPositionsBattles::withTrashed()

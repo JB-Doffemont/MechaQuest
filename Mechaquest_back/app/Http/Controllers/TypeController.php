@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class TypeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affichage des types des robots.
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,7 +30,7 @@ class TypeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Ajout d'un type de robot en BDD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -38,20 +38,18 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $type = new Type([
-            'type_name' => $request->input('type_name'),
-            'base_hp' => $request->input('base_hp'),
-            'base_atk' => $request->input('base_atk'),
-            'base_def' => $request->input('base_def'),
-            'special' => $request->input('special'),
+            'type_name' => $request->input('type_name'), // Nom du type du robot
+            'base_hp' => $request->input('base_hp'), // Point de vie servant de base pour le type en question
+            'base_atk' => $request->input('base_atk'), // Attaque de base du type en question
+            'base_def' => $request->input('base_def'), // Défense de base du type en question
+            'special' => $request->input('special'), // Attaque spéciale du robot
         ]);
-
         $type->save();
-
         return response()->json($type);
     }
 
     /**
-     * Display the specified resource.
+     * .
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -75,7 +73,7 @@ class TypeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Mise à jour d'un type de robot en BDD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -91,7 +89,7 @@ class TypeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Suppression d'un type en BDD (soft-delete).
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -99,16 +97,14 @@ class TypeController extends Controller
     public function destroy($id)
     {
         $type = Type::findOrFail($id);
-
         $type->delete();
-
         return response()->json("Type supprimé !");
     }
 
+    // Récupération d'un type supprimé par erreur
     public function restore($id)
     {
         Type::withTrashed()->findOrFail($id)->restore();
-
         return response()->json('Type récupéré !');
     }
 }

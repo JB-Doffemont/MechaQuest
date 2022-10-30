@@ -1,3 +1,5 @@
+// Ecran de selection du robot qui s'affiche la première fois après avoir lu le tutoriel
+
 import { useEffect } from "react";
 import React, { useState } from "react";
 import Carousel from "../usable/Carousel";
@@ -12,16 +14,13 @@ export default function RobotChoice() {
     useEffect(() => {
         const getRobots = async () => {
             try {
-            const userEmail = await AsyncStorage.getItem('email');
+            const userEmail = await AsyncStorage.getItem('email'); // Récupération de l'email de l'utilisateur en utilisant les données du localstorage
             console.log(userEmail);
             
-
+                // Récupération des robots
                 const response = await fetch(
                     `${ipConfig}/api/robots`, {
-                      // http://127.0.0.1:8000/api/robots
-                      // http://192.168.43.192:8000/api/users/${userEmail}
                         method: 'GET',
-                     
                         headers: {
                             "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
                             Accept: 'application/json',
@@ -44,13 +43,13 @@ export default function RobotChoice() {
 
     return (
         <View>
-                    <Text style={{color: "white", backgroundColor: "#020829", textAlign:"center", fontSize:18, fontWeight: "bold"}}>
-                        CHOIX DU ROBOT
-                    </Text>
-        <View>
-            <Carousel robots={robots} />
-        </View>
-       
+            <Text style={{color: "white", backgroundColor: "#020829", textAlign:"center", fontSize:18, fontWeight: "bold"}}>
+            CHOIX DU ROBOT
+            </Text>
+            <View>
+                {/* Composant du Carousel pour le choix des robots */}
+                <Carousel robots={robots} />
+            </View>
         </View>
     );
 }

@@ -1,3 +1,5 @@
+// Ce carousel permet de selectionner la planete sur laquelle on veut lancer une partie
+
 import React, { useCallback, memo, useRef, useState} from "react";
 import {
   FlatList,
@@ -10,55 +12,20 @@ import ButtonRequest from "../usable/ButtonRequest";
 import styles from "../../style/CarouselAreasStyle";
 import ipConfig from "../../../IpConfig";
 
-
-const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-
+const { width: windowWidth, height: windowHeight } = Dimensions.get("window"); // Obtention de la taille de l'écran pour un CSS responsive
 
 export default function Carousel({areas}) {
 const [index, setIndex] = useState(0);
 
-
-// const robotChoice = async(robot_name) => {
-  
-//   try {
-//       const response = await fetch(`${ipConfig}/api/duplicate/${robot_name}`, {
-//           // portable 4G http://172.20.10.7:8000/api/register
-//           // Local host ordi: http://127.0.0.1:8000/api/duplicate
-//           // http://192.168.43.192:8000
-          
-//           method: 'POST',
-//           headers: {
-//               "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
-//               Accept: 'application/json',
-//               'Content-Type': 'application/json',  
-//           },
-          
-//         });
-
-//       const json = await response.json();
-//       console.log(json);
-      
-//       if (json.status_code == 200) {
-//         console.log('Test');
-//         navigation.navigate('HomeScreen');
-//       } 
-//   } catch (error) {
-//       console.error(error);
-//   } 
-// }
-
+// Affichage du slide avec les datas voulues (image, nom de la route...)
 const Slide = memo(function Slide({ data}) {
-  
   return (
-    
     <View style={styles.slide}>
         <View style={styles.containerTop}>
             <Image source={{ uri: data.image }} ></Image>
             <Text style={styles.title}>{data.title}</Text>
         </View>
-      
       <View style={styles.containerBottom}>
-        
         <Text style={styles.slideDescription}>{data.description}</Text>
         <Text style={styles.slideDescription}>{data.number_of_battle}</Text>
         <Text style={styles.slideDescription}>{data.reward}</Text>
@@ -66,15 +33,15 @@ const Slide = memo(function Slide({ data}) {
         {/* <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
  method={() => robotChoice(data.title)}/> */}
       </View>
-
     </View>
-    
   );
 });
   
+  // Index servant à la pagination 
   const indexRef = useRef(index);
   indexRef.current = index;
   
+    // On stock les datas voulues pour le choix du niveau (id, image, stamina nécessaire pour lancer une partie...)
     const slideList = areas.map(({menu_background, number_of_battle, required_stam, reward, name, description}) => {
     return {
       id: name,
@@ -84,11 +51,10 @@ const Slide = memo(function Slide({ data}) {
       reward: reward,
       title: name,
       description: description,
-      
     };
-    
   });
 
+  // Pagination pour savoir sur quel slide on se situe via un Dot (petit rond en bas de l'écran de téléphone)
   function Pagination({ index }) {
     return (
       <View style={styles.pagination} pointerEvents="none">
@@ -113,7 +79,6 @@ const Slide = memo(function Slide({ data}) {
     const slideSize = event.nativeEvent.layoutMeasurement.width;
     const index = event.nativeEvent.contentOffset.x / slideSize;
     const roundIndex = Math.round(index);
-
     const distance = Math.abs(roundIndex - index);
 
     // Prevent one pixel triggering setIndex in the middle
@@ -126,6 +91,7 @@ const Slide = memo(function Slide({ data}) {
     }
   }, []);
 
+  // Différentes valeurs à toucher pour modifier le rendu
   const flatListOptimizationProps = {
     initialNumToRender: 0,
     maxToRenderPerBatch: 1,
@@ -143,6 +109,7 @@ const Slide = memo(function Slide({ data}) {
     ),
   };
 
+  // Permet l'affichage de notre slide
   const renderItem = useCallback(function renderItem({ item }) {
     return <Slide data={item} />;
   }, []);
@@ -160,7 +127,6 @@ const Slide = memo(function Slide({ data}) {
         {...flatListOptimizationProps}
       />
       <Pagination index={areas}></Pagination>
-      
     </>
   );
 }

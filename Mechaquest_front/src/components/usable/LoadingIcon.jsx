@@ -1,3 +1,5 @@
+// Une icone qui signale un chargement, utilisé essentiellement pour le pre-starter screen
+ 
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';

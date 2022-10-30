@@ -1,3 +1,5 @@
+// Ecran qui présente le jeu à un nouveau joueur: lore général suivi du tutoriel 
+
 import { View, ScrollView, Text } from "react-native";
 import styles from "../../style/IntroScreenStyle";
 import Button from "../usable/ButtonRedirect";

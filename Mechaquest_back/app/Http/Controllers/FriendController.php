@@ -31,26 +31,25 @@ class FriendController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Ajout d'un ami pour un utilisateur dans la BDD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, Friend $friend)
     {
-        // $friend = Auth::id();
-        // var_dump($friend);
-
+        // Récupération de l'ID de l'utilisateur connecté
         $userId = Auth::id();
 
+        // Création d'un ami, en récupérant l'ID du joueur connecté et l'email de l'ami via input (l'Email est la clé primaire d'un User dans notre cas)
         $friend = new Friend([
             'email_user1' => $userId,
             'email_user2' => $request->input('email_user2'),
 
         ]);
 
+        // Sauvegarde de cet ami, réponse en json
         $friend->save();
-
         return response()->json($friend);
     }
 
@@ -102,8 +101,10 @@ class FriendController extends Controller
     // Suppression d'un ami de sa liste d'amis
     public function deleteFriend($email, $email1)
     {
+        // Récupération d'un ami d'un utilisateur
         $friend = User::where("email", $email)->with('friends')->first();
 
+        // On supprime l'email de cet ami lié à l'utilisateur
         $friend->friends()->detach($email1);
 
         return response()->json("Cet utilisateur ne fait plus partie de votre liste d'amis.");

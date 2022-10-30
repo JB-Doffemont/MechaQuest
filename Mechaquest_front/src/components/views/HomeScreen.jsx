@@ -1,3 +1,5 @@
+// Menu principal du jeu, le joueur aura accès à tous les menus depuis cet écran
+
 import logo from "../../assets/logo.png";
 import { View, Image, Text} from "react-native";
 import { useEffect } from "react";
@@ -10,42 +12,36 @@ export default function HomeScreen({navigation}) {
     const [user, setUser] = useState([]);
     const [mainRobot, setMainRobot] = useState([]);
 
+    // Récupération des infos de l'utilisateur via son email pour récupérer par la suite son robot 
     useEffect(() => {
               const getUser = async () => {
                   try {
                   const userEmail = await AsyncStorage.getItem('email');
-                
-                      const response = await fetch(
-                          `${ipConfig}/api/users/${userEmail}`, {
-                            // http://127.0.0.1:8000/api/users/${userEmail}
-                            // http://192.168.43.192:8000/api/users/${userEmail}
-                              method: 'GET',
-                              // mode: 'no-cors',
-                              headers: {
-                                  "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
-                                  Accept: 'application/json',
-                                  'Content-Type': 'application/json',  
-                              },
-                          });
+                  const response = await fetch(
+                      `${ipConfig}/api/users/${userEmail}`, {
+                          method: 'GET',
+                          headers: {
+                            "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',  
+                            },
+                        });
                           
-                          const json = await response.json();
-                          setUser(json[0]);  
-                          console.log(json);
+                        const json = await response.json();
+                        setUser(json[0]);  
+                        console.log(json);
                   } catch (error) {
                     console.error(error);
                   }
                 };
-                
               getUser();
 
+              // Récupération du robot principal du joueur pour afficher sa carte sur le menu d'accueil
               const getMainRobot = async () => {
                 try {
                     const response = await fetch(
                         `${ipConfig}/api/mainrobot`, {
-                          // http://127.0.0.1:8000/api/users/${userEmail}
-                          // http://192.168.43.192:8000/api/users/${userEmail}
                             method: 'GET',
-                            // mode: 'no-cors',
                             headers: {
                                 "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
                                 Accept: 'application/json',
@@ -61,10 +57,10 @@ export default function HomeScreen({navigation}) {
                   console.error(error);
                 }
               };
-              
             getMainRobot();
         }, []);
 
+    // Affichage des différents menus avec redirection
     return(
         <View style={styles.container}>
             <View style={styles.greetingsContainer}>

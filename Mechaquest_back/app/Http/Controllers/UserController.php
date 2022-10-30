@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Affichage des utilisateurs.
      *
      * @return \Illuminate\Http\Response
      */
@@ -44,7 +44,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Affiche un utilisateur précis en récupérant son email et ses données liées (amis, robot).
      *
      * @return \Illuminate\Http\Response
      */
@@ -54,13 +54,11 @@ class UserController extends Controller
 
         // permet de récupérer les robots d'un utilisateur
         $robotUser = Robot::where("user_email", $email)->get();
-
-
         return response()->json([$user, $robotUser]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Affichage de l'édition des données d'un utilisateur.
      *
      * @param  int  $email
      * @return \Illuminate\Http\Response
@@ -75,7 +73,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Mise à jour des données d'un utilisateur
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -102,23 +100,23 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Utilisation d'un softdelete pour supprimer un utilisateur de la base de données
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // Utilisation d'un softdelete pour supprimer un utilisateur de la base de données
     public function destroy($email)
     {
 
+        // Récupération de l'email de l'utilisateur pour le cibler précisément
         $user = User::where("email", $email)->first();
 
+        // Suppression des robots liés à cet utilisateur
         if ($user) {
             foreach ($user->robots as $robot) {
                 $robot->delete();
             }
             $user->delete();
-
             return response()->json("L'utilisateur a été supprimé.", 200);
         } else {
             return response()->json([], 404);

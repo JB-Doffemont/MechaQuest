@@ -13,7 +13,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
-        // Création d'une instance permettant de personnaliser la vérification des données, la reponse et son status
+        // Création d'une instance permettant de personnaliser la vérification des données, la reponse et son statut
         $validated = Validator::make($request->all(), [
             'pseudo' => 'required|alpha_num|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -38,13 +38,12 @@ class AuthController extends Controller
             'password' => $validatedData['password'],
         ]);
 
-
-
         return response()->json([$user, 'status_code' => 200]);
     }
 
     public function login(Request $request)
     {
+        // Message d'erreur si l'email ou le mot de passe ne sont pas valides
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'email' => 'L\'email n\'est pas valide.',
@@ -52,10 +51,13 @@ class AuthController extends Controller
             ], 401);
         }
 
+        // Récupération de l'email de l'utilisateur
         $user = User::where('email', $request['email'])->firstOrFail();
 
+        // Création d'un token d'authentification
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        // La réponse renvoit un json avec un Bearer Token
         return response()->json(
             [
                 'access_token' => $token,
@@ -65,6 +67,7 @@ class AuthController extends Controller
         );
     }
 
+    // Suppression de l'access_token de l'utilisateur pour le déconnecter
     public function logout()
     {
         $user = request()->user();

@@ -9,6 +9,9 @@ export default StyleSheet.create({
     color: "#41403E",
     width: 150,
     margin: 15,
+
+    // Boutons css avec bordure spéciale
+
     // borderRadius: [10, 10, 10, 10],
     // borderTopLeftRadius: 15,
     // borderTopRightRadius: 225,
@@ -26,6 +29,7 @@ export default StyleSheet.create({
     // border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   },
 
+  // la classe choiceButton correspond aux boutons request de l'écran RobotChoiceScreen
   choiceButton: {
     backgroundColor: "#0d9e81",
     padding: 20,

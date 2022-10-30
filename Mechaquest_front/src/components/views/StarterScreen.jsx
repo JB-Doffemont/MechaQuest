@@ -1,3 +1,5 @@
+// Ecran qui permet à l'utilisateur de se connecter ou de s'enregistrer
+
 import React from "react";
 import logo from "../../assets/logo.png";
 import styles from "../../style/StarterScreenStyle"

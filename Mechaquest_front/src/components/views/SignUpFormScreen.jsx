@@ -1,3 +1,5 @@
+// Ecran affichant le formulaire d'inscription
+
 import React from "react";
 import { useState } from "react";
 import { View, ScrollView, Text} from "react-native";
@@ -7,6 +9,7 @@ import InputWithLabel from "../usable/InputWithLabel";
 import ButtonRequest from "../usable/ButtonRequest";
 import ipConfig from "../../../IpConfig";
 
+// Si le pseudo, l'email unique, et le mot de passe sont valides, enregistrement de l'utilisateur en BDD puis redirection sur l'écran de connexion
 export default function SignUp(navigator) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,18 +21,11 @@ export default function SignUp(navigator) {
     const [errorPseudo, setErrorPseudo] = useState('');
     const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
 
-
     const [data, setData] = useState([]);
-   
-
-    
+       
     const register = async () => {
         try {
-            const response = await fetch(`${ipConfig}/api/register`, {
-                // portable 4G http://172.20.10.7:8000/api/register
-                // Local host ordi: http://127.0.0.1:8000/api/register
-                // http://192.168.43.192:8000
-                
+            const response = await fetch(`${ipConfig}/api/register`, { //ipConfig va récupérer l'IP de JB ou de Lucas            
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',
@@ -45,6 +41,7 @@ export default function SignUp(navigator) {
             const json = await response.json();
             setData(json);
 
+            // Si réponse correcte, redirection sur l'écran de connexion, sinon affichage des erreurs sur le formulaire
             if (json.status_code == 200) {
                 navigator.navigation.navigate('LogInFormScreen');
             } else {
@@ -53,7 +50,6 @@ export default function SignUp(navigator) {
                 setErrorPseudo(json.pseudo);
                 setErrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
             }
-
         } catch (error) {
             console.error(error);
         } 
@@ -81,7 +77,6 @@ export default function SignUp(navigator) {
                     {errorEmail && (<Text> {errorEmail} </Text>)}
                 </Text>
 
-
                 <InputWithLabel label="Mot de passe"
                                 value={password}
                                 onChangeText={setPassword}
@@ -91,7 +86,6 @@ export default function SignUp(navigator) {
                 <Text style={inputStyle.error}>
                     {errorPassword && (<Text> {errorPassword} </Text>)}
                 </Text>
-
 
                 <InputWithLabel label="Confirmation"
                                 value={confirmPassword}

@@ -8,14 +8,13 @@ use Illuminate\Http\Request;
 class AreaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Récupère toutes les routes/planètes.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $areas = Area::all();
-
         return response()->json($areas);
     }
 
@@ -29,7 +28,7 @@ class AreaController extends Controller
         //
     }
     /**
-     * Store a newly created resource in storage.
+     * Ajoute une nouvelle planète en base de données.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -51,7 +50,7 @@ class AreaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Affiche une route précise grâce à son nom.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -74,7 +73,7 @@ class AreaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Met à jour une route deja existante en BDD.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -87,7 +86,7 @@ class AreaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Supprime une planète de la BDD (soft-delete)
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -99,7 +98,7 @@ class AreaController extends Controller
         return response()->json("La route a été supprimée.");
     }
 
-    // Récupération d'une route supprimée
+    // Récupération d'une planète supprimée grâce à la méthode withTrashed()
     public function restore($name)
     {
         Area::withTrashed()->where("name", $name)->restore();

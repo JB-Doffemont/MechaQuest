@@ -17,6 +17,7 @@ import AreaChoiceScreen from "./src/components/views/AreaChoiceScreen";
 
 const Stack = createNativeStackNavigator();
 
+// L'app.js va nous permettre de lire tous les screens/views
 export default function App() {
   return (
     <NavigationContainer>

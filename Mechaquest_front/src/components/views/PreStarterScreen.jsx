@@ -1,11 +1,11 @@
-/* La logique de cette view:
-- Si présence du token mais pas de robot selectionné, doit renvoyer sur le tuto puis selection du robot (if getItem AsyncStorage !== null && 1st_co == 0)
-- Si présence du token et d'un robot selectionné, doit renvoyer sur la home page du joueur (if getItem AsyncStorage!== null && 1st_co == 1)
-- Si pas de présence du token, doit renvoyer sur le "Starter Screen Unco" pour permettre de s'enregistrer ou de se connecter (if getItem == null)
+/* 
+Ecran qui se charge pour tous les utilisateurs au lancement de l'application.
+3 scénarios sont possibles:
 
-Il va falloir faire une requete en back qui compare notre "access_token" à l'auth token qui est dans la table "personnal access token" afin de récupérer l'email.
+- Si présence du Bearertoken mais aucun robot enregistré par l'utilisateur en BDD, redirection sur "IntroScreen" pour pouvoir ensuite choisir son robot
+- Si présence du Bearertoken et d'un robot enregistré, redirection sur "HomeScreen" pour que l'utilisateur puisse continuer sa partie
+- Si aucune présence de token, redirection sur "StarterScreen" pour permettre à l'utilisateur de s'enregistrer ou de se connecter
  */
-
 
 import logo from "../../assets/logo.png";
 import styles from "../../style/StarterScreenStyle";
@@ -20,7 +20,7 @@ export default function PreStarterScreen(navigator) {
     const [token, setToken] = useState("");  
 
     useEffect(() => {
-      // AsyncStorage.clear();
+      // AsyncStorage.clear(); // Permet de reset le localstorage sur mobile
             const getUser = async () => {
                 try {
                 const userEmail = await AsyncStorage.getItem('email');
@@ -32,8 +32,6 @@ export default function PreStarterScreen(navigator) {
                     
                     const response = await fetch(
                         `${ipConfig}/api/users/${userEmail}`, {
-                          // http://127.0.0.1:8000/api/users/${userEmail}
-                          // http://192.168.43.192:8000/api/users/${userEmail}
                             method: 'GET',
                             // mode: 'no-cors',
                             headers: {
@@ -60,7 +58,6 @@ export default function PreStarterScreen(navigator) {
             } 
             else if (token && user.first_connexion == 1) {
                 navigator.navigation.navigate('HomeScreen');
-               
             }     
       }, [token]);
     

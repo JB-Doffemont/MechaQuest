@@ -1,10 +1,13 @@
+// Ecran de choix du stage avant de lancer une partie
+
 import { useState, useEffect } from "react";
 import { View, Text } from "react-native";
-import styles from "../../style/StarterScreenStyle";
+import styles from "../../style/AreaChoiceScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Carousel from "../usable/CarouselAreas";
 
+// Récupération des arenes en BDD
 export default function AreaChoiceScreen() {
     const [areas, setAreas] = useState([]);
 
@@ -13,10 +16,7 @@ export default function AreaChoiceScreen() {
             try {
                 const response = await fetch(
                     `${ipConfig}/api/areas`, {
-                      // http://127.0.0.1:8000/api/robots
-                      // http://192.168.43.192:8000/api/users/${userEmail}
                         method: 'GET',
-                     
                         headers: {
                             "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
                             Accept: 'application/json',
@@ -40,6 +40,7 @@ export default function AreaChoiceScreen() {
     return (
         <View>
             <View>
+                {/* Utilisation du Carousel pour permettre à l'utilisateur un choix dynamique du stage */}
                 <Carousel areas={areas}/>
             </View>
         </View>

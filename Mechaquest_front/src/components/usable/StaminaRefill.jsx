@@ -1,3 +1,5 @@
+// Composant qui affiche la stamina d'un robot et qui définit le temps prévu pour qu'elle se régénère
+
 import { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import styles from '../../style/StaminaStyle';
@@ -10,6 +12,7 @@ export default function StaminaRefill(robots) {
   useEffect(() => {
     const getStamina = async () => {
         try {
+            // Récupération du robot de l'utilisateur 
             const response = await fetch(
                 `${ipConfig}/api/robots`, {
                     method: 'GET',
@@ -30,16 +33,19 @@ export default function StaminaRefill(robots) {
                   });
                 console.log(test6);
                 setStamina(json);
-                
+                // setStamina ne marche pas encore                
 
         } catch (error) {
           console.error(error);
         }
       };
     
-    getStamina();
+    getStamina(); 
 
 }, []);
+
+// Exemple: Au chargement de la page, on ajoute +1 de stamina toutes les secondes en front
+
 //   useEffect(() => {
 //     const interval = setInterval(() => {
 //       setStamina((prevStamina) => prevStamina + 1);
@@ -49,10 +55,8 @@ export default function StaminaRefill(robots) {
 //   }, []);
 
   return (
-
     <View> 
         <Text style={styles.stamina}>Stamina: {stamina}</Text>
     </View>
-   
   );
 }

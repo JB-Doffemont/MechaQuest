@@ -11,6 +11,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function HomeScreen({navigation}) {
     const [user, setUser] = useState([]);
     const [mainRobot, setMainRobot] = useState([]);
+    const [stamina, setStamina] = useState([]);
+
 
     // Récupération des infos de l'utilisateur via son email pour récupérer par la suite son robot 
     useEffect(() => {
@@ -29,7 +31,7 @@ export default function HomeScreen({navigation}) {
                           
                         const json = await response.json();
                         setUser(json[0]);  
-                        console.log(json);
+                        console.log("get user", json);
                   } catch (error) {
                     console.error(error);
                   }
@@ -50,7 +52,7 @@ export default function HomeScreen({navigation}) {
                         });
                         
                         const json = await response.json();
-                        console.log(json);
+                        console.log("getmainrobot", json[0].current_stam);
                         setMainRobot(json[0]);
                     
                 } catch (error) {
@@ -58,6 +60,29 @@ export default function HomeScreen({navigation}) {
                 }
               };
             getMainRobot();
+
+            // Test Stamina
+            const getStamina = async () => {
+              try {
+                  const response = await fetch(
+                      `${ipConfig}/api/increasestamina`, {
+                          method: 'GET',
+                          headers: {
+                              "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+                              Accept: 'application/json',
+                              'Content-Type': 'application/json',  
+                          },
+                      });
+                      
+                      const json = await response.json();
+                      console.log("getStamina pour tous les robots", json);
+                      setStamina(json);
+                  
+              } catch (error) {
+                console.error(error);
+              }
+            };
+          getStamina();
         }, []);
 
     // Affichage des différents menus avec redirection

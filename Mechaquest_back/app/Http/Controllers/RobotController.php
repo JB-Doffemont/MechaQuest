@@ -162,4 +162,12 @@ class RobotController extends Controller
             ->get();
         return response()->json($mainRobot);
     }
+
+    // Fonction pour augmenter la stamina de tous les robots à une heure précise
+    public function increase_stamina()
+    {
+        $robot = Robot::get()->except("user_email", null);
+
+        return response()->json($robot);
+    }
 }

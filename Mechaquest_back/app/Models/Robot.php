@@ -16,5 +16,6 @@ class Robot extends Model
         'reward',
         'price',
         'main_robot',
+        'current_stam'
     ];
 }

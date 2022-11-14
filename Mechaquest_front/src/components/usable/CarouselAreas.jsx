@@ -22,14 +22,18 @@ const Slide = memo(function Slide({ data}) {
   return (
     <View style={styles.slide}>
         <View style={styles.containerTop}>
-            <Image source={{ uri: data.image }} ></Image>
+            <Image style={styles.slideImage} source={{ uri: data.image }} ></Image>
             <Text style={styles.title}>{data.title}</Text>
         </View>
       <View style={styles.containerBottom}>
-        <Text style={styles.slideDescription}>{data.description}</Text>
-        <Text style={styles.slideDescription}>{data.number_of_battle}</Text>
-        <Text style={styles.slideDescription}>{data.reward}</Text>
-        <Text style={styles.slideDescription}>{data.required_stam}</Text>
+        <View style={styles.bottomLeft}>
+          <Text style={styles.slideDescription}>{data.description}</Text>
+        </View>
+        <View style={styles.bottomRight}>
+          <Text style={styles.slideText}>Nombre de combats : {data.number_of_battle}</Text>
+          <Text style={styles.slideText}>Récompense en or : {data.reward}</Text>
+          <Text style={styles.slideText}>Stamina requise : {data.required_stam}</Text>
+        </View>
         {/* <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
  method={() => robotChoice(data.title)}/> */}
       </View>

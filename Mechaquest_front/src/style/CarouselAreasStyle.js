@@ -11,18 +11,19 @@ export default StyleSheet.create({
   },
 
   containerTop: {
-    flex: 2,
+    flex: 1,
     width: windowWidth,
   },
   containerBottom: {
-    flex: 3,
+    flex: 1,
+    flexDirection: "row",
     width: windowWidth,
+    padding: 50,
   },
 
   slideImage: {
     flexBasis: 100,
     flexGrow: 0.45,
-    marginBottom: 100,
   },
 
   title: {
@@ -31,6 +32,12 @@ export default StyleSheet.create({
     textAlign: "center",
   },
   slideDescription: {
+    fontSize: 14,
+    color: "white",
+    width: windowWidth * 0.5,
+    height: windowHeight * 0.3,
+  },
+  slideText: {
     fontSize: 14,
     color: "white",
     width: windowWidth * 0.5,

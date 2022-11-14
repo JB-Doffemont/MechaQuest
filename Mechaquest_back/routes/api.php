@@ -89,4 +89,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/duplicate/{robotName}', [RobotController::class, 'register_heros'])->name('robots.heros');
     Route::get('/mainrobot', [RobotController::class, 'get_main_robot'])->name('main_robot');
+    Route::get('/increasestamina', [RobotController::class, 'increase_stamina'])->name('increase_stamina');
 });

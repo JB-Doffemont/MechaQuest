@@ -6,6 +6,7 @@ import styles from "../../style/AreaChoiceScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Carousel from "../usable/CarouselAreas";
+import StaminaRefill from "../usable/StaminaRefill";
 
 // Récupération des arenes en BDD
 export default function AreaChoiceScreen() {
@@ -42,6 +43,7 @@ export default function AreaChoiceScreen() {
             <View>
                 {/* Utilisation du Carousel pour permettre à l'utilisateur un choix dynamique du stage */}
                 <Carousel areas={areas}/>
+                <StaminaRefill />
             </View>
         </View>
     );

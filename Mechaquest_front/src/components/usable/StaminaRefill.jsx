@@ -1,4 +1,4 @@
-// Composant qui affiche la stamina d'un robot et qui définit le temps prévu pour qu'elle se régénère
+// Composant qui affiche la stamina d'un robot
 
 import { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
@@ -6,41 +6,34 @@ import styles from '../../style/StaminaStyle';
 import ipConfig from '../../../IpConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 export default function StaminaRefill(robots) {
   const [stamina, setStamina] = useState("");
 
+
+  // Récupération uniquement de la stamina du main robot
   useEffect(() => {
     const getStamina = async () => {
-        try {
-            // Récupération du robot de l'utilisateur 
-            const response = await fetch(
-                `${ipConfig}/api/robots`, {
-                    method: 'GET',
-                    headers: {
-                        "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',  
-                    },
-                });
-            
-                const json = await response.json();
-                console.log(json[0]);
-                test6 = robots.map(({current_stam}) => {
-                    return {
-                      current_stam: current_stam,                      
-                    };
-                    
-                  });
-                console.log(test6);
-                setStamina(json);
-                // setStamina ne marche pas encore                
-
-        } catch (error) {
-          console.error(error);
-        }
-      };
-    
-    getStamina(); 
+      try {
+          const response = await fetch(
+              `${ipConfig}/api/mainrobot`, {
+                  method: 'GET',
+                  headers: {
+                      "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json',  
+                  },
+              });
+              
+              const json = await response.json();
+              console.log("getmainrobot", json[0].current_stam);
+              setStamina(json[0].current_stam);
+          
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  getStamina();
 
 }, []);
 
@@ -56,7 +49,7 @@ export default function StaminaRefill(robots) {
 
   return (
     <View> 
-        <Text style={styles.stamina}>Stamina: {stamina}</Text>
+        <Text style={styles.stamina}>Stamina restante du robot: {stamina}</Text>
     </View>
   );
 }

@@ -14,6 +14,7 @@ import ProfilScreen from "./src/components/views/ProfilScreen";
 import RankingScreen from "./src/components/views/RankingScreen";
 import ShopScreen from "./src/components/views/ShopScreen";
 import AreaChoiceScreen from "./src/components/views/AreaChoiceScreen";
+import BattleScreen from "./src/components/views/BattleScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="BattleScreen"
+          component={BattleScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="AreaChoiceScreen"
           component={AreaChoiceScreen}

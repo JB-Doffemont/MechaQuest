@@ -7,7 +7,7 @@ import ipConfig from '../../../IpConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function StaminaRefill(robots) {
+export default function StaminaRefill() {
   const [stamina, setStamina] = useState("");
 
 

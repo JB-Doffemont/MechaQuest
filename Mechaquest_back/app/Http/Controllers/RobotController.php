@@ -96,10 +96,10 @@ class RobotController extends Controller
          */
         if ($user->email === $robot->user_email && $user->role === 0) {
 
-            Robot::where("user_email", $user->email)
-                ->where("main_robot", 1)
-                ->update(['main_robot' => 0]);
-            $robot->update($request->only('main_robot'));
+            // Robot::where("user_email", $user->email)
+            //     ->where("main_robot", 1)
+            //     ->update(['main_robot' => 0]);
+            // $robot->update($request->only('main_robot'));
             $robot->update($request->only('current_stam'));
         } else if ($user->role === 1) {
             $robot->update($request->all());

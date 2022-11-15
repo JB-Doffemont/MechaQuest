@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import ButtonRequest from "../usable/ButtonRequest";
 import styles from "../../style/CarouselStyle";
-import { useNavigation } from '@react-navigation/native';
 import ipConfig from "../../../IpConfig";
 
 

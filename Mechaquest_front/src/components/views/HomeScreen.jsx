@@ -83,6 +83,7 @@ export default function HomeScreen({navigation}) {
               }
             };
           getStamina();
+          
         }, []);
 
     // Affichage des différents menus avec redirection

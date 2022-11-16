@@ -18,6 +18,12 @@ export default StyleSheet.create({
     top: "10%",
   },
 
+  diceContainer: {
+    position: "absolute",
+    left: "41%",
+    top: "10%",
+  },
+
   robotIAContainer: {
     position: "absolute",
     alignItems: "center",

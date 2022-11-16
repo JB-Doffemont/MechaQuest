@@ -1,6 +1,6 @@
 // Ce carousel permet de selectionner la planete sur laquelle on veut lancer une partie
 
-import React, { useCallback, memo, useRef, useState, useEffect} from "react";
+import React, { useCallback, memo, useRef, useState, useEffect, useContext} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   FlatList,
@@ -12,28 +12,32 @@ import {
 import ButtonRequest from "../usable/ButtonRequest";
 import styles from "../../style/CarouselAreasStyle";
 import ipConfig from "../../../IpConfig";
+import { MainRobotContext } from "../../lib/MainRobotContext";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window"); // Obtention de la taille de l'écran pour un CSS responsive
 
-export default function Carousel({areas, mainRobot}) {
+export default function CarouselAreas({areas}) {
 const [index, setIndex] = useState(0);
-const [idRobot, setIdRobot] = useState(mainRobot);
 
-useEffect(() => {
-  if (mainRobot) {
-    setIdRobot(mainRobot);
-  }
-}, [mainRobot]);
 
-console.log(mainRobot);
-console.log(idRobot.id);
+
+// const [idRobot, setIdRobot] = useState(mainRobot);
+
+//   useEffect(() => {
+//     if (mainRobot) {
+//       setIdRobot(mainRobot);
+//     }
+//   }, [mainRobot]);
+//   console.log(mainRobot);
+//   console.log(idRobot);
+
 
 const areaChoice = async () => {
-  console.log(mainRobot.id);
+ 
   try {
     
       const response = await fetch(
-          `${ipConfig}/api/robots/${idRobot.id}`, {
+          `${ipConfig}/api/robots/${idRobot}`, {
               method: 'PUT',
               headers: {
                   "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
@@ -46,14 +50,17 @@ const areaChoice = async () => {
           });
           
           const json = await response.json();
+          console.log(json);
   } catch (error) {
     console.error(error);
   }
 };
-areaChoice();
+
 
 // Affichage du slide avec les datas voulues (image, nom de la route...)
-const Slide = memo(function Slide({ data}) {
+const Slide = memo(function Slide({ data }) {
+  const {mainRobot} = useContext(MainRobotContext);
+  console.log(mainRobot);
   return (
     <View style={styles.slide}>
         <View style={styles.containerTop}>
@@ -68,6 +75,8 @@ const Slide = memo(function Slide({ data}) {
           <Text style={styles.slideText}>Nombre de combats : {data.number_of_battle}</Text>
           <Text style={styles.slideText}>Récompense en or : {data.reward}</Text>
           <Text style={styles.slideText}>Stamina requise : {data.required_stam}</Text>
+          <Text style={styles.slideText}>Main robot : {mainRobot.id}</Text>
+
           <ButtonRequest style={styles.slideButton} buttonLabel="Commencer aventure"  method={() => areaChoice()}/>
         </View>
         {/* <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
@@ -156,8 +165,10 @@ const Slide = memo(function Slide({ data}) {
 
   return (
     <>
+    
       <FlatList
         data={slideList}
+        
         renderItem={renderItem}
         pagingEnabled
         horizontal

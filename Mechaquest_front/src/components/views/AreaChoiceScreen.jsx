@@ -1,18 +1,20 @@
 // Ecran de choix du stage avant de lancer une partie
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { View, Text } from "react-native";
 import styles from "../../style/AreaChoiceScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Carousel from "../usable/CarouselAreas";
+import CarouselAreas from "../usable/CarouselAreas";
+import { MainRobotContext } from "../../lib/MainRobotContext";
 
 
 
 // Récupération des arenes en BDD
-export default function AreaChoiceScreen() {
+export default function AreaChoiceScreen({navigation}) {
+    const {setMainRobot} = useContext(MainRobotContext);
     const [areas, setAreas] = useState([]);
-    const [mainRobot, setMainRobot] = useState([]);
+    
 
     useEffect(() => {
         const getAreas = async () => {
@@ -66,7 +68,7 @@ export default function AreaChoiceScreen() {
         <View>
             <View>
                 {/* Utilisation du Carousel pour permettre à l'utilisateur un choix dynamique du stage */}
-                <Carousel areas={areas} mainRobot={mainRobot}/>
+                <CarouselAreas areas={areas}/>
             </View>
         </View>
     );

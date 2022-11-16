@@ -19,10 +19,11 @@ const { width: windowWidth, height: windowHeight } = Dimensions.get("window"); /
 export default function CarouselAreas({areas}) {
 const [index, setIndex] = useState(0);
 
-const areaChoice = async (idRobot) => {
- 
+const areaChoice = async (idRobot, stamRobot, required_stam) => {
+ // Calcul de la nouvelle stamina du robot en fonction de la route choisie
+  const new_stam = stamRobot - required_stam;
+  
   try {
-    
       const response = await fetch(
           `${ipConfig}/api/robots/${idRobot}`, {
               method: 'PUT',
@@ -32,7 +33,7 @@ const areaChoice = async (idRobot) => {
                   'Content-Type': 'application/json',  
               },
               body: JSON.stringify({
-                current_stam: 5
+                current_stam: new_stam
               })
           });
           
@@ -46,8 +47,11 @@ const areaChoice = async (idRobot) => {
 
 // Affichage du slide avec les datas voulues (image, nom de la route...)
 const Slide = memo(function Slide({ data }) {
+
+  // Utilisation du context pour récupérer la valeur mainRobot
   const {mainRobot} = useContext(MainRobotContext);
   const idRobot = mainRobot.id;
+  const stamRobot = mainRobot.current_stam;
 
   return (
     <View style={styles.slide}>
@@ -65,7 +69,7 @@ const Slide = memo(function Slide({ data }) {
           <Text style={styles.slideText}>Stamina requise : {data.required_stam}</Text>
           <Text style={styles.slideText}>Main robot : {mainRobot.id}</Text>
 
-          <ButtonRequest style={styles.slideButton} buttonLabel="Commencer aventure"  method={() => areaChoice(idRobot)}/>
+          <ButtonRequest style={styles.slideButton} buttonLabel="Commencer aventure"  method={() => areaChoice(idRobot, stamRobot, data.required_stam)}/>
         </View>
         {/* <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
  method={() => robotChoice(data.title)}/> */}

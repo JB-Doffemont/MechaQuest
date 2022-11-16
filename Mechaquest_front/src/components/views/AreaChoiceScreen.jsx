@@ -11,7 +11,9 @@ import { MainRobotContext } from "../../lib/MainRobotContext";
 
 
 // Récupération des arenes en BDD
-export default function AreaChoiceScreen({navigation}) {
+export default function AreaChoiceScreen() {
+
+    // On utilise le context pour stocker la valeur de mainRobot
     const {setMainRobot} = useContext(MainRobotContext);
     const [areas, setAreas] = useState([]);
     

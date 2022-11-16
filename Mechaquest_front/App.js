@@ -31,13 +31,16 @@ export default function App() {
           component={BattleScreen}
           options={{ headerShown: false }}
         /> */}
-
+          <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen
             name="AreaChoiceScreen"
             component={AreaChoiceScreen}
             options={{ headerShown: false }}
           />
-
           <Stack.Screen
             name="PreStarterScreen"
             component={PreStarterScreen}
@@ -68,11 +71,7 @@ export default function App() {
             component={RobotChoiceScreen}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="HomeScreen"
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
+
           <Stack.Screen name="CollectionScreen" component={CollectionScreen} />
           <Stack.Screen name="ShopScreen" component={ShopScreen} />
           <Stack.Screen name="RankingScreen" component={RankingScreen} />

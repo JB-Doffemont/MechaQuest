@@ -7,9 +7,11 @@ import React, { useState } from "react";
 import styles from "../../style/HomeScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Button from "../usable/ButtonRedirect";
 
 export default function HomeScreen({navigation}) {
     const [user, setUser] = useState([]);
+    
     const [mainRobot, setMainRobot] = useState([]);
     const [stamina, setStamina] = useState([]);
 
@@ -94,12 +96,12 @@ export default function HomeScreen({navigation}) {
                 <Text style={styles.greetings}> Bonjour {user.pseudo} !</Text>
             </View>
             <View style={styles.gameModeContainer}>
-                <Text style={styles.options}>
-                   - Aventure Solo
-                </Text>
-                <Text style={styles.options}>
-                   - Joueur vs Joueur
-                </Text>
+            <Button
+               buttonLabel="- Aventure Solo"
+               route="AreaChoiceScreen"/>
+            <Text style={styles.options}>
+               - Joueur vs Joueur
+            </Text>
             </View>
             <View style={styles.navigationContainer}>
                 <Text style={styles.link}

@@ -106,7 +106,7 @@ class RobotController extends Controller
         } else {
             return response()->json("Vous n'êtes pas autorisé.");
         }
-        return response()->json([$robot, $user]);
+        return response()->json([$robot, $user, "status_code" => 200]);
     }
 
     /**

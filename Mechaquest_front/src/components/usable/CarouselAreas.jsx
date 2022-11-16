@@ -1,6 +1,6 @@
 // Ce carousel permet de selectionner la planete sur laquelle on veut lancer une partie
 
-import React, { useCallback, memo, useRef, useState, useEffect, useContext} from "react";
+import React, { useCallback, memo, useRef, useState, useContext} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   FlatList,
@@ -51,6 +51,7 @@ const Slide = memo(function Slide({ data }) {
   // Utilisation du context pour récupérer la valeur mainRobot
   const {mainRobot} = useContext(MainRobotContext);
   const idRobot = mainRobot.id;
+  console.log(idRobot);
   const stamRobot = mainRobot.current_stam;
 
   return (

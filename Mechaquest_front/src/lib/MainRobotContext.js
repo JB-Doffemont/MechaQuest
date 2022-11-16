@@ -1,3 +1,3 @@
 import React, { createContext } from "react";
 
-export const MainRobotContext = createContext([]);
+export const MainRobotContext = createContext({});

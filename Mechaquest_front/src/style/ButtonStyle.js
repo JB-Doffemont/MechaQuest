@@ -50,6 +50,20 @@ export default StyleSheet.create({
     fontSize: 20,
     color: "#fff",
   },
+
+  homeScreenButton: {
+    backgroundColor: "transparent",
+    border: "none",
+    transition: 0.5,
+    color: "#41403E",
+    width: 250,
+  },
+
+  homeScreenButtonText: {
+    textAlign: "center",
+    fontSize: 24,
+    color: "#fff",
+  },
 });
 
 // backgroundColor: "#49ada5",

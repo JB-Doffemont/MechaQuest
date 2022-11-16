@@ -19,20 +19,7 @@ const { width: windowWidth, height: windowHeight } = Dimensions.get("window"); /
 export default function CarouselAreas({areas}) {
 const [index, setIndex] = useState(0);
 
-
-
-// const [idRobot, setIdRobot] = useState(mainRobot);
-
-//   useEffect(() => {
-//     if (mainRobot) {
-//       setIdRobot(mainRobot);
-//     }
-//   }, [mainRobot]);
-//   console.log(mainRobot);
-//   console.log(idRobot);
-
-
-const areaChoice = async () => {
+const areaChoice = async (idRobot) => {
  
   try {
     
@@ -60,7 +47,8 @@ const areaChoice = async () => {
 // Affichage du slide avec les datas voulues (image, nom de la route...)
 const Slide = memo(function Slide({ data }) {
   const {mainRobot} = useContext(MainRobotContext);
-  console.log(mainRobot);
+  const idRobot = mainRobot.id;
+
   return (
     <View style={styles.slide}>
         <View style={styles.containerTop}>
@@ -77,7 +65,7 @@ const Slide = memo(function Slide({ data }) {
           <Text style={styles.slideText}>Stamina requise : {data.required_stam}</Text>
           <Text style={styles.slideText}>Main robot : {mainRobot.id}</Text>
 
-          <ButtonRequest style={styles.slideButton} buttonLabel="Commencer aventure"  method={() => areaChoice()}/>
+          <ButtonRequest style={styles.slideButton} buttonLabel="Commencer aventure"  method={() => areaChoice(idRobot)}/>
         </View>
         {/* <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
  method={() => robotChoice(data.title)}/> */}

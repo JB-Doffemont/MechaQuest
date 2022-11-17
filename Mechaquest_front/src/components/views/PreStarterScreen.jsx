@@ -20,7 +20,6 @@ export default function PreStarterScreen(navigator) {
     const [user, setUser] = useState([]);
     const [token, setToken] = useState("");  
     const {battleScreenLoading} = useContext(BattleScreenLoadingContext);
-              console.log(battleScreenLoading, 555555);
     
    useEffect(() => {
       // AsyncStorage.clear(); // Permet de reset le localstorage sur mobile
@@ -79,6 +78,5 @@ export default function PreStarterScreen(navigator) {
             <ActivityIndicator size="large" color="#61FFF5" />
        </View>
     );
-
-    
+ 
 }

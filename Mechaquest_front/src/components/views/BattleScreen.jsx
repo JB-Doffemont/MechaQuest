@@ -38,8 +38,10 @@ export default function BattleScreen() {
           };
         
         getRobotArea();
-
+        
     }, []);
+
+    
     
     return(
         <View style={styles.container}>

@@ -13,16 +13,21 @@ import ButtonRequest from "../usable/ButtonRequest";
 import styles from "../../style/CarouselAreasStyle";
 import ipConfig from "../../../IpConfig";
 import { MainRobotContext } from "../../lib/MainRobotContext";
+import { BattleScreenLoadingContext } from "../../lib/BattleScreenLoadingContext";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window"); // Obtention de la taille de l'écran pour un CSS responsive
 
 export default function CarouselAreas({areas}) {
 const [index, setIndex] = useState(0);
+ // On utilise le context pour stocker la valeur 
+ const {setBattleScreenLoading} = useContext(BattleScreenLoadingContext);
 
 const areaChoice = async (idRobot, stamRobot, required_stam) => {
  // Calcul de la nouvelle stamina du robot en fonction de la route choisie
   const new_stam = stamRobot - required_stam;
-  
+
+  setBattleScreenLoading(true);
+  console.log(setBattleScreenLoading);
   try {
       const response = await fetch(
           `${ipConfig}/api/robots/${idRobot}`, {
@@ -40,10 +45,6 @@ const areaChoice = async (idRobot, stamRobot, required_stam) => {
           const json = await response.json();
           console.log(json);
 
-          if (json.status_code == 200) {
-            
-            navigation.navigate('BattleScreen');
-          }
   } catch (error) {
     console.error(error);
   }

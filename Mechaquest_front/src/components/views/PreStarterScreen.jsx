@@ -9,19 +9,24 @@ Ecran qui se charge pour tous les utilisateurs au lancement de l'application.
 
 import logo from "../../assets/logo.png";
 import styles from "../../style/StarterScreenStyle";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import React, { useState } from "react";
 import { Image, View, ActivityIndicator } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ipConfig from "../../../IpConfig";
+import { BattleScreenLoadingContext } from "../../lib/BattleScreenLoadingContext";
 
 export default function PreStarterScreen(navigator) {
     const [user, setUser] = useState([]);
     const [token, setToken] = useState("");  
-
-    useEffect(() => {
+    const {battleScreenLoading} = useContext(BattleScreenLoadingContext);
+              console.log(battleScreenLoading, 555555);
+    
+   useEffect(() => {
       // AsyncStorage.clear(); // Permet de reset le localstorage sur mobile
+      
             const getUser = async () => {
+
                 try {
                 const userEmail = await AsyncStorage.getItem('email');
                 const token = await AsyncStorage.getItem('access_token');
@@ -44,23 +49,30 @@ export default function PreStarterScreen(navigator) {
                         const json = await response.json();
                         setUser(json[0]);
                         setToken(token);
+
                     }
                     
                 } catch (error) {
                   console.error(error);
                 }
+
               };
-              
+   
             getUser();
+
             if(token && user.first_connexion == 0) {
               navigator.navigation.navigate('IntroScreen');
              
-            } 
-            else if (token && user.first_connexion == 1) {
+            } else if ( token && user.first_connexion == 1 && battleScreenLoading == true ) {
+              navigator.navigation.navigate('BattleScreen');
+                
+          }
+            else if (token && user.first_connexion == 1 && battleScreenLoading == false) {
                 navigator.navigation.navigate('HomeScreen');
-            }     
-      }, [token]);
-    
+            } 
+           
+      }, [token, battleScreenLoading]);
+
     return(
        <View style={styles.container}>
             <Image source={logo} style={styles.logo}/>

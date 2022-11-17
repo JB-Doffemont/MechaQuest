@@ -14,51 +14,62 @@ import styles from "../../style/CarouselAreasStyle";
 import ipConfig from "../../../IpConfig";
 import { MainRobotContext } from "../../lib/MainRobotContext";
 import { BattleScreenLoadingContext } from "../../lib/BattleScreenLoadingContext";
+import { MessageStamContext } from "../../lib/MessageStamContext";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window"); // Obtention de la taille de l'écran pour un CSS responsive
 
 export default function CarouselAreas({areas}) {
+
 const [index, setIndex] = useState(0);
+
  // On utilise le context pour stocker la valeur 
- const {setBattleScreenLoading} = useContext(BattleScreenLoadingContext);
+const {setBattleScreenLoading} = useContext(BattleScreenLoadingContext);
+const {setMessageStam} = useContext(MessageStamContext);
 
 const areaChoice = async (idRobot, stamRobot, required_stam) => {
- // Calcul de la nouvelle stamina du robot en fonction de la route choisie
-  const new_stam = stamRobot - required_stam;
+ 
+if (stamRobot > required_stam) {
 
-  setBattleScreenLoading(true);
-  console.log(setBattleScreenLoading);
-  try {
-      const response = await fetch(
-          `${ipConfig}/api/robots/${idRobot}`, {
-              method: 'PUT',
-              headers: {
-                  "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',  
-              },
-              body: JSON.stringify({
-                current_stam: new_stam
-              })
-          });
-          
-          const json = await response.json();
-          console.log(json);
-
-  } catch (error) {
-    console.error(error);
+    // Calcul de la nouvelle stamina du robot en fonction de la route choisie
+    const new_stam = stamRobot - required_stam;
+    setBattleScreenLoading(true);
+    
+    try {
+        const response = await fetch(
+            `${ipConfig}/api/robots/${idRobot}`, {
+                method: 'PUT',
+                headers: {
+                    "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',  
+                },
+                body: JSON.stringify({
+                  current_stam: new_stam
+                })
+            });
+            
+            const json = await response.json();
+            console.log(json);
+  
+    } catch (error) {
+      console.error(error);
+    }
+  } else {
+    setMessageStam("Stamina insuffisante ! Soyez patient !!");
+    
   }
 };
 
-
 // Affichage du slide avec les datas voulues (image, nom de la route...)
-const Slide = memo(function Slide({ data }) {
-
-  // Utilisation du context pour récupérer la valeur mainRobot
+const Slide = memo(function Slide({ data, message }) {
+  
+ // Utilisation du context pour récupérer la valeur mainRobot
   const {mainRobot} = useContext(MainRobotContext);
+  const {messageStam} = useContext(MessageStamContext);
   const idRobot = mainRobot.id;
-  console.log(idRobot);
+  
   const stamRobot = mainRobot.current_stam;
+  
 
   return (
     <View style={styles.slide}>
@@ -74,7 +85,9 @@ const Slide = memo(function Slide({ data }) {
           <Text style={styles.slideText}>Nombre de combats : {data.number_of_battle}</Text>
           <Text style={styles.slideText}>Récompense en or : {data.reward}</Text>
           <Text style={styles.slideText}>Stamina requise : {data.required_stam}</Text>
-          <Text style={styles.slideText}>Main robot : {mainRobot.id}</Text>
+          <Text style={styles.slideText}>Main robot : {mainRobot.current_stam}</Text>
+          <Text style={styles.slideText}> {messageStam && (<Text> {messageStam} </Text>)} </Text>
+          
 
           <ButtonRequest style={styles.slideButton} buttonLabel="Commencer aventure"  method={() => areaChoice(idRobot, stamRobot, data.required_stam)}/>
         </View>
@@ -164,10 +177,8 @@ const Slide = memo(function Slide({ data }) {
 
   return (
     <>
-    
       <FlatList
         data={slideList}
-        
         renderItem={renderItem}
         pagingEnabled
         horizontal

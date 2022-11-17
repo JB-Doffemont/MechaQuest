@@ -17,67 +17,75 @@ import ShopScreen from "./src/components/views/ShopScreen";
 import AreaChoiceScreen from "./src/components/views/AreaChoiceScreen";
 import BattleScreen from "./src/components/views/BattleScreen";
 import { MainRobotContext } from "./src/lib/MainRobotContext";
+import { BattleScreenLoadingContext } from "./src/lib/BattleScreenLoadingContext";
 const Stack = createNativeStackNavigator();
 
 // L'app.js va nous permettre de lire tous les screens/views
 export default function App() {
   const [mainRobot, setMainRobot] = useState([]);
-  const [DisablePreStarterScreen, setDisablePreStarterScreen] = useState("");
+  const [battleScreenLoading, setBattleScreenLoading] = useState([]);
   return (
-    <MainRobotContext.Provider value={{ mainRobot, setMainRobot }}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="PreStarterScreen"
-            component={PreStarterScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="StarterScreen"
-            component={StarterScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="LogInFormScreen"
-            component={LogInFormScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SignUpFormScreen"
-            component={SignUpFormScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="IntroScreen"
-            component={IntroScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="RobotChoiceScreen"
-            component={RobotChoiceScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="HomeScreen"
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="AreaChoiceScreen"
-            component={AreaChoiceScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="BattleScreen"
-            component={BattleScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="CollectionScreen" component={CollectionScreen} />
-          <Stack.Screen name="ShopScreen" component={ShopScreen} />
-          <Stack.Screen name="RankingScreen" component={RankingScreen} />
-          <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </MainRobotContext.Provider>
+    <BattleScreenLoadingContext.Provider
+      value={{ battleScreenLoading, setBattleScreenLoading }}
+    >
+      <MainRobotContext.Provider value={{ mainRobot, setMainRobot }}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="PreStarterScreen"
+              component={PreStarterScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="StarterScreen"
+              component={StarterScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="LogInFormScreen"
+              component={LogInFormScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignUpFormScreen"
+              component={SignUpFormScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="IntroScreen"
+              component={IntroScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="RobotChoiceScreen"
+              component={RobotChoiceScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="HomeScreen"
+              component={HomeScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AreaChoiceScreen"
+              component={AreaChoiceScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="BattleScreen"
+              component={BattleScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CollectionScreen"
+              component={CollectionScreen}
+            />
+            <Stack.Screen name="ShopScreen" component={ShopScreen} />
+            <Stack.Screen name="RankingScreen" component={RankingScreen} />
+            <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </MainRobotContext.Provider>
+    </BattleScreenLoadingContext.Provider>
   );
 }

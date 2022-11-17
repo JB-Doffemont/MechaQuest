@@ -1,8 +1,8 @@
 // Ecran affichant le combat de robot du joueur contre un ordinateur
 
-import React from "react";
+import React, { useState } from "react";
 import { useEffect, useContext } from "react";
-import { View, Image } from "react-native";
+import { View, Image, Text } from "react-native";
 import styles from "../../style/BattleScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,6 +15,14 @@ export default function BattleScreen() {
 
     // const [areas, setAreas] = useState([]);
     const {mainRobot} = useContext(MainRobotContext);
+    const [diceNumber, setdiceNumber] = useState("");
+    
+    
+      const rollDoneCallback = async (num) => {
+        setdiceNumber(num)
+      }
+    
+      console.log(diceNumber);
 
     useEffect(() => {
       
@@ -52,20 +60,25 @@ export default function BattleScreen() {
             <View style={styles.robotPlayerContainer}>
                 <Image source={{uri:  `${ipConfig}/${mainRobot.robot_image}`}} style={styles.card}></Image>
             </View>
+
             {/* Affichage du dé */}
             <View style={styles.diceContainer}>
-                <ReactDice
+                <ReactDice 
                 numDice={1}
                 faceColor={'#E61E1E'}
                 dotColor={'#fffff'}
-                // rollDone={this.rollDoneCallback}
-                // ref={dice => this.reactDice = dice}
+                rollDone={rollDoneCallback}
                 />
+                <Text style={styles.diceNumberP}> Le résultat du dé est <br />
+                <Text style={styles.diceNumber}>{diceNumber}</Text> </Text>
             </View>
+            
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>
                 <Image source={{uri:  `${ipConfig}/${mainRobot.robot_image}`}} style={styles.card}></Image>
             </View>
         </View>
     );
+
+   
 }

@@ -37,4 +37,16 @@ export default StyleSheet.create({
     flex: 5,
     width: windowWidth * 0.3,
   },
+
+  diceNumberP: {
+    color: "white",
+    fontSize: 14,
+  },
+
+  diceNumber: {
+    color: "white",
+    alignItems: "center",
+    marginLeft: 60,
+    fontSize: 36,
+  },
 });

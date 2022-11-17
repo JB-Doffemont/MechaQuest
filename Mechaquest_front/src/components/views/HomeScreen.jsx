@@ -2,17 +2,26 @@
 
 import logo from "../../assets/logo.png";
 import { View, Image, Text} from "react-native";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import React, { useState } from "react";
 import styles from "../../style/HomeScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from "../usable/ButtonRedirect";
+import { MainRobotContext } from "../../lib/MainRobotContext";
+import { DisablePreStarterScreenContext } from "../../lib/DisablePreStarterScreenContext";
 
 export default function HomeScreen({navigation}) {
     const [user, setUser] = useState([]);
+
+    // On utilise le context pour stocker la valeur de mainRobot
+    const {setMainRobot} = useContext(MainRobotContext);
+    // On utilise le context pour stocker un boolean permattant de désactiver le preStarterScreen
+    const setDisablePreStarterScreen = useContext(DisablePreStarterScreenContext);
+
+    // Utilisation du context pour récupérer la valeur mainRobot
+    const {mainRobot} = useContext(MainRobotContext);
     
-    const [mainRobot, setMainRobot] = useState([]);
     const [stamina, setStamina] = useState([]);
 
 
@@ -56,6 +65,9 @@ export default function HomeScreen({navigation}) {
                         const json = await response.json();
                         console.log("getmainrobot", json[0].current_stam);
                         setMainRobot(json[0]);
+                        setDisablePreStarterScreen("true");
+                        console.log(setDisablePreStarterScreen);
+                       
                     
                 } catch (error) {
                   console.error(error);

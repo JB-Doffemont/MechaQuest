@@ -39,6 +39,11 @@ const areaChoice = async (idRobot, stamRobot, required_stam) => {
           
           const json = await response.json();
           console.log(json);
+
+          if (json.status_code == 200) {
+            
+            navigation.navigate('BattleScreen');
+          }
   } catch (error) {
     console.error(error);
   }

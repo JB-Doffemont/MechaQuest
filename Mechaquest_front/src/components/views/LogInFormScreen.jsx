@@ -40,7 +40,6 @@ export default function LogIn(navigator) {
             setData(json);
 
             if (json.status_code == 200) {
-              console.log(json);
               // Le stockage des informations suivantes permet à un utilisateur de rester connecter meme s'il quitte le jeu
               await AsyncStorage.setItem('access_token', json.access_token); // On stock en localstorage le Bearer Token
               await AsyncStorage.setItem('email', email); // On stock l'email de l'utilisateur en localstorage

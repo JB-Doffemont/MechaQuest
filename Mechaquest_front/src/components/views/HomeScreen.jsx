@@ -2,15 +2,26 @@
 
 import logo from "../../assets/logo.png";
 import { View, Image, Text} from "react-native";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import React, { useState } from "react";
 import styles from "../../style/HomeScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Button from "../usable/ButtonRedirect";
+import { MainRobotContext } from "../../lib/MainRobotContext";
+import { DisablePreStarterScreenContext } from "../../lib/DisablePreStarterScreenContext";
 
 export default function HomeScreen({navigation}) {
     const [user, setUser] = useState([]);
-    const [mainRobot, setMainRobot] = useState([]);
+
+    // On utilise le context pour stocker la valeur de mainRobot
+    const {setMainRobot} = useContext(MainRobotContext);
+    // On utilise le context pour stocker un boolean permattant de désactiver le preStarterScreen
+    const setDisablePreStarterScreen = useContext(DisablePreStarterScreenContext);
+
+    // Utilisation du context pour récupérer la valeur mainRobot
+    const {mainRobot} = useContext(MainRobotContext);
+    
     const [stamina, setStamina] = useState([]);
 
 
@@ -54,6 +65,9 @@ export default function HomeScreen({navigation}) {
                         const json = await response.json();
                         console.log("getmainrobot", json[0].current_stam);
                         setMainRobot(json[0]);
+                        setDisablePreStarterScreen("true");
+                        console.log(setDisablePreStarterScreen);
+                       
                     
                 } catch (error) {
                   console.error(error);
@@ -94,12 +108,12 @@ export default function HomeScreen({navigation}) {
                 <Text style={styles.greetings}> Bonjour {user.pseudo} !</Text>
             </View>
             <View style={styles.gameModeContainer}>
-                <Text style={styles.options}>
-                   - Aventure Solo
-                </Text>
-                <Text style={styles.options}>
-                   - Joueur vs Joueur
-                </Text>
+            <Button
+               buttonLabel="- Aventure Solo"
+               route="AreaChoiceScreen"/>
+            <Text style={styles.options}>
+               - Joueur vs Joueur
+            </Text>
             </View>
             <View style={styles.navigationContainer}>
                 <Text style={styles.link}

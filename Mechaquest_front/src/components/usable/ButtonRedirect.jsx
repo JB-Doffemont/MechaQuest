@@ -4,16 +4,29 @@ import React from "react";
 import styles from "../../style/ButtonStyle"
 import {Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 
 export default function Button({buttonLabel, route}) {
     const navigation = useNavigation();
     
+    if (route == 'AreaChoiceScreen') {
     return(
         <View>
             <TouchableOpacity onPress={() => navigation.navigate(`${route}`)}     // Redirection vers une autre route au click
-                style={styles.button}>
-            <Text style={styles.button_text}>{buttonLabel}</Text>
+                style={styles.homeScreenButton}>
+            <Text style={styles.homeScreenButtonText}>{buttonLabel}</Text>
             </TouchableOpacity>
         </View>
-    );
+        
+    )
+    } else {
+        return(
+            <View>
+                <TouchableOpacity onPress={() => navigation.navigate(`${route}`)}     // Redirection vers une autre route au click
+                    style={styles.button}>
+                <Text style={styles.button_text}>{buttonLabel}</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
 }

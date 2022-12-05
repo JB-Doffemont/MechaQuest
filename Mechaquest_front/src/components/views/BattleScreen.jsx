@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MainRobotContext } from "../../lib/MainRobotContext";
 import ReactDice from 'react-dice-complete';
 import 'react-dice-complete/dist/react-dice-complete.css';
+import { AreaChoosenContext } from "../../lib/AreaChoosenContext";
 
 
 export default function BattleScreen() {
@@ -16,7 +17,10 @@ export default function BattleScreen() {
     // const [areas, setAreas] = useState([]);
     const {mainRobot} = useContext(MainRobotContext);
     const [diceNumber, setdiceNumber] = useState("");
-    
+    const {areaChoosen} = useContext(AreaChoosenContext);
+
+    console.log(areaChoosen);
+
     
       const rollDoneCallback = async (num) => {
         setdiceNumber(num)
@@ -25,6 +29,15 @@ export default function BattleScreen() {
       console.log(diceNumber);
 
     useEffect(() => {
+
+        // const getArea = async () => {
+        //     try {
+        //         const response =  await fetch()
+
+        //     } catch {
+
+        //     }
+        // }
       
         // Récupération de la route et de sa position pour ensuite afficher le robot
         const getRobotArea = async () => {

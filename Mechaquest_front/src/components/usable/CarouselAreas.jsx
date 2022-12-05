@@ -13,8 +13,9 @@ import ButtonRequest from "../usable/ButtonRequest";
 import styles from "../../style/CarouselAreasStyle";
 import ipConfig from "../../../IpConfig";
 import { MainRobotContext } from "../../lib/MainRobotContext";
-import { BattleScreenLoadingContext } from "../../lib/BattleScreenLoadingContext";
+import { AreaChoosenContext } from "../../lib/AreaChoosenContext";
 import { MessageStamContext } from "../../lib/MessageStamContext";
+import { BattleScreenLoadingContext } from "../../lib/BattleScreenLoadingContext";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window"); // Obtention de la taille de l'écran pour un CSS responsive
 
@@ -25,8 +26,9 @@ const [index, setIndex] = useState(0);
  // On utilise le context pour stocker la valeur 
 const {setBattleScreenLoading} = useContext(BattleScreenLoadingContext);
 const {setMessageStam} = useContext(MessageStamContext);
+const {setAreaChoosen} = useContext(AreaChoosenContext);
 
-const areaChoice = async (idRobot, stamRobot, required_stam) => {
+const areaChoice = async (idRobot, stamRobot, required_stam, id) => {
  
 if (stamRobot > required_stam) {
 
@@ -50,6 +52,8 @@ if (stamRobot > required_stam) {
             
             const json = await response.json();
             console.log(json);
+
+            setAreaChoosen(id)
   
     } catch (error) {
       console.error(error);
@@ -89,7 +93,7 @@ const Slide = memo(function Slide({ data, message }) {
           <Text style={styles.slideText}> {messageStam && (<Text> {messageStam} </Text>)} </Text>
           
 
-          <ButtonRequest style={styles.slideButton} buttonLabel="Commencer aventure"  method={() => areaChoice(idRobot, stamRobot, data.required_stam)}/>
+          <ButtonRequest style={styles.slideButton} buttonLabel="Commencer aventure"  method={() => areaChoice(idRobot, stamRobot, data.required_stam, data.id)}/>
         </View>
         {/* <ButtonRequest style={styles.slideButton} buttonLabel="Selectionner robot" 
  method={() => robotChoice(data.title)}/> */}

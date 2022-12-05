@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Area;
 use App\Models\Robot;
 use App\Models\RobotPositionsBattles;
 use Exception;
@@ -20,6 +19,7 @@ class PositionController extends Controller
         //  Area::all()->toArray();
         //  Robot::all()->toArray();
         $position = RobotPositionsBattles::all();
+
         return response()->json($position);
     }
 
@@ -58,9 +58,17 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($area, $position)
     {
-        //
+
+        $robot = RobotPositionsBattles::where('area_name', $area)
+            ->where('position', $position)->first();
+
+        $robotId = $robot->robot_id;
+
+        $robotData = Robot::where('id', $robotId)->first();
+
+        return response()->json([$robotData, 'status_code' => 200]);
     }
 
     /**

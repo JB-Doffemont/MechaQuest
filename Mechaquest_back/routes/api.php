@@ -82,6 +82,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         // Route personalisées
         Route::put('positions/{area}/{position}', [PositionController::class, 'update'])->name('positions.update');
+        Route::get('positions/{area}/{position}', [PositionController::class, 'show'])->name('positions.show');
         Route::delete('positions/{area}/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
     });
 

@@ -1,11 +1,17 @@
 // Composant du dé permettant de jouer à MechaQuest
 
 import React from 'react';
+import { useContext } from 'react';
 import { View, Text, Button } from 'react-native';
 import styles from "../../style/BattleScreenStyle";
 import ReactDice from 'react-dice-complete';
+import {DiceResultContext} from '../../lib/DiceResultContext';
+
 
 class MechaQuestDice extends React.Component{
+
+
+    static contextType = DiceResultContext;
 
     // Constructor pour initialiser le state du diceNumber
     constructor(props){
@@ -16,7 +22,10 @@ class MechaQuestDice extends React.Component{
     // Cette fonction change le state du dé en prenant le résultat du lancer de dé
     rollDoneCallback = async (num) => {
         this.setState ({ diceNumber: num });
+        
       }
+
+
 
     // Fonction pour lancer un dé, utilisé ici au click
     rollAll = () => {
@@ -24,6 +33,12 @@ class MechaQuestDice extends React.Component{
       }
       
     render(){
+        this.state.diceNumber = this.context;
+        // const {state, diceNumber} =this.context;
+
+
+        console.log(this.context.diceNumber);
+
         return (
             <View style={styles.diceContainer}>
             <ReactDice 
@@ -49,5 +64,7 @@ class MechaQuestDice extends React.Component{
         )
     }
 }
+
+MechaQuestDice.contextType = DiceResultContext;
 
 export default MechaQuestDice

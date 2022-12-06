@@ -20,6 +20,21 @@ export default function BattleScreen() {
     const {areaChoosen} = useContext(AreaChoosenContext);
     const [position, setPosition] = useState(1);
 
+    const type = ["Red", "Green", "Blue"]
+       
+    
+
+    // const battleDamage = () => {
+    //     try {
+    //           const json = response.json();
+    //           setUser(json[0]);  
+    //           console.log("get user", json);
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   };
+    // battleDamage();
+
     useEffect(() => {
         if(areaChoosen.length !== 0) {
         console.log(areaChoosen);
@@ -27,7 +42,6 @@ export default function BattleScreen() {
          const getRobotArea = async () => {
 
                  try {
-                    console.log(areaChoosen);
                     
                 const response = await fetch(
                     `${ipConfig}/api/positions/${areaChoosen}/${position}`, {
@@ -40,7 +54,6 @@ export default function BattleScreen() {
                     });
 
                     const json = await response.json();
-                    console.log(json);
                     setRobotArea(json);
  
             } catch (error) {

@@ -82,7 +82,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
         // Route personalisées
         Route::put('positions/{area}/{position}', [PositionController::class, 'update'])->name('positions.update');
-        Route::get('positions/{area}/{position}', [PositionController::class, 'show'])->name('positions.show');
         Route::delete('positions/{area}/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
     });
 
@@ -91,4 +90,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/duplicate/{robotName}', [RobotController::class, 'register_heros'])->name('robots.heros');
     Route::get('/mainrobot', [RobotController::class, 'get_main_robot'])->name('main_robot');
     Route::get('/increasestamina', [RobotController::class, 'increase_stamina'])->name('increase_stamina');
+    Route::get('positions/{area}/{position}', [PositionController::class, 'show'])->name('positions.show');
 });

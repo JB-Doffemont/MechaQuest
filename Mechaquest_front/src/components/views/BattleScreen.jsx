@@ -2,30 +2,23 @@
 
 import React, { useState } from "react";
 import { useEffect, useContext } from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image } from "react-native";
 import styles from "../../style/BattleScreenStyle";
 import ipConfig from "../../../IpConfig";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MainRobotContext } from "../../lib/MainRobotContext";
-import ReactDice from 'react-dice-complete';
 import 'react-dice-complete/dist/react-dice-complete.css';
 
+import MechaQuestDice from "../../components/usable/MechaQuestDice"
 
 export default function BattleScreen() {
 
     // const [areas, setAreas] = useState([]);
     const {mainRobot} = useContext(MainRobotContext);
-    const [diceNumber, setdiceNumber] = useState("");
-    
-    
-      const rollDoneCallback = async (num) => {
-        setdiceNumber(num)
-      }
-    
-      console.log(diceNumber);
+    const [playerTurn, setplayerTurn] = useState(true);
 
     useEffect(() => {
-      
+
         // Récupération de la route et de sa position pour ensuite afficher le robot
         const getRobotArea = async () => {
             try {
@@ -47,12 +40,9 @@ export default function BattleScreen() {
               console.error(error);
             }
           };
-        
-        getRobotArea();
-        
-    }, []);
 
-    
+        getRobotArea();
+    }, []);
     
     return(
         <View style={styles.container}>
@@ -62,17 +52,8 @@ export default function BattleScreen() {
             </View>
 
             {/* Affichage du dé */}
-            <View style={styles.diceContainer}>
-                <ReactDice 
-                numDice={1}
-                faceColor={'#E61E1E'}
-                dotColor={'#fffff'}
-                rollDone={rollDoneCallback}
-                />
-                <Text style={styles.diceNumberP}> Le résultat du dé est <br />
-                <Text style={styles.diceNumber}>{diceNumber}</Text> </Text>
-            </View>
-            
+            <MechaQuestDice />
+           
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>
                 <Image source={{uri:  `${ipConfig}/${mainRobot.robot_image}`}} style={styles.card}></Image>
@@ -80,5 +61,4 @@ export default function BattleScreen() {
         </View>
     );
 
-   
 }

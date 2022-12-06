@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import ipConfig from "../../../IpConfig";
-import { View, Image } from "react-native";
+import { View, Image, Button } from "react-native";
 import { useEffect, useContext } from "react";
 import styles from "../../style/BattleScreenStyle";
 import MechaQuestDice from "../usable/MechaQuestDice";
@@ -21,6 +21,9 @@ export default function BattleScreen() {
     const [position, setPosition] = useState(1);
 
     const type = ["Red", "Green", "Blue"]
+
+    // const typeMultiplier = 
+
        
     
 
@@ -37,11 +40,10 @@ export default function BattleScreen() {
 
     useEffect(() => {
         if(areaChoosen.length !== 0) {
-        console.log(areaChoosen);
          // Récupération de la route et de sa position pour ensuite afficher le robot
          const getRobotArea = async () => {
 
-                 try {
+                try {
                     
                 const response = await fetch(
                     `${ipConfig}/api/positions/${areaChoosen}/${position}`, {
@@ -76,6 +78,11 @@ export default function BattleScreen() {
 
             {/* Affichage du dé */}
             <MechaQuestDice />
+            <Button wrapper
+                    title="Afficher le dè"
+                    color="#3273a8"
+                    onPress={() => console.log(MechaQuestDice.diceResult)}
+                />
            
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>

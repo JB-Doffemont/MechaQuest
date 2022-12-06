@@ -20,7 +20,6 @@ import { MainRobotContext } from "./src/lib/MainRobotContext";
 import { BattleScreenLoadingContext } from "./src/lib/BattleScreenLoadingContext";
 import { MessageStamContext } from "./src/lib/MessageStamContext";
 import { AreaChoosenContext } from "./src/lib/AreaChoosenContext";
-import { DiceResultContext } from "./src/lib/DiceResultContext";
 const Stack = createNativeStackNavigator();
 
 // L'app.js va nous permettre de lire tous les screens/views
@@ -31,77 +30,74 @@ export default function App() {
   const [messageStam, setMessageStam] = useState("");
   const [diceResult, setDiceResult] = useState("");
 
+  console.log(diceResult);
   return (
     <AreaChoosenContext.Provider value={{ areaChoosen, setAreaChoosen }}>
-      <DiceResultContext.Provider value={{ diceResult, setDiceResult }}>
-        <MessageStamContext.Provider value={{ messageStam, setMessageStam }}>
-          <BattleScreenLoadingContext.Provider
-            value={{ battleScreenLoading, setBattleScreenLoading }}
-          >
-            <MainRobotContext.Provider value={{ mainRobot, setMainRobot }}>
-              <NavigationContainer>
-                <Stack.Navigator>
-                  <Stack.Screen
-                    name="PreStarterScreen"
-                    component={PreStarterScreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="StarterScreen"
-                    component={StarterScreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="LogInFormScreen"
-                    component={LogInFormScreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="SignUpFormScreen"
-                    component={SignUpFormScreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="IntroScreen"
-                    component={IntroScreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="RobotChoiceScreen"
-                    component={RobotChoiceScreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="HomeScreen"
-                    component={HomeScreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="AreaChoiceScreen"
-                    component={AreaChoiceScreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="BattleScreen"
-                    component={BattleScreen}
-                    options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                    name="CollectionScreen"
-                    component={CollectionScreen}
-                  />
-                  <Stack.Screen name="ShopScreen" component={ShopScreen} />
-                  <Stack.Screen
-                    name="RankingScreen"
-                    component={RankingScreen}
-                  />
-                  <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
-                </Stack.Navigator>
-              </NavigationContainer>
-            </MainRobotContext.Provider>
-          </BattleScreenLoadingContext.Provider>
-        </MessageStamContext.Provider>
-      </DiceResultContext.Provider>
+      {/* <DiceResultContext.Provider value={{ diceResult, setDiceResult }}> */}
+      <MessageStamContext.Provider value={{ messageStam, setMessageStam }}>
+        <BattleScreenLoadingContext.Provider
+          value={{ battleScreenLoading, setBattleScreenLoading }}
+        >
+          <MainRobotContext.Provider value={{ mainRobot, setMainRobot }}>
+            <NavigationContainer>
+              <Stack.Navigator>
+                <Stack.Screen
+                  name="PreStarterScreen"
+                  component={PreStarterScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="StarterScreen"
+                  component={StarterScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="LogInFormScreen"
+                  component={LogInFormScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="SignUpFormScreen"
+                  component={SignUpFormScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="IntroScreen"
+                  component={IntroScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="RobotChoiceScreen"
+                  component={RobotChoiceScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="HomeScreen"
+                  component={HomeScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="AreaChoiceScreen"
+                  component={AreaChoiceScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="BattleScreen"
+                  component={BattleScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="CollectionScreen"
+                  component={CollectionScreen}
+                />
+                <Stack.Screen name="ShopScreen" component={ShopScreen} />
+                <Stack.Screen name="RankingScreen" component={RankingScreen} />
+                <Stack.Screen name="ProfilScreen" component={ProfilScreen} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </MainRobotContext.Provider>
+        </BattleScreenLoadingContext.Provider>
+      </MessageStamContext.Provider>
     </AreaChoosenContext.Provider>
   );
 }

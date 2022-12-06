@@ -68,7 +68,7 @@ class PositionController extends Controller
 
         $robotData = Robot::where('id', $robotId)->first();
 
-        return response()->json([$robotData, 'status_code' => 200]);
+        return response()->json($robotData);
     }
 
     /**

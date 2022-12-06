@@ -2,11 +2,11 @@
 
 import { useEffect } from "react";
 import React, { useState } from "react";
-import Carousel from "../usable/Carousel";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import ipConfig from "../../../IpConfig";
-
+import Carousel from "../usable/Carousel";
 import { View, Text } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function RobotChoice() {
     const [robots, setRobots] = useState([]);
@@ -29,7 +29,6 @@ export default function RobotChoice() {
                     });
                 
                     const json = await response.json();
-                    console.log(json);
                     setRobots(json);
    
             } catch (error) {

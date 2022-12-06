@@ -24,18 +24,15 @@ export default function BattleScreen() {
         setdiceNumber(num)
       }
 
-      
-
     useEffect(() => {
-
+        if(areaChoosen.length !== 0) {
         console.log(areaChoosen);
          // Récupération de la route et de sa position pour ensuite afficher le robot
          const getRobotArea = async () => {
 
-            
                  try {
                     console.log(areaChoosen);
-                    if(areaChoosen) {
+                    
                 const response = await fetch(
                     `${ipConfig}/api/positions/${areaChoosen}/${position}`, {
                         method: 'GET',
@@ -46,25 +43,17 @@ export default function BattleScreen() {
                         },
                     });
 
-                
-                
                     const json = await response.json();
                     console.log(json);
                     setRobotArea(json);
-                    console.log(json.robot_image);
-
-                }
-                    
-                    
+ 
             } catch (error) {
               console.error(error);
             }
             
           };
-
           getRobotArea();
-        
-        
+        }
         
     }, [areaChoosen]);
 
@@ -90,7 +79,7 @@ export default function BattleScreen() {
             
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>
-                {/* <Image source={{uri:  `${ipConfig}/${robotArea.robot_image}`}} style={styles.card}></Image> */}
+                <Image source={{uri:  `${ipConfig}/${robotArea.robot_image}`}} style={styles.card}></Image>
             </View>
         </View>
     );

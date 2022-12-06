@@ -49,4 +49,9 @@ export default StyleSheet.create({
     marginLeft: 60,
     fontSize: 36,
   },
+
+  text: {
+    color: "white",
+    fontSize: 16,
+  },
 });

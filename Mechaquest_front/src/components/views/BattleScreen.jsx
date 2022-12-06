@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import ipConfig from "../../../IpConfig";
-import { View, Image } from "react-native";
+import { View, Image, Text } from "react-native";
 import { useEffect, useContext } from "react";
 import styles from "../../style/BattleScreenStyle";
 import MechaQuestDice from "../usable/MechaQuestDice";
@@ -22,7 +22,6 @@ export default function BattleScreen() {
 
     useEffect(() => {
         if(areaChoosen.length !== 0) {
-        console.log(areaChoosen);
          // Récupération de la route et de sa position pour ensuite afficher le robot
          const getRobotArea = async () => {
 
@@ -46,19 +45,23 @@ export default function BattleScreen() {
             } catch (error) {
               console.error(error);
             }
-            
           };
           getRobotArea();
         }
         
     }, [areaChoosen]);
 
-    
+    console.log(mainRobot);
     return(
         <View style={styles.container}>
             {/* Emplacement pour le robot du joueur */}
             <View style={styles.robotPlayerContainer}>
                 <Image source={{uri:  `${ipConfig}/${mainRobot.robot_image}`}} style={styles.card}></Image>
+                <View>
+                    <Text style={styles.text}> HP : {mainRobot.current_hp} </Text>
+                    <Text style={styles.text}> Atk : {mainRobot.current_atk} </Text>
+                    <Text style={styles.text}> Def : {mainRobot.current_def} </Text>
+                </View>
             </View>
 
             {/* Affichage du dé */}
@@ -67,6 +70,12 @@ export default function BattleScreen() {
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>
                 <Image source={{uri:  `${ipConfig}/${robotArea.robot_image}`}} style={styles.card}></Image>
+                <View>
+                    <Text style={styles.text}> HP : {robotArea.current_hp} </Text>
+                    <Text style={styles.text}> Atk : {robotArea.current_atk} </Text>
+                    <Text style={styles.text}> Def : {robotArea.current_def} </Text>
+                </View>
+                
             </View>
         </View>
     );

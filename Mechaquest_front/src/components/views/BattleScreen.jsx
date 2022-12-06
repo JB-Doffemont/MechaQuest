@@ -1,49 +1,43 @@
 // Ecran affichant le combat de robot du joueur contre un ordinateur
 
 import React, { useState } from "react";
+import ipConfig from "../../../IpConfig";
+import ReactDice from 'react-dice-complete';
 import { useEffect, useContext } from "react";
 import { View, Image, Text } from "react-native";
 import styles from "../../style/BattleScreenStyle";
-import ipConfig from "../../../IpConfig";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MainRobotContext } from "../../lib/MainRobotContext";
-import ReactDice from 'react-dice-complete';
 import 'react-dice-complete/dist/react-dice-complete.css';
+import { MainRobotContext } from "../../lib/MainRobotContext";
 import { AreaChoosenContext } from "../../lib/AreaChoosenContext";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BattleScreen() {
 
-    // const [areas, setAreas] = useState([]);
+    const [robotArea, setRobotArea] = useState([]);
     const {mainRobot} = useContext(MainRobotContext);
+
     const [diceNumber, setdiceNumber] = useState("");
     const {areaChoosen} = useContext(AreaChoosenContext);
+    const [position, setPosition] = useState(1);
 
-    console.log(areaChoosen);
-
-    
       const rollDoneCallback = async (num) => {
         setdiceNumber(num)
       }
-    
-      console.log(diceNumber);
+
+      
 
     useEffect(() => {
 
-        // const getArea = async () => {
-        //     try {
-        //         const response =  await fetch()
+        console.log(areaChoosen);
+         // Récupération de la route et de sa position pour ensuite afficher le robot
+         const getRobotArea = async () => {
 
-        //     } catch {
-
-        //     }
-        // }
-      
-        // Récupération de la route et de sa position pour ensuite afficher le robot
-        const getRobotArea = async () => {
-            try {
+            
+                 try {
+                    console.log(areaChoosen);
+                    if(areaChoosen) {
                 const response = await fetch(
-                    `${ipConfig}/api/areas`, {
+                    `${ipConfig}/api/positions/${areaChoosen}/${position}`, {
                         method: 'GET',
                         headers: {
                             "Authorization": "Bearer " + await AsyncStorage.getItem('access_token'),
@@ -51,21 +45,29 @@ export default function BattleScreen() {
                             'Content-Type': 'application/json',  
                         },
                     });
+
+                
                 
                     const json = await response.json();
                     console.log(json);
-                    setAreas(json);
+                    setRobotArea(json);
+                    console.log(json.robot_image);
+
+                }
+                    
                     
             } catch (error) {
               console.error(error);
             }
+            
           };
-        
-        getRobotArea();
-        
-    }, []);
 
-    
+          getRobotArea();
+        
+        
+        
+    }, [areaChoosen]);
+
     
     return(
         <View style={styles.container}>
@@ -88,7 +90,7 @@ export default function BattleScreen() {
             
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>
-                <Image source={{uri:  `${ipConfig}/${mainRobot.robot_image}`}} style={styles.card}></Image>
+                {/* <Image source={{uri:  `${ipConfig}/${robotArea.robot_image}`}} style={styles.card}></Image> */}
             </View>
         </View>
     );

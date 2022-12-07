@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function BattleScreen() {
 
     const [diceResult, setDiceResult] = useState();
+    const [diceResult2, setDiceResult2] = useState();
     const [robotArea, setRobotArea] = useState([]);
     const {mainRobot} = useContext(MainRobotContext);
     const {areaChoosen} = useContext(AreaChoosenContext);
@@ -92,7 +93,7 @@ export default function BattleScreen() {
             </View>
 
             {/* Affichage du dé */}
-            <MechaQuestDice setDiceResult={setDiceResult} />
+            <MechaQuestDice setDiceResult={setDiceResult} setDiceResult2={setDiceResult2} diceResult={diceResult}/>
            
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>

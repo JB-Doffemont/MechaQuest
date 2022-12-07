@@ -1,7 +1,6 @@
 // Composant du dé permettant de jouer à MechaQuest
 
 import React from 'react';
-import { useState } from 'react';
 import ReactDice from 'react-dice-complete';
 import { View, Text, Button } from 'react-native';
 import styles from "../../style/MechaQuestDiceStyle";
@@ -30,7 +29,10 @@ class MechaQuestDice extends React.Component{
       }
       
     render(){
-        MechaQuestDice.diceResult = this.state.diceNumber;
+        
+        // On récupère la valeur du state que l'on fait passer via la propriété au composant BattleScreen
+        this.props.setDiceResult(this.state.diceNumber);
+
         const elementVisible = this.state.elementVisible;
         return (
             <View style={styles.diceContainer}>

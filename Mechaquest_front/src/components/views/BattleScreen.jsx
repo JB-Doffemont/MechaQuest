@@ -13,12 +13,25 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BattleScreen() {
 
+    const [diceResult, setDiceResult] = useState();
     const [robotArea, setRobotArea] = useState([]);
     const {mainRobot} = useContext(MainRobotContext);
     const {areaChoosen} = useContext(AreaChoosenContext);
     const [position, setPosition] = useState(1);
+    
+    console.log(diceResult);
+
+    // useEffect(() => {
+    //     const diceResult = MechaQuestDice.diceResult;
+
+    //     console.log(diceResult);
+
+    // }, [MechaQuestDice.diceResult]);
+
+   
 
     const type = ["Red", "Green", "Blue"]
+
 
     // const typeMultiplier = 
 
@@ -65,9 +78,9 @@ export default function BattleScreen() {
         
     }, [areaChoosen]);
 
-    console.log(mainRobot);
     return(
         <View style={styles.container}>
+           
             {/* Emplacement pour le robot du joueur */}
             <View style={styles.robotPlayerContainer}>
                 <Image source={{uri:  `${ipConfig}/${mainRobot.robot_image}`}} style={styles.card}></Image>
@@ -79,12 +92,7 @@ export default function BattleScreen() {
             </View>
 
             {/* Affichage du dé */}
-            <MechaQuestDice />
-            <Button wrapper
-                    title="Afficher le dè"
-                    color="#3273a8"
-                    onPress={() => console.log(MechaQuestDice.diceResult)}
-                />
+            <MechaQuestDice setDiceResult={setDiceResult} />
            
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>

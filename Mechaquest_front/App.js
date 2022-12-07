@@ -28,9 +28,7 @@ export default function App() {
   const [areaChoosen, setAreaChoosen] = useState([]);
   const [battleScreenLoading, setBattleScreenLoading] = useState([]);
   const [messageStam, setMessageStam] = useState("");
-  const [diceResult, setDiceResult] = useState("");
 
-  console.log(diceResult);
   return (
     <AreaChoosenContext.Provider value={{ areaChoosen, setAreaChoosen }}>
       {/* <DiceResultContext.Provider value={{ diceResult, setDiceResult }}> */}

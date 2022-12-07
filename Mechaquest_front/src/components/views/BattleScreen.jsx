@@ -58,32 +58,7 @@ export default function BattleScreen() {
         }
     }
     typeMultiplierPlayerTurn();
-    console.log((typeMultiplierPlayerTurn()));
-
-    // checkSwitch=(mainRobotType, opponentRobotType)=>{
-    //     switch(mainRobotType, opponentRobotType) {
-    //       case mainRobotType == type[0] && opponentRobotType == type[1]:
-    //         console.log("Switch 1");;
-    //         break;
-          
-    //       case '2':
-    //         console.log("Switch 2");;
-    //         break;
-    
-    //       case '3':
-    //         console.log("Switch 3");;
-    //         break;
-    
-    //       case '4':
-    //         console.log("Switch 4");;
-    //         break;
-    
-    //       default:
-    //         console.log("pas de switch");;
-    //       }
-    //   }
-    // checkSwitch();
-       
+    console.log((typeMultiplierPlayerTurn()));     
     
 
     // const battleDamage = () => {

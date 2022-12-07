@@ -21,6 +21,9 @@ class MechaQuestDice extends React.Component{
     // Fonction pour lancer un dé, utilisé ici au click
     rollAll = () => {
         this.reactDice.rollAll()
+        setTimeout(() =>{
+            this.reactDice.rollAll();
+          }, 5000);
       }
       
     render(){

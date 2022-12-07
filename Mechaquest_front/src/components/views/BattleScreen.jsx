@@ -12,7 +12,7 @@ import { AreaChoosenContext } from "../../lib/AreaChoosenContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BattleScreen() {
-
+    let mainRobotTurn = "";
     const [diceResult, setDiceResult] = useState();
     const [diceResult2, setDiceResult2] = useState();
     const [robotArea, setRobotArea] = useState([]);
@@ -25,6 +25,16 @@ export default function BattleScreen() {
     const mainRobotType = mainRobot.type_robot;
     const opponentRobotType = robotArea.type_robot;
     const type = ["Red", "Green", "Blue"]
+
+    // Comparaison entre deux lancés en début de partie pour définir qui jouera en premier 
+        if (diceResult > diceResult2) {
+            mainRobotTurn = "A";
+        } else if (diceResult2 > diceResult) {
+            mainRobotTurn = "B";
+        } else {
+            mainRobotTurn = "A";
+        }
+
 
     // Le typeMultiplier confère plus de dégats en fonction du type du robot (tour du joueur)
     const typeMultiplierPlayerTurn = () => {

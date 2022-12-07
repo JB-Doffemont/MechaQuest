@@ -35,7 +35,6 @@ export default function BattleScreen() {
             mainRobotTurn = "A";
         }
 
-
     // Le typeMultiplier confère plus de dégats en fonction du type du robot (tour du joueur)
     const typeMultiplierPlayerTurn = () => {
         // Si le robot est rouge contre vert, vert contre bleu, ou bleu contre rouge: avantage
@@ -69,18 +68,44 @@ export default function BattleScreen() {
     }
     typeMultiplierPlayerTurn();
     console.log((typeMultiplierPlayerTurn()));     
-    
 
-    // const battleDamage = () => {
-    //     try {
-    //           const json = response.json();
-    //           setUser(json[0]);  
-    //           console.log("get user", json);
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    //   };
-    // battleDamage();
+    const diceMultiplier = () => {
+        const diceArray = [0,0.9,1,1.1,1.2,1.5];
+        if (diceResult == 1) {
+            return console.log(diceArray[0]);
+        }
+        else if (diceResult == 2) {
+            return console.log(diceArray[1]);
+        } 
+        else if (diceResult == 3) {
+            return console.log(diceArray[2]);
+        }
+        else if (diceResult == 4) {
+            return console.log(diceArray[3]);
+        }
+        else if (diceResult == 5) {
+            return console.log(diceArray[4]);
+        
+        }else if (diceResult == 6) {
+            return console.log(diceArray[5]);
+        }
+    }
+    diceMultiplier();
+    
+    const battleDamage = () => {
+        try {
+            if (mainRobotTurn == "A") {
+                // return console.log("Hehe le joueur 1 a attaqué");
+            }
+            else if (mainRobotTurn == "B"){
+                // return console.log("Oh non l'adversaire m'a touché");
+            }
+            //   let Damage = [ 0.5 * Multiplicateur lancer de dès x (Attaque/Defense) x Multiplicateur Type ] +1
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    battleDamage();
 
     useEffect(() => {
         if(areaChoosen.length !== 0) {

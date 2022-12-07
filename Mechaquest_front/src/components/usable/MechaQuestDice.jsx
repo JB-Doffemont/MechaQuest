@@ -28,6 +28,11 @@ class MechaQuestDice extends React.Component{
             this.reactDice.rollAll();
           }, 5000);
       }
+
+    // Fonction qui active le premier lancer de dé pour l'IA si l'adversaire commence en premier
+    rollFirstOpponentTurn = () => {
+        this.reactDice.rollAll();
+    }
       
     render(){
         /* Pour définir qui joue en premier on a besoin de comparer deux lancés de dés
@@ -78,4 +83,4 @@ class MechaQuestDice extends React.Component{
         )
     }
 }
-export default MechaQuestDice
+export default MechaQuestDice;

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import ipConfig from "../../../IpConfig";
-import { View, Image, Button } from "react-native";
+import { View, Image, Text, Button } from "react-native";
 import { useEffect, useContext } from "react";
 import styles from "../../style/BattleScreenStyle";
 import MechaQuestDice from "../usable/MechaQuestDice";
@@ -15,8 +15,6 @@ export default function BattleScreen() {
 
     const [robotArea, setRobotArea] = useState([]);
     const {mainRobot} = useContext(MainRobotContext);
-
-    const [diceNumber, setdiceNumber] = useState("");
     const {areaChoosen} = useContext(AreaChoosenContext);
     const [position, setPosition] = useState(1);
 

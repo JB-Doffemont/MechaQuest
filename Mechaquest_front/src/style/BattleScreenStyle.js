@@ -18,12 +18,6 @@ export default StyleSheet.create({
     top: "10%",
   },
 
-  diceContainer: {
-    position: "absolute",
-    left: "41%",
-    top: "10%",
-  },
-
   robotIAContainer: {
     position: "absolute",
     alignItems: "center",
@@ -36,22 +30,5 @@ export default StyleSheet.create({
   card: {
     flex: 5,
     width: windowWidth * 0.3,
-  },
-
-  diceNumberP: {
-    color: "white",
-    fontSize: 14,
-  },
-
-  diceNumber: {
-    color: "white",
-    alignItems: "center",
-    marginLeft: 60,
-    fontSize: 36,
-  },
-
-  text: {
-    color: "white",
-    fontSize: 16,
   },
 });

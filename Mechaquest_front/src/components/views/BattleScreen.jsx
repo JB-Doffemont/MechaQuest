@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import ipConfig from "../../../IpConfig";
-import { View, Image, Text, Button } from "react-native";
+import { View, Image, Button, Text } from "react-native";
 import { useEffect, useContext } from "react";
 import styles from "../../style/BattleScreenStyle";
 import MechaQuestDice from "../usable/MechaQuestDice";
@@ -18,24 +18,46 @@ export default function BattleScreen() {
     const {mainRobot} = useContext(MainRobotContext);
     const {areaChoosen} = useContext(AreaChoosenContext);
     const [position, setPosition] = useState(1);
-    
-    console.log(diceResult);
 
-    // useEffect(() => {
-    //     const diceResult = MechaQuestDice.diceResult;
+    const [playerTurn, setPlayerTurn] = useState("");
 
-    //     console.log(diceResult);
-
-    // }, [MechaQuestDice.diceResult]);
-
-   
-
+    const mainRobotType = mainRobot.type_robot;
+    const opponentRobotType = robotArea.type_robot;
     const type = ["Red", "Green", "Blue"]
 
+    // Le typeMultiplier confère plus de dégats en fonction du type du robot (tour du joueur)
+    const typeMultiplierPlayerTurn = () => {
+        // Si le robot est rouge contre vert, vert contre bleu, ou bleu contre rouge: avantage
+        if ((mainRobotType == type[0] && opponentRobotType == type[1]) || (mainRobotType == type[1] && opponentRobotType == type[2]) || (mainRobotType == type[2] && opponentRobotType == type[0])) {
+            return 1.2;
+        }
+        // Si le robot est rouge contre bleu, vert contre rouge, ou bleu contre vert: désavantage
+        else if ((mainRobotType == type[0] && opponentRobotType == type[2]) || (mainRobotType == type[1] && opponentRobotType == type[0]) || (mainRobotType == type[2] && opponentRobotType == type[1]) ){
+            return 0.8;
+        }
+        // Dans les autres scénarios, type neutre donc pas de multiplicateur à appliquer
+        else {
+            return 1;
+        }
+    }
 
-    // const typeMultiplier = 
-
-       
+    // Le typeMultiplier confère plus de dégats en fonction du type du robot (tour de l'adversaire)
+    const typeMultiplierOpponentTurn = () => {
+        // Si le robot est rouge contre vert, vert contre bleu, ou bleu contre rouge: avantage
+        if ((opponentRobotType == type[0] && mainRobotType == type[1]) || (opponentRobotType == type[1] && mainRobotType == type[2]) || (opponentRobotType == type[2] && mainRobotType == type[0])) {
+            return 1.2;
+        }
+        // Si le robot est rouge contre bleu, vert contre rouge, ou bleu contre vert: désavantage
+        else if ((opponentRobotType == type[0] && mainRobotType == type[2]) || (opponentRobotType == type[1] && mainRobotType == type[0]) || (opponentRobotType == type[2] && mainRobotType == type[1]) ){
+            return 0.8;
+        }
+        // Dans les autres scénarios, type neutre donc pas de multiplicateur à appliquer
+        else {
+            return 1;
+        }
+    }
+    typeMultiplierPlayerTurn();
+    console.log((typeMultiplierPlayerTurn()));     
     
 
     // const battleDamage = () => {

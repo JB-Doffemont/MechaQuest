@@ -22,6 +22,7 @@ class MechaQuestDice extends React.Component{
     // Fonction pour lancer un dé, utilisé ici au click
     rollAll = () => {
         this.reactDice.rollAll()
+        
         // Fonction pour déclencher le dé à nouveau après un certain temps
         setTimeout(() =>{
             this.reactDice.rollAll();
@@ -29,10 +30,15 @@ class MechaQuestDice extends React.Component{
       }
       
     render(){
+        /* Pour définir qui joue en premier on a besoin de comparer deux lancés de dés
+        * pour ce faire on récupère la valeur des lancés dans deux state différents
+        */
+        if (this.props.diceResult == null) {
+            this.props.setDiceResult(this.state.diceNumber);
+        } else {
+            this.props.setDiceResult2(this.state.diceNumber);  
+        }
         
-        // On récupère la valeur du state que l'on fait passer via la propriété au composant BattleScreen
-        this.props.setDiceResult(this.state.diceNumber);
-
         const elementVisible = this.state.elementVisible;
         return (
             <View style={styles.diceContainer}>

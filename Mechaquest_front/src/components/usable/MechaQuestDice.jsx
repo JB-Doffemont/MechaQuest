@@ -11,38 +11,66 @@ class MechaQuestDice extends React.Component{
     // Constructor pour initialiser le state du diceNumber
     constructor(props){
         super(props);
-        this.state = { diceNumber: null, elementVisible: true};
+        this.state = { diceNumber: null, diceResult: null, diceResult2: null, elementVisible: true, mainRobotTurn:"", firstIaTurn: null};
     }
 
     // Cette fonction change le state du dé en prenant le résultat du lancer de dé
     rollDoneCallback = async (num) => {
-        this.setState ({ diceNumber: num });        
+        this.setState ({ diceNumber: num });      
       }
+
+      rollCompare = () => {
+        if (this.state.firstIaTurn == null) {
+
+            
+            if (this.state.diceResult == null) {
+                this.setState({ diceResult: this.state.diceNumber });
+                console.log(this.setState({ diceResult: this.state.diceNumber }));
+            } else {
+                this.setState({ diceResult2: this.state.diceNumber });
+            } 
+            }
+    }
+
+    
 
     // Fonction pour lancer un dé, utilisé ici au click
     rollAll = () => {
-        this.reactDice.rollAll()
+        /* On update le state pour l'affichage conditionnel des boutons + la transmission du state via les props au composant "BattleScreen" */
+        this.setState({ mainRobotTurn: "A" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
+        this.reactDice.rollAll();
+       
         
         // Fonction pour déclencher le dé à nouveau après un certain temps
         setTimeout(() =>{
+            this.setState({ mainRobotTurn: "B" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);});
             this.reactDice.rollAll();
+            this.setState({ elementVisible: false })
           }, 5000);
       }
 
     // Fonction qui active le premier lancer de dé pour l'IA si l'adversaire commence en premier
     rollFirstOpponentTurn = () => {
-        this.reactDice.rollAll();
+       /* On update le state pour l'affichage conditionnel des boutons + la transmission du state via les props au composant "BattleScreen" */
+       this.setState({ mainRobotTurn: "A" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
+       this.reactDice.rollAll();
+      
+       
+       // Fonction pour déclencher le dé à nouveau après un certain temps
+       setTimeout(() =>{
+           this.setState({ mainRobotTurn: "B" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);});
+           this.reactDice.rollAll();
+           this.setState({ elementVisible: false })
+         }, 5000);
     }
+    
+
       
     render(){
         /* Pour définir qui joue en premier on a besoin de comparer deux lancés de dés
         * pour ce faire on récupère la valeur des lancés dans deux state différents
         */
-        if (this.props.diceResult == null) {
-            this.props.setDiceResult(this.state.diceNumber);
-        } else {
-            this.props.setDiceResult2(this.state.diceNumber);  
-        }
+            this.props.setDiceResults(this.state.diceNumber);
         
         const elementVisible = this.state.elementVisible;
         return (
@@ -57,12 +85,12 @@ class MechaQuestDice extends React.Component{
                         <Button
                             title="Initiative"
                             color="#3273a8"
-                            onPress={() => [this.setState({ elementVisible: false }),  this.rollAll()]}
+                            onPress={() => this.rollAll()}
                         /></View> : null 
                     }
-                    </View>
+                </View>
                 <View>
-                <ReactDice 
+                    <ReactDice 
                     numDice={1} 
                     faceColor={'#E61E1E'}
                     dotColor={'#fffff'}
@@ -79,6 +107,26 @@ class MechaQuestDice extends React.Component{
                     <Text style={styles.diceNumberText}>{this.state.diceNumber}</Text>
                     </View> : null }
                 </View>
+                { elementVisible == false && this.state.diceResult >= this.state.diceResult2 && this.state.diceResult2 != null ? 
+                    <View>
+                         <Text style={styles.diceNumberText}>Bravo vous avez fait un meilleur score que votre adversaire !</Text>
+                        <Text style={styles.diceNumberText}>A vous de jouer !</Text> 
+                        <Button
+                            title="Lancer Attaque"
+                            color="#3273a8"
+                            onPress={() => this.rollAll()}
+                        /></View> : null 
+                    }
+                {elementVisible == false && this.state.diceResult < this.state.diceResult2 && this.state.firstIaTurn == null ? 
+                    <View>
+                         <Text style={styles.diceNumberText}>L'adversaire a fait un meilleur score, à lui de commencer !</Text>
+                        <Text style={styles.diceNumberText}>Cliquez sur suivant</Text> 
+                        <Button
+                            title="Suivant"
+                            color="#3273a8"
+                            onPress={() => [this.rollFirstOpponentTurn(),  this.setState({ firstIaTurn: "C" })]}
+                        /></View> : null 
+                    }
             </View>
         )
     }

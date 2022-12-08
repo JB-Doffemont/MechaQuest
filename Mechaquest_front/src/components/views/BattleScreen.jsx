@@ -12,28 +12,34 @@ import { AreaChoosenContext } from "../../lib/AreaChoosenContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BattleScreen() {
-    let mainRobotTurn = "";
-    const [diceResult, setDiceResult] = useState();
-    const [diceResult2, setDiceResult2] = useState();
+    
+    const [diceResults, setDiceResults] = useState();
+    const [mainRobotTurn, setMainRobotTurn] = useState("");
     const [robotArea, setRobotArea] = useState([]);
-    const {mainRobot} = useContext(MainRobotContext);
+    const {mainRobot} = useContext(MainRobotContext); 
     const {areaChoosen} = useContext(AreaChoosenContext);
     const [position, setPosition] = useState(1);
-
-    const [playerTurn, setPlayerTurn] = useState("");
-
     const mainRobotType = mainRobot.type_robot;
     const opponentRobotType = robotArea.type_robot;
     const type = ["Red", "Green", "Blue"]
 
+    console.log(mainRobotTurn);
+    console.log(diceResults);
+
     // Comparaison entre deux lancés en début de partie pour définir qui jouera en premier 
-        if (diceResult > diceResult2) {
-            mainRobotTurn = "A";
-        } else if (diceResult2 > diceResult) {
-            mainRobotTurn = "B";
-        } else {
-            mainRobotTurn = "A";
-        }
+        // if (diceResult > diceResult2) {
+        //     mainRobotTurn = "A";
+            
+           
+        // } else if (diceResult2 > diceResult) {
+        //     mainRobotTurn = "B";
+            
+            
+        // } else {
+        //     mainRobotTurn = "A";
+            
+            
+        // }
 
     // Le typeMultiplier confère plus de dégats en fonction du type du robot (tour du joueur)
     const typeMultiplierPlayerTurn = () => {
@@ -67,26 +73,26 @@ export default function BattleScreen() {
         }
     }
     typeMultiplierPlayerTurn();
-    console.log((typeMultiplierPlayerTurn()));     
+       
 
     const diceMultiplier = () => {
         const diceArray = [0,0.9,1,1.1,1.2,1.5];
-        if (diceResult == 1) {
+        if (MechaQuestDice.diceResult == 1) {
             return console.log(diceArray[0]);
         }
-        else if (diceResult == 2) {
+        else if (MechaQuestDice.diceResult == 2) {
             return console.log(diceArray[1]);
         } 
-        else if (diceResult == 3) {
+        else if (MechaQuestDice.diceResult == 3) {
             return console.log(diceArray[2]);
         }
-        else if (diceResult == 4) {
+        else if (MechaQuestDice.diceResult == 4) {
             return console.log(diceArray[3]);
         }
-        else if (diceResult == 5) {
+        else if (MechaQuestDice.diceResult == 5) {
             return console.log(diceArray[4]);
         
-        }else if (diceResult == 6) {
+        }else if (MechaQuestDice.diceResult == 6) {
             return console.log(diceArray[5]);
         }
     }
@@ -150,7 +156,7 @@ export default function BattleScreen() {
             </View>
 
             {/* Affichage du dé */}
-            <MechaQuestDice setDiceResult={setDiceResult} setDiceResult2={setDiceResult2} diceResult={diceResult}/>
+            <MechaQuestDice setDiceResults={setDiceResults} setMainRobotTurn={setMainRobotTurn}/>
            
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>

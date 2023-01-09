@@ -11,7 +11,7 @@ class MechaQuestDice extends React.Component{
     // Constructor pour initialiser le state du diceNumber
     constructor(props){
         super(props);
-        this.state = { diceNumber: null, diceResult: null, diceResult2: null, elementVisible: true, mainRobotTurn:"",  initiativeJoueur: null, battleData: null};
+        this.state = { diceNumber: null, diceResult: null, diceResult2: null, elementVisible: true, mainRobotTurn:"",  initiativeJoueur: null, battleData: null, textDisplay: false};
     }
 
     // Cette fonction change le state du dé en prenant le résultat du lancer de dé
@@ -23,6 +23,10 @@ class MechaQuestDice extends React.Component{
         } else {
             this.setState({ diceResult2: this.state.diceNumber });
         }    
+
+        this.setState({textDisplay: true});
+        this.clickfunction();
+
       }
 
 
@@ -31,14 +35,15 @@ class MechaQuestDice extends React.Component{
     rollAll = () => {
         /* On update le state pour l'affichage conditionnel des boutons + la transmission du state via les props au composant "BattleScreen" */
         this.setState({ mainRobotTurn: "A" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
-        this.reactDice.rollAll();
-       
+        this.reactDice.rollAll();       
         
         // Fonction pour déclencher le dé à nouveau après un certain temps
         setTimeout(() =>{
             this.setState({ mainRobotTurn: "B" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);});
             this.reactDice.rollAll();
             this.setState({ elementVisible: false })
+            this.setState({textDisplay: true})
+
           }, 5000);
       }
 
@@ -75,6 +80,17 @@ class MechaQuestDice extends React.Component{
            this.setState({ elementVisible: false })
          }, 5000);
         }
+
+
+    clickfunction = () => {
+                     
+        return (
+            <View>
+                <Text style={styles.diceNumberText}> HELLO!</Text>
+            </View>
+        )
+        
+    }
  
       
     render(){
@@ -82,16 +98,19 @@ class MechaQuestDice extends React.Component{
         * pour ce faire on récupère la valeur des lancés dans deux state différents
         */
             this.props.setDiceResults(this.state.diceNumber);
-        
+    
         const elementVisible = this.state.elementVisible;
         return (
             <View style={styles.diceContainer}>
                 <View>
                     {/* Opérateur ternaire pour gerer dynamiquement l'affichage */ }
                     {elementVisible == true ? 
+
                     <View>
                         <Text style={styles.diceNumberText}> Voici votre premier adversaire !</Text>
                         <Text style={styles.diceNumberText}> Cliquez pour déterminer qui commence en premier</Text>
+                      
+
                         {/* Bouton pour lancer le dé */}
                         <Button
                             title="Initiative"
@@ -126,35 +145,41 @@ class MechaQuestDice extends React.Component{
                             <Text style={styles.diceNumberText}>A vous de jouer !</Text> 
                         </View> : null
                         }
-                        { elementVisible == false && this.state.initiativeJoueur == "Joueur1" && this.state.mainRobotTurn == "B" ? 
+                        { elementVisible == false && this.state.initiativeJoueur == "Joueur1" && this.state.mainRobotTurn == "B" && this.state.textDisplay ? 
                         <View>
                          <Button
                             title="Lancer Attaque"
                             color="#3273a8"
-                            onPress={() => [this.rollAll(), this.setState({battleData:"display"})]}
+                            onPress={() => [this.rollAll(), this.setState({battleData:"display"}, this.setState({textDisplay:false}))]}
                         />
                         </View> : null 
                         }
-                        { elementVisible == false && this.state.initiativeJoueur == "Joueur2" && this.state.mainRobotTurn == "A" ? 
+                        { elementVisible == false && this.state.initiativeJoueur == "Joueur2" && this.state.mainRobotTurn == "A" && this.state.textDisplay ? 
                         <View>
                          <Button
                             title="Lancer Attaque"
                             color="#3273a8"
-                            onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"})]}
+                            onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"}, this.setState({textDisplay:false}))]}
                         />
                         </View> : null 
                         }
 
-                    { this.state.mainRobotTurn == "A" && this.state.battleData == "display" ?
+                    { this.state.mainRobotTurn == "A" && this.state.battleData == "display" && this.state.textDisplay ?
                         <View>
                             <Text style={styles.diceNumberText}>Vous avez infligé des dégats à votre adversaire !</Text>
+                            {
+                                this.clickfunction()
+                            }
                             
                         </View>
                      : null }
 
-                     { this.state.mainRobotTurn == "B" && this.state.battleData == "display" ?
+                     { this.state.mainRobotTurn == "B" && this.state.battleData == "display" && this.state.textDisplay ?
                         <View>
                             <Text style={styles.diceNumberText}>Votre adversaire vous a infligé des dégats !</Text>
+                            {
+                                this.clickfunction()
+                            }
                             
                         </View>
                      : null }

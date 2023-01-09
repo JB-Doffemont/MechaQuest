@@ -31,20 +31,6 @@ export default function BattleScreen() {
     // console.log(mainRobotHP, "points de vie du robot du joueur");
     // console.log(opponentRobotHP, "points de vie du robot adverse");
 
-    // Comparaison entre deux lancés en début de partie pour définir qui jouera en premier 
-        // if (diceResult > diceResult2) {
-        //     mainRobotTurn = "A";
-            
-           
-        // } else if (diceResult2 > diceResult) {
-        //     mainRobotTurn = "B";
-            
-            
-        // } else {
-        //     mainRobotTurn = "A";
-            
-            
-        // }
 
     // Le typeMultiplier confère plus de dégats en fonction du type du robot (tour du joueur)
     const typeMultiplierPlayerTurn = () => {

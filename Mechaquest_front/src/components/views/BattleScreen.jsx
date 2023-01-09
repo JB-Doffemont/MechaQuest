@@ -12,6 +12,8 @@ import { AreaChoosenContext } from "../../lib/AreaChoosenContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BattleScreen() {
+    const [diceResults, setDiceResults] = useState();
+    const [mainRobotTurn, setMainRobotTurn] = useState("");
     const [diceResult, setDiceResult] = useState(); // State pour updater le résultat du dé
     const [opponentRobot, setOpponentRobot] = useState([]); // Données du robot adverse
     const {mainRobot} = useContext(MainRobotContext); // Données du robot du joueur
@@ -23,10 +25,11 @@ export default function BattleScreen() {
 
     let mainRobotHP = mainRobot.current_hp; // Points de vie du robot du joueur
     let opponentRobotHP = opponentRobot.current_hp; // Points de vie du robot de l'adversaire
-    let mainRobotTurn = ""; // Variable pour connaitre le tour du joueur
+    
+    console.log(mainRobotTurn);
 
-    console.log(mainRobotHP, "points de vie du robot du joueur");
-    console.log(opponentRobotHP, "points de vie du robot adverse");
+    // console.log(mainRobotHP, "points de vie du robot du joueur");
+    // console.log(opponentRobotHP, "points de vie du robot adverse");
 
     // Comparaison entre deux lancés en début de partie pour définir qui jouera en premier 
         // if (diceResult > diceResult2) {

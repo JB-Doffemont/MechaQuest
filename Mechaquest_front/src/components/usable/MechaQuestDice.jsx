@@ -11,7 +11,7 @@ class MechaQuestDice extends React.Component{
     // Constructor pour initialiser le state du diceNumber
     constructor(props){
         super(props);
-        this.state = { diceNumber: null, diceResult: null, diceResult2: null, elementVisible: true, mainRobotTurn:"", testJoueur: null};
+        this.state = { diceNumber: null, diceResult: null, diceResult2: null, elementVisible: true, mainRobotTurn:"",  initiativeJoueur: null, battleData: null};
     }
 
     // Cette fonction change le state du dé en prenant le résultat du lancer de dé
@@ -25,9 +25,7 @@ class MechaQuestDice extends React.Component{
         }    
       }
 
-    
 
-    
 
     // Fonction pour lancer un dé, utilisé ici au click
     rollAll = () => {
@@ -51,12 +49,13 @@ class MechaQuestDice extends React.Component{
         setTimeout(() =>{
             if (this.state.diceResult >= this.state.diceResult2) {
                 return (
-                    this.setState({testJoueur : "Joueur1"})
-                         )
+                    this.setState({initiativeJoueur : "Joueur1"})
+                    ) 
             }
             else {
                 return (  
-                    this.setState({testJoueur : "Joueur2"})                )
+                    this.setState({initiativeJoueur : "Joueur2"})
+                    )
             }
           }, 8000);
         }
@@ -119,24 +118,56 @@ class MechaQuestDice extends React.Component{
                     <Text style={styles.diceNumberText}>{this.state.diceNumber}</Text>
                     </View> : null }
                 </View>
-                { elementVisible == false && this.state.testJoueur == "Joueur1" ? 
-                    <View>
-                         <Text style={styles.diceNumberText}>Bravo vous avez fait un meilleur score que votre adversaire !</Text>
-                        <Text style={styles.diceNumberText}>A vous de jouer !</Text> 
-                        <Button
+                
+                    
+                        { elementVisible == false && this.state.initiativeJoueur == "Joueur1" && this.state.battleData == null ?
+                        <View>
+                            <Text style={styles.diceNumberText}>Bravo vous avez fait un meilleur score que votre adversaire !</Text>
+                            <Text style={styles.diceNumberText}>A vous de jouer !</Text> 
+                        </View> : null
+                        }
+                        { elementVisible == false && this.state.initiativeJoueur == "Joueur1" && this.state.mainRobotTurn == "B" ? 
+                        <View>
+                         <Button
                             title="Lancer Attaque"
                             color="#3273a8"
-                            onPress={() => this.rollAll()}
-                        /></View> : null 
-                    }
-                {elementVisible == false && this.state.testJoueur == "Joueur2" ? 
+                            onPress={() => [this.rollAll(), this.setState({battleData:"display"})]}
+                        />
+                        </View> : null 
+                        }
+                        { elementVisible == false && this.state.initiativeJoueur == "Joueur2" && this.state.mainRobotTurn == "A" ? 
+                        <View>
+                         <Button
+                            title="Lancer Attaque"
+                            color="#3273a8"
+                            onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"})]}
+                        />
+                        </View> : null 
+                        }
+
+                    { this.state.mainRobotTurn == "A" && this.state.battleData == "display" ?
+                        <View>
+                            <Text style={styles.diceNumberText}>Vous avez infligé des dégats à votre adversaire !</Text>
+                            
+                        </View>
+                     : null }
+
+                     { this.state.mainRobotTurn == "B" && this.state.battleData == "display" ?
+                        <View>
+                            <Text style={styles.diceNumberText}>Votre adversaire vous a infligé des dégats !</Text>
+                            
+                        </View>
+                     : null }
+
+                {elementVisible == false && this.state.initiativeJoueur == "Joueur2" && this.state.battleData == null ? 
                     <View>
                          <Text style={styles.diceNumberText}>L'adversaire a fait un meilleur score, à lui de commencer !</Text>
                         <Text style={styles.diceNumberText}>Cliquez sur suivant</Text> 
+
                         <Button
                             title="Suivant"
                             color="#3273a8"
-                            onPress={() => [this.rollFirstOpponentTurn(),  this.setState({ testJoueur: "Joueur1" } )]}
+                            onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"})]}
                         /></View> : null 
                     }
             </View>

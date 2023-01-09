@@ -159,7 +159,7 @@ class MechaQuestDice extends React.Component{
                          <Button
                             title="Lancer Attaque"
                             color="#3273a8"
-                            onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"}, this.setState({textDisplay:false}))]}
+                            onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"}, this.setState({textDisplay:false}), this.battleDamage())]}
                         />
                         </View> : null 
                         }

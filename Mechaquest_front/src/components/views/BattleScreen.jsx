@@ -20,11 +20,15 @@ export default function BattleScreen() {
     const {areaChoosen} = useContext(AreaChoosenContext); // Obtention des données du robot liées à l'arène 
     const [position, setPosition] = useState(1); // State pour connaitre la position du robot sur la route (ex: combat n°2)
     const type = ["Red", "Green", "Blue"] // Liste avec les différents types pour y attribuer des multiplicateurs
+
     const mainRobotType = mainRobot.type_robot; // Type du robot du joueur
     const opponentRobotType = opponentRobot.type_robot; // Type du robot adverse
 
     let mainRobotHP = mainRobot.current_hp; // Points de vie du robot du joueur
     let opponentRobotHP = opponentRobot.current_hp; // Points de vie du robot de l'adversaire
+
+    let [currentOpponentHP, setCurrentOpponentHP] = useState();
+
     
     console.log(mainRobotTurn);
 
@@ -99,7 +103,10 @@ export default function BattleScreen() {
                 let damage = Math.round(typeMultiplier * diceMulti * battleStat); 
 
                 // On applique les dégats sur les points de vie de l'adversaire
-                opponentRobotHP = opponentRobotHP - damage
+                setCurrentOpponentHP
+                currentOpponentHP = opponentRobotHP - damage;
+
+                console.log(currentOpponentHP, "vie de l'adversaire actuelle");
 
                 // Victoire si l'IA n'a plus de vie
                 if (opponentRobotHP <= 0){

@@ -12,6 +12,7 @@ import { AreaChoosenContext } from "../../lib/AreaChoosenContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BattleScreen() {
+<<<<<<< HEAD
     
     const [diceResults, setDiceResults] = useState();
     const [mainRobotTurn, setMainRobotTurn] = useState("");
@@ -22,6 +23,24 @@ export default function BattleScreen() {
     const mainRobotType = mainRobot.type_robot;
     const opponentRobotType = robotArea.type_robot;
     const type = ["Red", "Green", "Blue"]
+=======
+    const [diceResult, setDiceResult] = useState(); // State pour updater le résultat du dé
+    const [diceResult2, setDiceResult2] = useState(); // State pour permettre une comparaison et donner l'initiative
+    const [opponentRobot, setOpponentRobot] = useState([]); // Données du robot adverse
+    const {mainRobot} = useContext(MainRobotContext); // Données du robot du joueur
+    const {areaChoosen} = useContext(AreaChoosenContext); // Obtention des données du robot liées à l'arène 
+    const [position, setPosition] = useState(1); // State pour connaitre la position du robot sur la route (ex: combat n°2)
+    const type = ["Red", "Green", "Blue"] // Liste avec les différents types pour y attribuer des multiplicateurs
+    const mainRobotType = mainRobot.type_robot; // Type du robot du joueur
+    const opponentRobotType = opponentRobot.type_robot; // Type du robot adverse
+
+    let mainRobotHP = mainRobot.current_hp; // Points de vie du robot du joueur
+    let opponentRobotHP = opponentRobot.current_hp; // Points de vie du robot de l'adversaire
+    let mainRobotTurn = ""; // Variable pour connaitre le tour du joueur
+
+    console.log(mainRobotHP, "points de vie du robot du joueur");
+    console.log(opponentRobotHP, "points de vie du robot adverse");
+>>>>>>> 9fbdd39c2dea69f8e72777f044efe65764a4b195
 
     console.log(mainRobotTurn);
     console.log(diceResults);
@@ -71,12 +90,18 @@ export default function BattleScreen() {
         else {
             return 1;
         }
+<<<<<<< HEAD
     }
     typeMultiplierPlayerTurn();
        
+=======
+    }   
+>>>>>>> 9fbdd39c2dea69f8e72777f044efe65764a4b195
 
+    // Multiplicateur en fonction des résultats du dé
     const diceMultiplier = () => {
         const diceArray = [0,0.9,1,1.1,1.2,1.5];
+<<<<<<< HEAD
         if (MechaQuestDice.diceResult == 1) {
             return console.log(diceArray[0]);
         }
@@ -94,29 +119,101 @@ export default function BattleScreen() {
         
         }else if (MechaQuestDice.diceResult == 6) {
             return console.log(diceArray[5]);
+=======
+        if (diceResult == 1) {
+            return diceArray[0];
+        }
+        else if (diceResult == 2) {
+            return diceArray[1];
+        } 
+        else if (diceResult == 3) {
+            return diceArray[2];
+        }
+        else if (diceResult == 4) {
+            return diceArray[3];
+        }
+        else if (diceResult == 5) {
+            return diceArray[4];
+        
+        }else if (diceResult == 6) {
+            return diceArray[5];
+>>>>>>> 9fbdd39c2dea69f8e72777f044efe65764a4b195
         }
     }
-    diceMultiplier();
     
+    // Fonction pour déterminer les dégats provoqués par les attaques
     const battleDamage = () => {
         try {
+            // Les formules de dégats vont changer en fonction du tour, ici tour du joueur
             if (mainRobotTurn == "A") {
-                // return console.log("Hehe le joueur 1 a attaqué");
+                const typeMultiplier = typeMultiplierPlayerTurn();
+                let diceMulti = diceMultiplier();
+                let battleStat = (mainRobot.current_atk / opponentRobot.current_def) ; // Attaque du joueur contre défense adverse
+                // Formule mathématiques permettant de tenir compte des diverses stats du robot
+                let damage = Math.round(typeMultiplier * diceMulti * battleStat); 
+
+                // On applique les dégats sur les points de vie de l'adversaire
+                opponentRobotHP = opponentRobotHP - damage
+
+                // Victoire si l'IA n'a plus de vie
+                if (opponentRobotHP <= 0){
+                    return console.log("Victoire! Vous avez gagné");
+                }
+                else {
+                    return opponentRobotHP;
+                }
             }
-            else if (mainRobotTurn == "B"){
-                // return console.log("Oh non l'adversaire m'a touché");
+            // Les formules de dégats vont changer en fonction du tour, ici tour de l'adversaire
+            if (mainRobotTurn == "B"){
+                const typeMultiplier = typeMultiplierOpponentTurn();
+                let diceMulti = diceMultiplier();
+                let battleStat = (opponentRobot.current_atk / mainRobot.current_def) ; // Attaque adverse contre défense du joueur
+                // Formule mathématiques permettant de tenir compte des diverses stats du robot
+                let damage = Math.round(typeMultiplier * diceMulti * battleStat); 
+
+                // On applique les dégats sur les points de vie du robot
+                mainRobotHP = mainRobotHP - damage
+
+                // Gameover si le joueur n'a plus de vie
+                if (mainRobotHP <= 0) {
+                    return console.log("GameOver");
+                }
+                else {
+                    return mainRobotHP;
+                }
             }
-            //   let Damage = [ 0.5 * Multiplicateur lancer de dès x (Attaque/Defense) x Multiplicateur Type ] +1
-        } catch (error) {
-          console.error(error);
-        }
+            } catch (error) {
+            console.error(error);
+            }
       };
-    battleDamage();
+    
+    // Fonction pour déterminer l'issue de la partie
+    const winOrLose = () => {
+        try {
+            // Gameover si le joueur n'a plus de vie
+            if (mainRobotHP <= 0) {
+                return console.log("GameOver");
+            }
+            // Victoire si l'IA n'a plus de vie
+            else if (opponentRobotHP <= 0){
+                return console.log("Victoire! Vous avez gagné");
+            }
+            // On continue la partie si il reste de la vie
+            else {
+                battleDamage();
+            }
+            } catch (error) {
+            console.error(error);
+            }
+      };
+    winOrLose(); 
+
+    console.log(mainRobotHP, opponentRobotHP, "vie finale");
 
     useEffect(() => {
         if(areaChoosen.length !== 0) {
          // Récupération de la route et de sa position pour ensuite afficher le robot
-         const getRobotArea = async () => {
+         const getOpponentRobot = async () => {
 
                 try {
                     
@@ -131,13 +228,13 @@ export default function BattleScreen() {
                     });
 
                     const json = await response.json();
-                    setRobotArea(json);
+                    setOpponentRobot(json);
  
             } catch (error) {
               console.error(error);
             }
           };
-          getRobotArea();
+          getOpponentRobot();
         }
         
     }, [areaChoosen]);
@@ -160,11 +257,11 @@ export default function BattleScreen() {
            
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>
-                <Image source={{uri:  `${ipConfig}/${robotArea.robot_image}`}} style={styles.card}></Image>
+                <Image source={{uri:  `${ipConfig}/${opponentRobot.robot_image}`}} style={styles.card}></Image>
                 <View>
-                    <Text style={styles.text}> HP : {robotArea.current_hp} </Text>
-                    <Text style={styles.text}> Atk : {robotArea.current_atk} </Text>
-                    <Text style={styles.text}> Def : {robotArea.current_def} </Text>
+                    <Text style={styles.text}> HP : {opponentRobot.current_hp} </Text>
+                    <Text style={styles.text}> Atk : {opponentRobot.current_atk} </Text>
+                    <Text style={styles.text}> Def : {opponentRobot.current_def} </Text>
                 </View>
                 
             </View>

@@ -12,20 +12,7 @@ import { AreaChoosenContext } from "../../lib/AreaChoosenContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BattleScreen() {
-<<<<<<< HEAD
-    
-    const [diceResults, setDiceResults] = useState();
-    const [mainRobotTurn, setMainRobotTurn] = useState("");
-    const [robotArea, setRobotArea] = useState([]);
-    const {mainRobot} = useContext(MainRobotContext); 
-    const {areaChoosen} = useContext(AreaChoosenContext);
-    const [position, setPosition] = useState(1);
-    const mainRobotType = mainRobot.type_robot;
-    const opponentRobotType = robotArea.type_robot;
-    const type = ["Red", "Green", "Blue"]
-=======
     const [diceResult, setDiceResult] = useState(); // State pour updater le résultat du dé
-    const [diceResult2, setDiceResult2] = useState(); // State pour permettre une comparaison et donner l'initiative
     const [opponentRobot, setOpponentRobot] = useState([]); // Données du robot adverse
     const {mainRobot} = useContext(MainRobotContext); // Données du robot du joueur
     const {areaChoosen} = useContext(AreaChoosenContext); // Obtention des données du robot liées à l'arène 
@@ -40,10 +27,6 @@ export default function BattleScreen() {
 
     console.log(mainRobotHP, "points de vie du robot du joueur");
     console.log(opponentRobotHP, "points de vie du robot adverse");
->>>>>>> 9fbdd39c2dea69f8e72777f044efe65764a4b195
-
-    console.log(mainRobotTurn);
-    console.log(diceResults);
 
     // Comparaison entre deux lancés en début de partie pour définir qui jouera en premier 
         // if (diceResult > diceResult2) {
@@ -90,36 +73,11 @@ export default function BattleScreen() {
         else {
             return 1;
         }
-<<<<<<< HEAD
-    }
-    typeMultiplierPlayerTurn();
-       
-=======
     }   
->>>>>>> 9fbdd39c2dea69f8e72777f044efe65764a4b195
 
     // Multiplicateur en fonction des résultats du dé
     const diceMultiplier = () => {
         const diceArray = [0,0.9,1,1.1,1.2,1.5];
-<<<<<<< HEAD
-        if (MechaQuestDice.diceResult == 1) {
-            return console.log(diceArray[0]);
-        }
-        else if (MechaQuestDice.diceResult == 2) {
-            return console.log(diceArray[1]);
-        } 
-        else if (MechaQuestDice.diceResult == 3) {
-            return console.log(diceArray[2]);
-        }
-        else if (MechaQuestDice.diceResult == 4) {
-            return console.log(diceArray[3]);
-        }
-        else if (MechaQuestDice.diceResult == 5) {
-            return console.log(diceArray[4]);
-        
-        }else if (MechaQuestDice.diceResult == 6) {
-            return console.log(diceArray[5]);
-=======
         if (diceResult == 1) {
             return diceArray[0];
         }
@@ -137,7 +95,6 @@ export default function BattleScreen() {
         
         }else if (diceResult == 6) {
             return diceArray[5];
->>>>>>> 9fbdd39c2dea69f8e72777f044efe65764a4b195
         }
     }
     

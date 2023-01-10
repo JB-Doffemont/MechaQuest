@@ -89,6 +89,8 @@ export default function BattleScreen() {
     
     // Fonction pour déterminer les dégats provoqués par les attaques
     const battleDamage = () => {
+
+        console.log("test");
         try {
             // Les formules de dégats vont changer en fonction du tour, ici tour du joueur
             if (mainRobotTurn == "A") {
@@ -132,6 +134,7 @@ export default function BattleScreen() {
             console.error(error);
             }
       };
+
     
     // Fonction pour déterminer l'issue de la partie
     const winOrLose = () => {
@@ -186,6 +189,8 @@ export default function BattleScreen() {
     }, [areaChoosen]);
 
     return(
+
+        
         <View style={styles.container}>
            
             {/* Emplacement pour le robot du joueur */}
@@ -199,7 +204,7 @@ export default function BattleScreen() {
             </View>
 
             {/* Affichage du dé */}
-            <MechaQuestDice setDiceResults={setDiceResults} setMainRobotTurn={setMainRobotTurn}/>
+            <MechaQuestDice setDiceResults={setDiceResults} setMainRobotTurn={setMainRobotTurn} battleDamage={() => battleDamage()}/>
            
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>

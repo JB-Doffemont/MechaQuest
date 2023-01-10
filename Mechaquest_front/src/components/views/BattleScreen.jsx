@@ -12,28 +12,22 @@ import { AreaChoosenContext } from "../../lib/AreaChoosenContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BattleScreen() {
-    const [diceResults, setDiceResults] = useState();
+    const [diceResults, setDiceResults] = useState(); //State pour updater le résultat du dé
     const [mainRobotTurn, setMainRobotTurn] = useState("");
-    const [diceResult, setDiceResult] = useState(); // State pour updater le résultat du dé
     const [opponentRobot, setOpponentRobot] = useState([]); // Données du robot adverse
     const {mainRobot} = useContext(MainRobotContext); // Données du robot du joueur
     const {areaChoosen} = useContext(AreaChoosenContext); // Obtention des données du robot liées à l'arène 
     const [position, setPosition] = useState(1); // State pour connaitre la position du robot sur la route (ex: combat n°2)
     const type = ["Red", "Green", "Blue"] // Liste avec les différents types pour y attribuer des multiplicateurs
 
+    const [currentOpponentHP, setCurrentOpponentHP] = useState();
+    const [currentMainRobotHP, setCurrentMainRobotHP] = useState();
+
     const mainRobotType = mainRobot.type_robot; // Type du robot du joueur
     const opponentRobotType = opponentRobot.type_robot; // Type du robot adverse
 
     let mainRobotHP = mainRobot.current_hp; // Points de vie du robot du joueur
     let opponentRobotHP = opponentRobot.current_hp; // Points de vie du robot de l'adversaire
-
-    let [currentOpponentHP, setCurrentOpponentHP] = useState();
-
-    
-    console.log(mainRobotTurn);
-
-    // console.log(mainRobotHP, "points de vie du robot du joueur");
-    // console.log(opponentRobotHP, "points de vie du robot adverse");
 
 
     // Le typeMultiplier confère plus de dégats en fonction du type du robot (tour du joueur)
@@ -71,22 +65,22 @@ export default function BattleScreen() {
     // Multiplicateur en fonction des résultats du dé
     const diceMultiplier = () => {
         const diceArray = [0,0.9,1,1.1,1.2,1.5];
-        if (diceResult == 1) {
+        if (diceResults == 1) {
             return diceArray[0];
         }
-        else if (diceResult == 2) {
+        else if (diceResults == 2) {
             return diceArray[1];
         } 
-        else if (diceResult == 3) {
+        else if (diceResults == 3) {
             return diceArray[2];
         }
-        else if (diceResult == 4) {
+        else if (diceResults == 4) {
             return diceArray[3];
         }
-        else if (diceResult == 5) {
+        else if (diceResults == 5) {
             return diceArray[4];
         
-        }else if (diceResult == 6) {
+        }else if (diceResults == 6) {
             return diceArray[5];
         }
     }
@@ -94,7 +88,6 @@ export default function BattleScreen() {
     // Fonction pour déterminer les dégats provoqués par les attaques
     const battleDamage = () => {
 
-        console.log("test");
         try {
             // Les formules de dégats vont changer en fonction du tour, ici tour du joueur
             if (mainRobotTurn == "A") {
@@ -105,17 +98,20 @@ export default function BattleScreen() {
                 let damage = Math.round(typeMultiplier * diceMulti * battleStat); 
 
                 // On applique les dégats sur les points de vie de l'adversaire
-                setCurrentOpponentHP
-                currentOpponentHP = opponentRobotHP - damage;
+                let currentOpponentHP = opponentRobotHP - damage;
 
-                console.log(currentOpponentHP, "vie de l'adversaire actuelle");
+                // setCurrentOpponentHP(currentOpponentHP);
+          
 
                 // Victoire si l'IA n'a plus de vie
-                if (opponentRobotHP <= 0){
+                if (currentOpponentHP <= 0){
                     return console.log("Victoire! Vous avez gagné");
                 }
                 else {
-                    return opponentRobotHP;
+                    console.log(mainRobotTurn, "tour de qui");
+                    console.log(damage, "Vous avez infligé en HP");
+                    console.log(currentOpponentHP, "HP actuels IA");
+                    return currentOpponentHP;
                 }
             }
             // Les formules de dégats vont changer en fonction du tour, ici tour de l'adversaire
@@ -127,14 +123,18 @@ export default function BattleScreen() {
                 let damage = Math.round(typeMultiplier * diceMulti * battleStat); 
 
                 // On applique les dégats sur les points de vie du robot
-                mainRobotHP = mainRobotHP - damage
-
+                let currentMainRobotHP = mainRobotHP - damage;
+                // setCurrentMainRobotHP(currentMainRobotHP);
+               
                 // Gameover si le joueur n'a plus de vie
-                if (mainRobotHP <= 0) {
+                if (currentMainRobotHP <= 0) {
                     return console.log("GameOver");
                 }
                 else {
-                    return mainRobotHP;
+                    console.log(mainRobotTurn, "tour de qui");
+                    console.log(damage, "l'adversaire vous a infligé en HP");
+                    console.log(currentMainRobotHP, "HP actuels Joueur");
+                    return currentMainRobotHP;
                 }
             }
             } catch (error) {
@@ -162,9 +162,7 @@ export default function BattleScreen() {
             console.error(error);
             }
       };
-    winOrLose(); 
-
-    console.log(mainRobotHP, opponentRobotHP, "vie finale");
+    // winOrLose(); 
 
     useEffect(() => {
         if(areaChoosen.length !== 0) {
@@ -195,7 +193,10 @@ export default function BattleScreen() {
         
     }, [areaChoosen]);
 
+    
+
     return(
+
 
         
         <View style={styles.container}>

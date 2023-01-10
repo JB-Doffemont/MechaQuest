@@ -12,6 +12,7 @@ class MechaQuestDice extends React.Component{
     constructor(props){
         super(props);
         this.state = { diceNumber: null, diceResult: null, diceResult2: null, elementVisible: true, mainRobotTurn:"",  initiativeJoueur: null, battleData: null, textDisplay: false};
+        
     }
 
     // Cette fonction change le state du dé en prenant le résultat du lancer de dé
@@ -98,6 +99,7 @@ class MechaQuestDice extends React.Component{
         * pour ce faire on récupère la valeur des lancés dans deux state différents
         */
             this.props.setDiceResults(this.state.diceNumber);
+            console.log(this.props.battleDamage);
     
         const elementVisible = this.state.elementVisible;
         return (
@@ -115,7 +117,7 @@ class MechaQuestDice extends React.Component{
                         <Button
                             title="Initiative"
                             color="#3273a8"
-                            onPress={() => {this.rollAll(), this.rollInitiative()}}
+                            onPress={() => {this.rollAll(), this.rollInitiative(), this.props.battleDamage()}}
                         /></View> : null 
                     }
                 </View>
@@ -192,7 +194,7 @@ class MechaQuestDice extends React.Component{
                         <Button
                             title="Suivant"
                             color="#3273a8"
-                            onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"})]}
+                            onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"}), this.setState({textDisplay:false})]}
                         /></View> : null 
                     }
             </View>

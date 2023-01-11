@@ -12,7 +12,6 @@ class MechaQuestDice extends React.Component{
     constructor(props){
         super(props);
         this.state = { diceNumber: null, diceResult: null, diceResult2: null, elementVisible: true, mainRobotTurn:"",  initiativeJoueur: null, battleData: null, textDisplay: false};
-        
     }
 
     // Cette fonction change le state du dé en prenant le résultat du lancer de dé
@@ -20,7 +19,6 @@ class MechaQuestDice extends React.Component{
         this.setState ({ diceNumber: num });   
         if (this.state.diceResult == null) {
             this.setState({ diceResult: this.state.diceNumber });
-            // console.log(this.setState({ diceResult: this.state.diceNumber }));
         } else {
             this.setState({ diceResult2: this.state.diceNumber });
         }    
@@ -29,10 +27,8 @@ class MechaQuestDice extends React.Component{
         if (this.state.battleData == "display"){
             this.props.battleDamage()
         }   
-        this.clickfunction();
-
+        this.displayData();
       }
-
 
 
     // Fonction pour lancer un dé, utilisé ici au click
@@ -42,14 +38,14 @@ class MechaQuestDice extends React.Component{
         setTimeout(() =>{
             this.setState({ mainRobotTurn: "C" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
             console.log(this.state.mainRobotTurn, "reset");
-          }, 2000);       
+          }, 200);       
 
         /* On update le state pour l'affichage conditionnel des boutons + la transmission du state via les props au composant "BattleScreen" */
         setTimeout(() =>{
             this.setState({ mainRobotTurn: "A" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
            console.log(this.state.mainRobotTurn, "state turn A?");
             this.reactDice.rollAll();  
-          }, 4000);
+          }, 1000);
         
         // Fonction pour déclencher le dé à nouveau après un certain temps
         setTimeout(() =>{
@@ -59,11 +55,14 @@ class MechaQuestDice extends React.Component{
             // }          
             console.log(this.state.mainRobotTurn, "state turn B?");
 
+            console.log(this.state.currentMainRobotHP, "state des HP");
+
+
             this.reactDice.rollAll();
             this.setState({ elementVisible: false })
             this.setState({textDisplay: true})
 
-          }, 8000);
+          }, 5000);
 
       }
 
@@ -82,7 +81,7 @@ class MechaQuestDice extends React.Component{
                     this.setState({initiativeJoueur : "Joueur2"})
                     )
             }
-          }, 12000);
+          }, 8100);
         }
 
 
@@ -92,17 +91,15 @@ class MechaQuestDice extends React.Component{
         setTimeout(() =>{
             this.setState({ mainRobotTurn: "C" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
             console.log(this.state.mainRobotTurn, "reset");
-          }, 2000);
+          }, 200);
 
           setTimeout(() =>{
             this.setState({ mainRobotTurn: "B" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
             console.log(this.state.mainRobotTurn, "state turn B?");
             this.reactDice.rollAll();
-          }, 4000);     
+          }, 1000);     
 
        /* On update le state pour l'affichage conditionnel des boutons + la transmission du state via les props au composant "BattleScreen" */
-    //    this.setState({ mainRobotTurn: "B" }, ()=>{ this.props.setMainRobotTurn(this.state.mainRobotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
-    //    this.reactDice.rollAll();
        
        // Fonction pour déclencher le dé à nouveau après un certain temps
        setTimeout(() =>{
@@ -114,18 +111,38 @@ class MechaQuestDice extends React.Component{
 
            this.reactDice.rollAll();
            this.setState({ elementVisible: false })
-         }, 8000);
+         }, 5000);
         }
 
-
-    clickfunction = () => {
-                     
+    // Informations à afficher sur l'écran en fonction des résultats du dé
+    displayData = () => {      
         return (
             <View>
-                <Text style={styles.diceNumberText}> HELLO!</Text>
+                {this.state.battleData == "display" ?
+                <View>
+                    <Text style={styles.diceNumberText}> Le résultat du dé est :</Text>
+                    <Text style={styles.diceNumberText}>{this.state.diceNumber}</Text>
+                </View>
+                : null
+                }
+
+                {this.state.mainRobotTurn == "B" && this.state.battleData == "display" && this.state.textDisplay ?
+                    (<View>
+                        <Text style={styles.diceNumberText}>L'adversaire vous a infligé {this.props.damages}HP</Text>
+                        <Text style={styles.diceNumberText}> Il vous reste {this.props.currentMainRobotHP} HP</Text>
+                    </View>)
+                    : null
+                }
+
+                {this.state.mainRobotTurn == "A" && this.state.battleData == "display" && this.state.textDisplay ?
+                    (<View>
+                        <Text style={styles.diceNumberText}>Vous avez infligé {this.props.damages}HP</Text>
+                        <Text style={styles.diceNumberText}> Il reste {this.props.currentOpponentHP} HP à l'adversaire</Text>
+                    </View>)
+                    : null
+                 }                
             </View>
         )
-        
     }
  
       
@@ -167,7 +184,7 @@ class MechaQuestDice extends React.Component{
                     ref={dice => this.reactDice = dice}
                     />
                     {/* Opérateur ternaire pour gerer dynamiquement l'affichage */ }
-                    {elementVisible == false ? 
+                    {elementVisible == false && this.state.battleData == null ? 
                     <View>
                     <Text style={styles.diceNumberText}> Le résultat du dé est :</Text>
                     <Text style={styles.diceNumberText}>{this.state.diceNumber}</Text>
@@ -175,50 +192,39 @@ class MechaQuestDice extends React.Component{
                 </View>
                 
                     
-                        { elementVisible == false && this.state.initiativeJoueur == "Joueur1" && this.state.battleData == null ?
-                        <View>
-                            <Text style={styles.diceNumberText}>Bravo vous avez fait un meilleur score que votre adversaire !</Text>
-                            <Text style={styles.diceNumberText}>A vous de jouer !</Text> 
-                        </View> : null
-                        }
-                        { elementVisible == false && this.state.initiativeJoueur == "Joueur1" && this.state.mainRobotTurn == "B" && this.state.textDisplay ? 
-                        <View>
-                         <Button
-                            title="Lancer Attaque J1"
-                            color="#3273a8"
-                            onPress={() => [this.rollAll(), this.setState({battleData:"display"}), this.setState({textDisplay:false})]}
-                        />
-                        </View> : null 
-                        }
-                        { elementVisible == false && this.state.initiativeJoueur == "Joueur2" && this.state.mainRobotTurn == "A" && this.state.textDisplay ? 
-                        <View>
-                         <Button
-                            title="Lancer Attaque J2"
-                            color="#3273a8"
-                            onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"}), this.setState({textDisplay:false})]}
-                        />
-                        </View> : null 
-                        }
+                { elementVisible == false && this.state.initiativeJoueur == "Joueur1" && this.state.battleData == null ?
+                <View>
+                    <Text style={styles.diceNumberText}>Bravo vous avez fait un meilleur score que votre adversaire !</Text>
+                    <Text style={styles.diceNumberText}>A vous de jouer !</Text> 
+                </View> : null
+                }
+                        
+                
+                <View>
+                    {
+                        this.displayData()
+                    }
+                </View>
 
-                    { this.state.mainRobotTurn == "A" && this.state.battleData == "display" && this.state.textDisplay ?
-                        <View>
-                            <Text style={styles.diceNumberText}>Vous avez infligé des dégats à votre adversaire !</Text>
-                            {
-                                this.clickfunction()
-                            }
-                            
-                        </View>
-                     : null }
+                { elementVisible == false && this.state.initiativeJoueur == "Joueur1" && this.state.mainRobotTurn == "B" && this.state.textDisplay ? 
+                    <View>
+                        <Button
+                        title="Lancer Attaque J1"
+                        color="#3273a8"
+                        onPress={() => [this.rollAll(), this.setState({battleData:"display"}), this.setState({textDisplay:false})]}
+                    />
+                    </View> : null 
+                }
 
-                     { this.state.mainRobotTurn == "B" && this.state.battleData == "display" && this.state.textDisplay ?
-                        <View>
-                            <Text style={styles.diceNumberText}>Votre adversaire vous a infligé des dégats !</Text>
-                            {
-                                this.clickfunction()
-                            }
-                            
-                        </View>
-                     : null }
+                { elementVisible == false && this.state.initiativeJoueur == "Joueur2" && this.state.mainRobotTurn == "A" && this.state.textDisplay ? 
+                <View>
+                    <Button
+                    title="Lancer Attaque J2"
+                    color="#3273a8"
+                    onPress={() => [this.rollFirstOpponentTurn(), this.setState({battleData:"display"}), this.setState({textDisplay:false})]}
+                />
+                </View> : null 
+                }   
 
                 {elementVisible == false && this.state.initiativeJoueur == "Joueur2" && this.state.battleData == null ? 
                     <View>

@@ -43,7 +43,10 @@ export default function LogIn(navigator) {
               // Le stockage des informations suivantes permet à un utilisateur de rester connecter meme s'il quitte le jeu
               await AsyncStorage.setItem('access_token', json.access_token); // On stock en localstorage le Bearer Token
               await AsyncStorage.setItem('email', email); // On stock l'email de l'utilisateur en localstorage
+
               navigator.navigation.navigate('IntroScreen'); // Redirection sur l'IntroScreen s'il s'agit d'un nouveau joueur
+
+              // Prévoir redirection si ce n'est pas la première connexion du Joueur
             } 
             else {
               setErrorEmail(json.email);

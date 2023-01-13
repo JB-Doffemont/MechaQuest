@@ -24,35 +24,43 @@ export default function SignUp(navigator) {
     const [data, setData] = useState([]);
        
     const register = async () => {
-        try {
-            const response = await fetch(`${ipConfig}/api/register`, { //ipConfig va récupérer l'IP de JB ou de Lucas            
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                  pseudo: pseudo,
-                  email: email,
-                  password: password,
-                })
-              });
-
-            const json = await response.json();
-            setData(json);
-
-            // Si réponse correcte, redirection sur l'écran de connexion, sinon affichage des erreurs sur le formulaire
-            if (json.status_code == 200) {
-                navigator.navigation.navigate('LogInFormScreen');
-            } else {
-                setErrorEmail(json.email);
-                setErrorPassword(json.password);
-                setErrorPseudo(json.pseudo);
-                setErrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
-            }
-        } catch (error) {
-            console.error(error);
-        } 
+        if (password != confirmPassword) {
+            setErrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
+        } else {
+            try {
+                const response = await fetch(`${ipConfig}/api/register`, { //ipConfig va récupérer l'IP de JB ou de Lucas            
+                    method: 'POST',
+                    headers: {
+                      Accept: 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      pseudo: pseudo,
+                      email: email,
+                      password: password,
+                    })
+                  });
+    
+                const json = await response.json();
+                setData(json);
+    
+                // Si réponse correcte, redirection sur l'écran de connexion, sinon affichage des erreurs sur le formulaire
+                if (json.status_code == 200) {
+                    navigator.navigation.navigate('LogInFormScreen');
+                } else {
+                    console.log(json);
+                    
+                    setErrorEmail(json.email);
+                    setErrorPassword(json.password);
+                    setErrorPseudo(json.pseudo);
+                    
+                    // setErrorConfirmPassword("La confirmation du mot de passe est différente du mot de passe.");
+                }
+            } catch (error) {
+                console.error(error);
+            } 
+        }
+       
     }
 
     return(

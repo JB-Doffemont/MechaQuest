@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import ipConfig from "../../../IpConfig";
-import { View, Image, Button, Text } from "react-native";
+import { View, Image, Text } from "react-native";
 import { useEffect, useContext } from "react";
 import styles from "../../style/BattleScreenStyle";
 import MechaQuestDice from "../usable/MechaQuestDice";
@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BattleScreen() {
     const [diceResults, setDiceResults] = useState(); //State pour updater le résultat du dé
-    const [mainRobotTurn, setMainRobotTurn] = useState("");
+    const [robotTurn, setrobotTurn] = useState("");
     const [opponentRobot, setOpponentRobot] = useState([]); // Données du robot adverse
     const {mainRobot} = useContext(MainRobotContext); // Données du robot du joueur
     const {areaChoosen} = useContext(AreaChoosenContext); // Obtention des données du robot liées à l'arène 
@@ -88,7 +88,7 @@ export default function BattleScreen() {
 
         try {
             // Les formules de dégats vont changer en fonction du tour, ici tour du joueur
-            if (mainRobotTurn == "A") {
+            if (robotTurn == "A") {
                 const typeMultiplier = typeMultiplierPlayerTurn();
                 let diceMulti = diceMultiplier();
                 let battleStat = (mainRobot.current_atk / opponentRobot.current_def) ; // Attaque du joueur contre défense adverse
@@ -106,14 +106,14 @@ export default function BattleScreen() {
                     return console.log("Victoire! Vous avez gagné");
                 }
                 else {
-                    console.log(mainRobotTurn, "tour de qui");
+                    console.log(robotTurn, "tour de qui");
                     console.log(damage, "Vous avez infligé en HP");
                     console.log(currentOpponentHP, "HP actuels IA");
                     return currentOpponentHP1;
                 }
             }
             // Les formules de dégats vont changer en fonction du tour, ici tour de l'adversaire
-            if (mainRobotTurn == "B"){
+            if (robotTurn == "B"){
                 const typeMultiplier = typeMultiplierOpponentTurn();
                 let diceMulti = diceMultiplier();
                 let battleStat = (opponentRobot.current_atk / mainRobot.current_def) ; // Attaque adverse contre défense du joueur
@@ -131,7 +131,7 @@ export default function BattleScreen() {
                     return console.log("GameOver");
                 }
                 else {
-                    console.log(mainRobotTurn, "tour de qui");
+                    console.log(robotTurn, "tour de qui");
                     console.log(damage, "l'adversaire vous a infligé en HP");
                     console.log(currentMainRobotHP, "HP actuels Joueur");
                     return currentMainRobotHP1;
@@ -212,7 +212,7 @@ export default function BattleScreen() {
             </View>
 
             {/* Affichage du dé */}
-            <MechaQuestDice setDiceResults={setDiceResults} setMainRobotTurn={setMainRobotTurn} battleDamage={() => battleDamage()} currentMainRobotHP={currentMainRobotHP} currentOpponentHP={currentOpponentHP} damages={damages}/>
+            <MechaQuestDice setDiceResults={setDiceResults} setrobotTurn={setrobotTurn} battleDamage={() => battleDamage()} currentMainRobotHP={currentMainRobotHP} currentOpponentHP={currentOpponentHP} damages={damages}/>
            
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>

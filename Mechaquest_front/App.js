@@ -31,7 +31,6 @@ export default function App() {
 
   return (
     <AreaChoosenContext.Provider value={{ areaChoosen, setAreaChoosen }}>
-      {/* <DiceResultContext.Provider value={{ diceResult, setDiceResult }}> */}
       <MessageStamContext.Provider value={{ messageStam, setMessageStam }}>
         <BattleScreenLoadingContext.Provider
           value={{ battleScreenLoading, setBattleScreenLoading }}

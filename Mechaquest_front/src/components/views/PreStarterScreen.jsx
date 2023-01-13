@@ -59,8 +59,9 @@ export default function PreStarterScreen(navigator) {
    
             getUser();
 
-            if(token && user.first_connexion == 0) {
+            if(token && user.first_connexion === 0) {
               navigator.navigation.navigate('IntroScreen');
+              
              
             } else if ( token && user.first_connexion == 1 && battleScreenLoading == true ) {
               navigator.navigation.navigate('BattleScreen');
@@ -72,7 +73,11 @@ export default function PreStarterScreen(navigator) {
            
       }, [token, battleScreenLoading]);
 
+
+
     return(
+
+      
        <View style={styles.container}>
             <Image source={logo} style={styles.logo}/>
             <ActivityIndicator size="large" color="#61FFF5" />

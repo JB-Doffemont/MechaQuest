@@ -1,6 +1,6 @@
 // Menu principal du jeu, le joueur aura accès à tous les menus depuis cet écran
 
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo2.png";
 import { View, Image, Text} from "react-native";
 import { useEffect, useContext } from "react";
 import React, { useState } from "react";
@@ -100,7 +100,7 @@ export default function HomeScreen({navigation}) {
         <View style={styles.container}>
             <View style={styles.greetingsContainer}>
                 <Image source={logo} style={styles.logo}/>
-                <Text style={styles.greetings}> Bonjour {user.pseudo} !</Text>
+                <Text style={styles.greetings}> Player: {user.pseudo}</Text>
             </View>
             <View style={styles.gameModeContainer}>
             <Button

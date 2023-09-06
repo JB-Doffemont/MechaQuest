@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "MechaQuestFront",
-    "slug": "MechaQuestFront",
+    "slug": "mechaquestfront",
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "",
@@ -23,10 +23,17 @@
       "adaptiveIcon": {
         "foregroundImage": "",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.jbdoffemont.MechaQuestFront"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0d90de5e-31c3-4705-95b7-24594af292ef"
+      }
+    },
+    "owner": "jb-doffemont"
   }
 }

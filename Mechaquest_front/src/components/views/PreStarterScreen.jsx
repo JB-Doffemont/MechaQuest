@@ -63,12 +63,12 @@ export default function PreStarterScreen(navigator) {
               navigator.navigation.navigate('IntroScreen');
               
              
-            } else if ( token && user.first_connexion == 1 && battleScreenLoading == true ) {
-              navigator.navigation.navigate('BattleScreen');
+            } else if ( token && user.first_connexion == 1 && battleScreenLoading == false) {
+              navigator.navigation.navigate('HomeScreen');
                 
           }
-            else if (token && user.first_connexion == 1 && battleScreenLoading == false) {
-                navigator.navigation.navigate('HomeScreen');
+            else if (token && user.first_connexion == 1 && battleScreenLoading == true) {
+                navigator.navigation.navigate('BattleScreen');
             } 
            
       }, [token, battleScreenLoading]);

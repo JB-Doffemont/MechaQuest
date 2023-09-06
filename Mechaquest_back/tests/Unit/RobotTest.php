@@ -45,7 +45,7 @@ class RobotTest extends TestCase
         // Key admin: 38|rtdXRgQE73PsHhDzt1DrYE1YECJY9eZAttodo81v
 
         $response = $this->post('api/login', [
-            'email' => 'jbABCDE@gmail.com',
+            'email' => 'jb@gmail.com',
             'password' => '12345678'
         ]);
 
@@ -81,8 +81,8 @@ class RobotTest extends TestCase
     public function test_success_delete_robot()
     {
         $admin = $this->post('api/login', [
-            'email' => 'lucas10@a.fr',
-            'password' => 'adminadmin'
+            'email' => 'jb@gmail.com',
+            'password' => '12345678'
         ]);
 
         $admin->assertJsonStructure(

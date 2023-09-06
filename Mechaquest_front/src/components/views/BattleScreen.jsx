@@ -102,6 +102,7 @@ export default function BattleScreen() {
           
 
                 // Victoire si l'IA n'a plus de vie
+                
                 if (currentOpponentHP1 <= 0){
                     return console.log("Victoire! Vous avez gagné");
                 }
@@ -212,7 +213,8 @@ export default function BattleScreen() {
             </View>
 
             {/* Affichage du dé */}
-            <MechaQuestDice setDiceResults={setDiceResults} setrobotTurn={setrobotTurn} battleDamage={() => battleDamage()} currentMainRobotHP={currentMainRobotHP} currentOpponentHP={currentOpponentHP} damages={damages}/>
+            <MechaQuestDice setDiceResults={setDiceResults} setrobotTurn={setrobotTurn} battleDamage={() => battleDamage()} 
+            currentMainRobotHP={currentMainRobotHP} currentOpponentHP={currentOpponentHP} damages={damages}/>
            
             {/* Emplacement du robot adverse */}
             <View style={styles.robotIAContainer}>

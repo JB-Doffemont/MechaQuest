@@ -28,6 +28,10 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.store');
 // Routes ressources accessible en étant connecté
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/duplicate/{robotName}', [RobotController::class, 'register_heros'])->name('robots.heros');
+    Route::delete('friends/{user1}/{user2}', [FriendController::class, 'deleteFriend'])->name('friends.deleteFriend');
+    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/mainrobot', [RobotController::class, 'get_main_robot'])->name('main_robot');
+    Route::get('/increasestamina', [RobotController::class, 'increase_stamina'])->name('increase_stamina');
     Route::resources(
         [
             'areas' => AreaController::class,
@@ -83,12 +87,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         // Route personalisées
         Route::put('positions/{area}/{position}', [PositionController::class, 'update'])->name('positions.update');
         Route::delete('positions/{area}/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
+        Route::get('positions/{area}/{position}', [PositionController::class, 'show'])->name('positions.show');
     });
-
-    Route::delete('friends/{user1}/{user2}', [FriendController::class, 'deleteFriend'])->name('friends.deleteFriend');
-    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::post('/duplicate/{robotName}', [RobotController::class, 'register_heros'])->name('robots.heros');
-    Route::get('/mainrobot', [RobotController::class, 'get_main_robot'])->name('main_robot');
-    Route::get('/increasestamina', [RobotController::class, 'increase_stamina'])->name('increase_stamina');
-    Route::get('positions/{area}/{position}', [PositionController::class, 'show'])->name('positions.show');
 });

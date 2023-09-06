@@ -45,13 +45,15 @@ class MechaQuestDice extends React.Component{
         
         // Ajout d'un timeout supplémentaire afin de prendre en compte le setstate
         setTimeout(() =>{
-            this.setState({ robotTurn: "C" }, ()=>{ this.props.setrobotTurn(this.state.robotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
+            // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
+            this.setState({ robotTurn: "C" }, ()=>{ this.props.setrobotTurn(this.state.robotTurn);}); 
             console.log(this.state.robotTurn, "reset");
           }, 200);       
 
         /* On update le state pour l'affichage conditionnel des boutons + la transmission du state via les props au composant "BattleScreen" */
         setTimeout(() =>{
-            this.setState({ robotTurn: "A" }, ()=>{ this.props.setrobotTurn(this.state.robotTurn);}); // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
+            // Comme setState est une fonction asynchrone on utilise une callback pour attendre que le state soit modifié avant la transmission via les props
+            this.setState({ robotTurn: "A" }, ()=>{ this.props.setrobotTurn(this.state.robotTurn);}); 
            console.log(this.state.robotTurn, "state turn A?");
             this.reactDice.rollAll();  
           }, 1000);

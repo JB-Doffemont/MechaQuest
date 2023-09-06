@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -76,7 +75,7 @@ class UserTest extends TestCase
     {
 
         $user = $this->post('api/login', [
-            'email' => 'jbABCDE@gmail.com',
+            'email' => 'jb@gmail.com',
             'password' => '12345678'
         ]);
 
@@ -116,7 +115,7 @@ class UserTest extends TestCase
     public function test_success_delete_user_and_his_robots()
     {
         $admin = $this->post('api/login', [
-            'email' => 'jbABCDE@gmail.com',
+            'email' => 'jb@gmail.com',
             'password' => '12345678'
         ]);
 
@@ -127,7 +126,7 @@ class UserTest extends TestCase
             ]
         );
 
-        $user = User::where("email", "lbecker@example.com")->first();
+        $user = User::where("email", "kbayer@example.net")->first();
 
 
         if (!empty($user)) {
@@ -147,11 +146,11 @@ class UserTest extends TestCase
 
     {
         $this->post('api/login', [
-            'email' => 'jbaaa@gmail.com',
+            'email' => 'jbdertyy@gmail.com',
             'password' => '12345678'
         ]);
 
-        $response = $this->delete('api/users/' . "pkovacek@example.net");
+        $response = $this->delete('api/users/' . "jbdertyy@gmail.com");
 
         // Redirection cause sanctum
         $response->assertStatus(302);
@@ -160,7 +159,7 @@ class UserTest extends TestCase
 
     {
         $this->post('api/login', [
-            'email' => 'jbABCDE@gmail.com',
+            'email' => 'jb@gmail.com',
             'password' => '12345678'
         ]);
 

@@ -1,5 +1,4 @@
 // Ecran de connexion du joueur
-
 import React from "react";
 import { useState } from "react";
 import { View, Text, ScrollView } from "react-native";
@@ -25,7 +24,6 @@ export default function LogIn(navigator) {
     const loginData = async () => {
         try {
             const response = await fetch(`${ipConfig}/api/login`, {
-            // Pour se connecter, ne pas oublier php artisan serve  --host 172.20.10.7  
                 method: 'POST',
                 headers: {
                   Accept: 'application/json',
